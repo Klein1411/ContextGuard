@@ -70,9 +70,15 @@ Pilot `natural_adversarial_v1` có đúng 400 record: 4 domain (`general`, `acad
 
 Kiểm tra M11 hiện tại: pipeline `--validate` trả `valid=true`, checksum/provenance manifest được tạo; test riêng M11 `3 passed`, Ruff pass. Đây là pilot để M12 blind multi-agent AI review, không phải quality claim production.
 
+# M12 — Blind multi-agent AI review
+
+M12 đã chuẩn bị năm packet ngẫu nhiên độc lập (`academic`, `technical`, `business`, `vi_en`, `red_team`) với 400 item/role. Reviewer chỉ thấy `item_id` opaque, domain, language, original và candidate; packet không có label, mutation, source ID hoặc builder rationale. Raw JSONL của năm reviewer được giữ ngoài Git tại `D:\fact_safeguard_data\reviewer_runs\m12_blind_v1\reviews`.
+
+Validator/adjudicator `scripts/aggregate_review.py` đã kiểm tra đủ `5 × 400` dòng, unique item ID và schema. Kết quả raw: unanimous rate `0.575`, mean pairwise agreement `0.738`, Fleiss kappa `0.522`. Majority adjudication resolve `346/400`, loại `54` unresolved/tie; verdict counts `SAFE 99`, `UNSAFE 210`, `UNCERTAIN 37`. Alignment `0.864` chỉ so với controlled construction labels, không phải human/domain-expert truth. Public artifact là `artifacts/final/m12_review_summary.json`; raw reviewer output không public.
+
 # Trạng thái hiện tại
 
-Status: `PARTIALLY_COMPLETED` (M0–M9 và M10a–M11 đã hoàn tất; M12–M14 đang thực thi; Tier B, output compressor thật và hybrid semantic vẫn có giới hạn rõ ràng).
+Status: `PARTIALLY_COMPLETED` (M0–M9 và M10a–M12 đã hoàn tất; M13–M14 đang thực thi; Tier B, output compressor thật và hybrid semantic vẫn có giới hạn rõ ràng).
 
 Repository trống lúc bắt đầu. Audit môi trường: Windows 11, i5-12500H, RAM 24 GB, RTX 3050 Laptop 4 GB, Python 3.11, `uv` và Git khả dụng. Không có model hoặc cache trong repository.
 
@@ -107,6 +113,7 @@ Tier A audit tái sinh khớp chính xác `300/300`, xem xét toàn bộ record 
 - Tier A được audit theo controlled template nhưng chưa được domain expert độc lập review. Tier B vẫn là controlled synthetic record; claim ngoài audited deterministic set vẫn provisional.
 - Chưa đo được token savings end-to-end. LLMLingua-2 có chi phí CPU/RAM cao; smoke 20 mẫu chưa phải quality gate.
 - M11 mới là controlled pilot: QASPER payload chưa khả dụng ở revision đã pin, bản dịch tiếng Việt có marker cần QA, và nhãn SAFE/UNSAFE chưa được adjudicate bởi người.
+- M12 là AI-reviewed/AI-adjudicated; không được gọi là human review. Kappa và agreement chỉ mô tả độ nhất quán giữa các reviewer AI trên packet mù.
 - Hybrid semantic đã có audited benchmark 100 ca và đạt gate trên tập có kiểm soát; vẫn cần tập tự nhiên rộng hơn để khẳng định khả năng tổng quát. Full provisional set không có `UNCERTAIN`; CUDA đo trong môi trường ngoài, không phải guarantee production.
 - FastAPI integration test còn upstream Starlette/httpx deprecation warning; test vẫn pass.
 - Docker build và non-root smoke đã xác minh local; chưa publish registry hoặc deploy production.
@@ -127,4 +134,4 @@ File tạm phải nằm trong `.runtime/`. Dữ liệu dài hạn và checkpoint
 
 # Việc tiếp theo
 
-M12 chạy blind multi-agent AI review trên pilot, M13 đo compressor/token-saving end-to-end (R6–R9), sau đó tạo báo cáo Word public và chạy M14 audit cuối. Không promote synthetic/unverified run; `promote_run` chỉ nhận `label_status` `verified` hoặc `audited` và artifact set đã validate.
+M13 đo compressor/token-saving end-to-end (R6–R9), sau đó tạo báo cáo Word public và chạy M14 audit cuối. Không promote synthetic/unverified run; `promote_run` chỉ nhận `label_status` `verified` hoặc `audited` và artifact set đã validate.

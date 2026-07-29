@@ -118,6 +118,13 @@ QASPER is explicitly recorded as metadata-only because its payload was not expos
 pinned HF API revision. SAFE/UNSAFE are construction labels pending blind AI review and
 adjudication, not human truth annotations.
 
+M12 blind multi-agent AI review uses five role-specific packets (Academic, Technical,
+Business, VI-EN, Red-team), 400 items per role, with labels and mutation metadata removed.
+The public summary is `artifacts/final/m12_review_summary.json`; raw reviewer JSONL remains
+outside Git. The observed Fleiss kappa is 0.522, mean pairwise agreement 0.738, and 346/400
+items receive a majority adjudication. These are AI-consistency measurements, not human or
+domain-expert validation.
+
 ## What it does not do
 
 The core does not read PDF/DOCX/PPTX/images/audio/websites, call external services, store requests, or provide a React product UI. External repositories should convert documents to text before calling ContextGuard.

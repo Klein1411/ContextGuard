@@ -1,0 +1,44 @@
+{
+  "run": "run",
+  "review_type": "blind multi-agent AI review",
+  "roles": [
+    "academic",
+    "technical",
+    "business",
+    "vi_en",
+    "red_team"
+  ],
+  "records": 2,
+  "raw_agreement": {
+    "unanimous_rate": 0.5,
+    "pairwise_rate_mean": 0.8,
+    "pairwise_rate": {
+      "academic__technical": 1.0,
+      "academic__business": 1.0,
+      "academic__vi_en": 1.0,
+      "academic__red_team": 0.5,
+      "technical__business": 1.0,
+      "technical__vi_en": 1.0,
+      "technical__red_team": 0.5,
+      "business__vi_en": 1.0,
+      "business__red_team": 0.5,
+      "vi_en__red_team": 0.5
+    },
+    "fleiss_kappa": 0.5833333333333334
+  },
+  "adjudication": {
+    "resolved": 2,
+    "unresolved_excluded": 0,
+    "verdict_counts": {
+      "SAFE": 1,
+      "UNSAFE": 1
+    },
+    "construction_label_alignment": 1.0,
+    "interpretation": "Alignment is against controlled construction labels only; it is not human or domain-expert truth validation."
+  },
+  "limitations": [
+    "Reviewers are AI agents, not human/domain experts.",
+    "Raw reviewer outputs remain outside Git under reviewer_runs.",
+    "UNCERTAIN/ties are excluded from adjudicated agreement and alignment."
+  ]
+}
