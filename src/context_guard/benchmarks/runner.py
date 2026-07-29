@@ -4,7 +4,9 @@ import csv
 import json
 import platform
 import random
+import subprocess
 import sys
+from collections import defaultdict
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -158,16 +160,64 @@ def run_benchmark(output: Path, seed: int = 20260729) -> dict[str, object]:
         "false_rejection_rate": false_reject / safe if safe else 0.0,
         "elapsed_ms": round(elapsed_ms, 3),
     }
+    by_category: dict[str, list[dict[str, object]]] = defaultdict(list)
+    for case, prediction in zip(cases, predictions, strict=True):
+        by_category[case.mutation_type].append(
+            {"expected": case.expected_label, "predicted": prediction["predicted_status"]}
+        )
+    category_rows: list[dict[str, object]] = []
+    for category, rows in sorted(by_category.items()):
+        unsafe_rows = [row for row in rows if row["expected"] == "UNSAFE"]
+        safe_rows = [row for row in rows if row["expected"] == "SAFE"]
+        category_rows.append(
+            {
+                "category": category,
+                "sample_count": len(rows),
+                "false_acceptance_rate": sum(
+                    row["predicted"] == SafetyStatus.PASS.value for row in unsafe_rows
+                )
+                / len(unsafe_rows)
+                if unsafe_rows
+                else 0.0,
+                "unsafe_detection_recall": sum(
+                    row["predicted"] != SafetyStatus.PASS.value for row in unsafe_rows
+                )
+                / len(unsafe_rows)
+                if unsafe_rows
+                else 0.0,
+                "false_rejection_rate": sum(
+                    row["predicted"] != SafetyStatus.PASS.value for row in safe_rows
+                )
+                / len(safe_rows)
+                if safe_rows
+                else 0.0,
+            }
+        )
     now = datetime.now(UTC)
+    try:
+        git_commit = subprocess.run(
+            ["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=True
+        ).stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        git_commit = "unknown"
     manifest = {
         "run_id": now.strftime("%Y%m%dT%H%M%SZ"),
         "timestamp": now.isoformat(),
         "python_version": sys.version,
         "os": platform.platform(),
+        "cpu": platform.processor() or "unknown",
+        "ram": "not_measured",
+        "gpu": "not_measured",
+        "cuda": "not_measured",
+        "git_commit": git_commit,
+        "package_versions": {"context-guard": "0.1.0"},
         "seed": seed,
         "dataset_version": "synthetic-v0",
         "policy": "strict",
         "profile": "mixed",
+        "model_id": None,
+        "model_revision": None,
+        "adapter_config": {"name": "controlled-mutation", "label_status": "synthetic"},
         "metrics": metrics,
         "label_status": "synthetic",
     }
@@ -184,7 +234,11 @@ def run_benchmark(output: Path, seed: int = 20260729) -> dict[str, object]:
         writer = csv.DictWriter(handle, fieldnames=list(metrics))
         writer.writeheader()
         writer.writerow(metrics)
-    (output / "per_category_metrics.csv").write_text(
-        f"category,sample_count\nsynthetic,{len(cases)}\n", encoding="utf-8"
-    )
+    with (output / "per_category_metrics.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=list(category_rows[0]) if category_rows else ["category", "sample_count"],
+        )
+        writer.writeheader()
+        writer.writerows(category_rows)
     return manifest

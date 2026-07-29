@@ -52,7 +52,7 @@ Repository foundation, public schemas, FastAPI V1 routes, CLI, ExactGuard, Logic
 
 # Verified Results
 
-Verified on 2026-07-29 with Python 3.11.9: 20 pytest tests pass; Ruff check passes; mypy passes on 29 source files. Synthetic benchmark v0 (seed 20260729) produced 19 samples: 2 SAFE and 17 UNSAFE, false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, elapsed 5.202 ms on the local run. These are synthetic foundation results, not a manual golden-set claim.
+Verified on 2026-07-29 with Python 3.11.9: 20 pytest tests pass; Ruff check passes; mypy passes on 29 source files; package build succeeds. Synthetic benchmark v0 (seed 20260729) produced 19 samples: 2 SAFE and 17 UNSAFE, false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, elapsed 5.929 ms on the latest local run. These are synthetic foundation results, not a manual golden-set claim.
 
 # Known Limitations
 
