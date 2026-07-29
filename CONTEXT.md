@@ -74,7 +74,7 @@ Kiểm tra M11 hiện tại: pipeline `--validate` trả `valid=true`, checksum/
 
 M12 đã chuẩn bị năm packet ngẫu nhiên độc lập (`academic`, `technical`, `business`, `vi_en`, `red_team`) với 400 item/role. Reviewer chỉ thấy `item_id` opaque, domain, language, original và candidate; packet không có label, mutation, source ID hoặc builder rationale. Raw JSONL của năm reviewer được giữ ngoài Git tại `D:\fact_safeguard_data\reviewer_runs\m12_blind_v1\reviews`.
 
-Validator/adjudicator `scripts/aggregate_review.py` đã kiểm tra đủ `5 × 400` dòng, unique item ID và schema. Kết quả raw: unanimous rate `0.575`, mean pairwise agreement `0.738`, Fleiss kappa `0.522`. Majority adjudication resolve `346/400`, loại `54` unresolved/tie; verdict counts `SAFE 99`, `UNSAFE 210`, `UNCERTAIN 37`. Alignment `0.864` chỉ so với controlled construction labels, không phải human/domain-expert truth. Public artifact là `artifacts/final/m12_review_summary.json`; raw reviewer output không public.
+Validator/adjudicator `scripts/aggregate_review.py` đã kiểm tra đủ `5 × 400` dòng, unique item ID và schema. Kết quả raw: unanimous rate `0.575`, mean pairwise agreement `0.740`, Fleiss kappa `0.521`. Majority adjudication resolve `347/400`, loại `53` unresolved/tie; verdict counts `SAFE 98`, `UNSAFE 213`, `UNCERTAIN 36`. Alignment `0.859` chỉ so với controlled construction labels, không phải human/domain-expert truth. Public artifact là `artifacts/final/m12_review_summary.json`; raw reviewer output không public.
 
 # Trạng thái hiện tại
 

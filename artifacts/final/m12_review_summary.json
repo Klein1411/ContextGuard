@@ -1,5 +1,5 @@
 {
-  "run": "run",
+  "run": "m12_blind_v1",
   "review_type": "blind multi-agent AI review",
   "roles": [
     "academic",
@@ -8,32 +8,34 @@
     "vi_en",
     "red_team"
   ],
-  "records": 2,
+  "records": 400,
   "raw_agreement": {
-    "unanimous_rate": 0.5,
-    "pairwise_rate_mean": 0.8,
+    "unanimous_rate": 0.575,
+    "pairwise_rate_mean": 0.7395000000000002,
     "pairwise_rate": {
       "academic__technical": 1.0,
-      "academic__business": 1.0,
-      "academic__vi_en": 1.0,
-      "academic__red_team": 0.5,
-      "technical__business": 1.0,
-      "technical__vi_en": 1.0,
-      "technical__red_team": 0.5,
+      "academic__business": 0.68,
+      "academic__vi_en": 0.68,
+      "academic__red_team": 0.66,
+      "technical__business": 0.68,
+      "technical__vi_en": 0.68,
+      "technical__red_team": 0.66,
       "business__vi_en": 1.0,
-      "business__red_team": 0.5,
-      "vi_en__red_team": 0.5
+      "business__red_team": 0.6775,
+      "vi_en__red_team": 0.6775
     },
-    "fleiss_kappa": 0.5833333333333334
+    "fleiss_kappa": 0.5205174362315782
   },
   "adjudication": {
-    "resolved": 2,
-    "unresolved_excluded": 0,
+    "resolved": 347,
+    "unresolved_excluded": 53,
     "verdict_counts": {
-      "SAFE": 1,
-      "UNSAFE": 1
+      "UNCERTAIN": 36,
+      "UNSAFE": 213,
+      "SAFE": 98,
+      "UNRESOLVED": 53
     },
-    "construction_label_alignment": 1.0,
+    "construction_label_alignment": 0.8587896253602305,
     "interpretation": "Alignment is against controlled construction labels only; it is not human or domain-expert truth validation."
   },
   "limitations": [

@@ -121,7 +121,7 @@ adjudication, not human truth annotations.
 M12 blind multi-agent AI review uses five role-specific packets (Academic, Technical,
 Business, VI-EN, Red-team), 400 items per role, with labels and mutation metadata removed.
 The public summary is `artifacts/final/m12_review_summary.json`; raw reviewer JSONL remains
-outside Git. The observed Fleiss kappa is 0.522, mean pairwise agreement 0.738, and 346/400
+outside Git. The observed Fleiss kappa is 0.521, mean pairwise agreement 0.740, and 347/400
 items receive a majority adjudication. These are AI-consistency measurements, not human or
 domain-expert validation.
 
