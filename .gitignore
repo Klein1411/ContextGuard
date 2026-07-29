@@ -25,3 +25,5 @@ dist/
 build/
 *.egg-info/
 .env
+fact_safeguard_data/
+*.docx.tmp

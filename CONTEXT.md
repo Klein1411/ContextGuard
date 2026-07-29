@@ -45,9 +45,18 @@ Route V1: `GET /v1/health`, `GET /v1/capabilities`, `POST /v1/analyze`, `POST /v
 - M8 packaging: package, CLI, FastAPI, Docker non-root, health check, build image local và container smoke đã hoàn tất.
 - M9 final audit: deterministic gate, Tier A audit, dependency/security check, đo adapter thật, đo resource và promotion artifact Tier A audited đã hoàn tất; mở rộng chất lượng optional còn hạn chế.
 
+# Phạm vi mở rộng đã khóa cho goal hiện tại
+
+- M10a đo R1–R5: direct Python, ASGI in-process, localhost HTTP, Docker HTTP và direct hybrid. R6–R9 được chuyển sang M13 để không chồng với compressor/token-saving evaluation.
+- M11 tách rõ `externally_sourced`, `natural`, `translated` và `adversarial`; bản dịch không được gọi là naturally Vietnamese. Dev/hidden split tối thiểu 70/30.
+- M12 chỉ dùng thuật ngữ `blind multi-agent AI review`, `AI-reviewed` và `AI-adjudicated`; không giả danh human/domain-expert review. Reviewer phải không thấy label, mutation, prediction hoặc builder rationale.
+- M13 dùng gross saving và safe effective saving; safe saving là metric chính. Break-even inference là mục tiêu phụ, được báo limitation nếu RTX 3050 4 GB không chạy ổn định.
+- Báo cáo tiến độ Word là artifact public được commit riêng; không tạo thêm Markdown ngoài ba file được phép.
+- Dữ liệu dài hạn nằm ngoài repository tại `D:\fact_safeguard_data`; cleanup không được xóa thư mục này.
+
 # Trạng thái hiện tại
 
-Status: `COMPLETED_WITH_LIMITATIONS` (artifact deterministic Tier A đã audit và promote; Tier B, output compressor thật và hybrid semantic mới ở quy mô giới hạn/unverified).
+Status: `PARTIALLY_COMPLETED` (M0–M9 đã hoàn tất; goal mở rộng M10–M14 đang thực thi; Tier B, output compressor thật và hybrid semantic vẫn có giới hạn rõ ràng).
 
 Repository trống lúc bắt đầu. Audit môi trường: Windows 11, i5-12500H, RAM 24 GB, RTX 3050 Laptop 4 GB, Python 3.11, `uv` và Git khả dụng. Không có model hoặc cache trong repository.
 
@@ -57,7 +66,9 @@ Repository trống lúc bắt đầu. Audit môi trường: Windows 11, i5-12500
 
 # Kết quả đã xác minh
 
-Ngày 2026-07-29 với Python 3.11.9: 53 pytest test pass; Ruff pass; mypy pass trên 33 source file; package build và clean-wheel smoke pass; coverage 80% line (không tuyên bố ngưỡng tối thiểu). Với seed `20260729`, Tier A `golden_v0_provisional` có 300 mẫu (150 SAFE, 150 UNSAFE), đúng 75 mẫu cho mỗi domain: false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, precision `1.0`, P50/P95 `0.362/0.604 ms`, peak RAM `30.414 MB`, VRAM chưa đo. Tier B `mutation_v0_provisional` có 2.001 mẫu (218 SAFE, 1.783 UNSAFE), gồm 109 safe date-format và 109 safe identity: false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, precision `1.0`, P50/P95 `1.305/2.224 ms`, peak RAM `38.375 MB`, VRAM chưa đo. Hai run đều đạt metric-only gate (recall ≥95%, FAR ≤2%, P95 ≤50 ms); promotion Tier A audited, contract gate và regression gate được kiểm tra riêng.
+Audit baseline mới ngày 2026-07-29 với `uv run`/Python 3.11.9: 55 pytest test pass; Ruff pass; mypy pass trên 33 source file; `uv lock --check` và `uv pip check` pass. Đây là số liệu chạy thật mới nhất; các đoạn lịch sử cũ không được dùng để thay thế kết quả hiện tại. Coverage 80% line là kết quả audit trước đó và sẽ được chạy lại ở M14.
+
+Ngày 2026-07-29 với Python 3.11.9: 55 pytest test pass; Ruff pass; mypy pass trên 33 source file; package build và clean-wheel smoke pass; coverage 80% line (không tuyên bố ngưỡng tối thiểu). Với seed `20260729`, Tier A `golden_v0_provisional` có 300 mẫu (150 SAFE, 150 UNSAFE), đúng 75 mẫu cho mỗi domain: false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, precision `1.0`, P50/P95 `0.362/0.604 ms`, peak RAM `30.414 MB`, VRAM chưa đo. Tier B `mutation_v0_provisional` có 2.001 mẫu (218 SAFE, 1.783 UNSAFE), gồm 109 safe date-format và 109 safe identity: false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, precision `1.0`, P50/P95 `1.305/2.224 ms`, peak RAM `38.375 MB`, VRAM chưa đo. Hai run đều đạt metric-only gate (recall ≥95%, FAR ≤2%, P95 ≤50 ms); promotion Tier A audited, contract gate và regression gate được kiểm tra riêng.
 
 ExactGuard có regression cho fact bị duplicate, thêm mới và literal mới; relation có metric–dataset, config–component, method–dataset; LogicGuard từ chối condition/exception bị đổi. Tier C rule-based tạo 300 candidate UTF-8 với `label_status=unverified`, không gán quality metric. LLMLingua-2 thật trên 20 mẫu dùng `microsoft/llmlingua-2-xlm-roberta-large-meetingbank@ebaba9b`, trung bình `1,501.630 ms/mẫu`, RSS khoảng `1,984.902 MB`; mọi output vẫn `unverified` và không được promote.
 
@@ -95,8 +106,8 @@ Tier A audit tái sinh khớp chính xác `300/300`, xem xét toàn bộ record 
 
 # Hygiene repository
 
-File tạm phải nằm trong `.runtime/`. Final benchmark artifact chỉ nằm trong `artifacts/final/` và đúng whitelist của spec; `hybrid_manifest.json` và `hybrid_predictions.jsonl` là hai artifact bổ sung cần thiết cho benchmark semantic audited và được ghi rõ ở trên. Model dùng external cache, không copy vào Git. Source và test không chứa generated file ngoài các dataset/artifact đã được chỉ định.
+File tạm phải nằm trong `.runtime/`. Dữ liệu dài hạn và checkpoint nằm trong `D:\fact_safeguard_data` với các thư mục `raw`, `extracted`, `normalized`, `model_cache`, `reviewer_runs`, `benchmark_cache` và `manifests`; cleanup phải giữ nguyên toàn bộ data home này. Final benchmark artifact chỉ nằm trong `artifacts/final/` và đúng whitelist của spec; `hybrid_manifest.json` và `hybrid_predictions.jsonl` là hai artifact bổ sung cần thiết cho benchmark semantic audited và được ghi rõ ở trên. Model dùng external cache, không copy vào Git. Source và test không chứa generated file ngoài các dataset/artifact đã được chỉ định.
 
 # Việc tiếp theo
 
-Mở rộng golden set có review độc lập, tăng hybrid semantic benchmark có nhãn entailment/contradiction, và đo token savings end-to-end trước khi đưa ra claim production hoặc paper-grade. Không promote synthetic/unverified run; `promote_run` chỉ nhận `label_status` `verified` hoặc `audited` và artifact set đã validate.
+Hoàn tất M10a runtime matrix, sau đó mở rộng dataset có phân tầng natural/translated/adversarial, chạy blind multi-agent AI review, đo token savings end-to-end và tạo báo cáo Word public trước khi đưa ra claim production hoặc paper-grade. Không promote synthetic/unverified run; `promote_run` chỉ nhận `label_status` `verified` hoặc `audited` và artifact set đã validate.
