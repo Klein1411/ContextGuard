@@ -17,6 +17,8 @@ from context_guard.adapters import (
     generate_mutations,
 )
 from context_guard.adapters.base import SemanticVerification
+from context_guard.benchmarks.candidates import build_unverified_candidates, validate_candidates
+from context_guard.benchmarks.dataset import build_provisional_golden
 
 
 def test_rule_based_compressor_is_deterministic() -> None:
@@ -72,6 +74,13 @@ def test_semantic_verifier_runs_only_for_uncertain() -> None:
     fail = guard.validate_with_semantic("Use Python 3.11.", "Use Python 3.12.", verifier)
     assert fail.status is SafetyStatus.FAIL
     assert verifier.calls == 1
+
+
+def test_rule_based_tier_c_candidates_remain_unverified() -> None:
+    records = build_unverified_candidates(build_provisional_golden()[:4], RuleBasedCompressor())
+    summary = validate_candidates(records)
+    assert summary["sample_count"] == 4
+    assert summary["label_statuses"] == ["unverified"]
 
 
 def test_mutation_records_are_replayable() -> None:

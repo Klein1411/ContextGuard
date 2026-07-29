@@ -40,7 +40,7 @@ V1 routes: `GET /v1/health`, `GET /v1/capabilities`, `POST /v1/analyze`, `POST /
 - M3 LogicGuard: implemented for bilingual negation, comparisons, conditions, exceptions, and modality.
 - M4 relation/entity: conservative explicit-structure implementation added; broad semantic NER remains limited.
 - M5 benchmark: provisional Tier A (300) and Tier B (2,014) datasets, deterministic runner, per-category metrics, reproducibility signature, artifact validation, and guarded promotion helper implemented. Both datasets remain synthetic/unverified.
-- M6 compressor adapters: rule-based protected-span compressor and controlled mutations implemented; token-level and LLM summarizer boundaries are explicit unavailable adapters.
+- M6 compressor adapters: rule-based protected-span compressor, controlled mutations, and Tier C unverified candidate generation implemented; token-level and LLM summarizer boundaries are explicit unavailable adapters.
 - M7 semantic verifier: optional only-on-UNCERTAIN orchestration and safe unavailable/error fallback implemented; no model is installed.
 - M8 packaging: package, CLI, FastAPI, non-root Dockerfile, and health check implemented; Docker image build remains environment-unverified.
 - M9 final audit: pending manual label audit, real compressor/semantic measurements, resource measurements, and final artifact promotion.
@@ -53,11 +53,11 @@ Repository was empty at start. Environment audit: Windows 11, i5-12500H, 24 GB R
 
 # Completed Work
 
-Repository foundation, public schemas, FastAPI V1 routes, CLI, ExactGuard, LogicGuard, EntityGuard, RelationGuard, risk/policy mapping, protected-span rule-based compressor, controlled mutation adapter, optional adapter boundaries, semantic fallback orchestration, and tests are implemented.
+Repository foundation, public schemas, FastAPI V1 routes, CLI, ExactGuard, LogicGuard, EntityGuard, RelationGuard, risk/policy mapping, protected-span rule-based compressor, controlled mutation adapter, Tier C candidate generator, optional adapter boundaries, semantic fallback orchestration, and tests are implemented.
 
 # Verified Results
 
-Verified on 2026-07-29 with Python 3.11.9: 32 pytest tests pass; Ruff check passes; mypy passes on 31 source files; package build succeeds. On HEAD `107556e` with seed 20260729, Tier A `golden_v0_provisional` produced 300 samples (150 SAFE, 150 UNSAFE): false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P95 1.033 ms. Tier B `mutation_v0_provisional` produced 2,014 samples (116 SAFE, 1,898 UNSAFE): false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P95 2.933 ms. Repeated Tier A runs produced the same `decision_sha256`; elapsed time and per-sample latency are expected to vary. These are synthetic/unverified results, not a manual golden-set or paper-grade quality claim.
+Verified on 2026-07-29 with Python 3.11.9: 33 pytest tests pass; Ruff check passes; mypy passes on 32 source files; package build succeeds. On HEAD `107556e` with seed 20260729, Tier A `golden_v0_provisional` produced 300 samples (150 SAFE, 150 UNSAFE): false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P95 1.033 ms. Tier B `mutation_v0_provisional` produced 2,014 samples (116 SAFE, 1,898 UNSAFE): false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P95 2.933 ms. Tier C generation produced 300 rule-based candidates with `label_status=unverified` and valid UTF-8; no quality metric was assigned. Repeated Tier A runs produced the same `decision_sha256`; elapsed time and per-sample latency are expected to vary. These are synthetic/unverified results, not a manual golden-set or paper-grade quality claim.
 
 # Known Limitations
 

@@ -7,6 +7,13 @@ import sys
 from pathlib import Path
 
 from context_guard import ContextGuard, GuardConfig
+from context_guard.adapters import RuleBasedCompressor
+from context_guard.benchmarks.candidates import (
+    build_unverified_candidates,
+    validate_candidates,
+    write_candidates,
+)
+from context_guard.benchmarks.dataset import load_jsonl
 from context_guard.benchmarks.runner import promote_run, run_benchmark, validate_run_artifacts
 
 
@@ -43,6 +50,10 @@ def main(argv: list[str] | None = None) -> int:
     benchmark.add_argument("--dataset", default="benchmarks/datasets/golden_v0_provisional.jsonl")
     benchmark.add_argument("--validate-artifacts", action="store_true")
     benchmark.add_argument("--promote-final", action="store_true")
+    candidates = sub.add_parser("candidates")
+    candidates.add_argument("--source", default="benchmarks/datasets/golden_v0_provisional.jsonl")
+    candidates.add_argument("--output", default=".runtime/tier_c_rule_based_unverified.jsonl")
+    candidates.add_argument("--adapter", choices=["rule-based"], default="rule-based")
     sub.add_parser("capabilities")
     clean = sub.add_parser("clean")
     clean.add_argument("--runtime", default=".runtime")
@@ -82,6 +93,12 @@ def main(argv: list[str] | None = None) -> int:
                 indent=2,
             )
         )
+    elif args.command == "candidates":
+        source = load_jsonl(Path(args.source))
+        compressor = RuleBasedCompressor()
+        records = build_unverified_candidates(source, compressor)
+        write_candidates(records, Path(args.output))
+        print(json.dumps(validate_candidates(records), ensure_ascii=False, indent=2))
     elif args.command == "capabilities":
         print(
             json.dumps(
