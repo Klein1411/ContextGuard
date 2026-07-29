@@ -427,6 +427,29 @@ def build_provisional_mutations(seed: int = 20260729, minimum: int = 2000) -> li
                     ),
                 }
             )
+        date_source = f"deadline {day:02d}/08/2026"
+        date_target = f"deadline 2026-08-{day:02d}"
+        safe_date_candidate = original.replace(date_source, date_target, 1)
+        safe_date_key = (original, safe_date_candidate, "safe_date_format")
+        if safe_date_candidate != original and safe_date_key not in seen:
+            seen.add(safe_date_key)
+            records.append(
+                {
+                    "id": f"mutation-{len(records):05d}",
+                    "language": language,
+                    "domain": "technical" if variant % 3 else "business",
+                    "original": original,
+                    "candidate": safe_date_candidate,
+                    "label": "SAFE",
+                    "violation_types": ["safe_date_format"],
+                    "critical_facts": [date_source],
+                    "label_status": "synthetic_unverified",
+                    "notes": (
+                        "Controlled safe date-format transformation; manual audit required "
+                        "before quality claims."
+                    ),
+                }
+            )
         variant += 1
     if len(records) < minimum:
         raise ValueError(f"could only generate {len(records)} unique mutation records")

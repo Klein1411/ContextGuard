@@ -29,6 +29,10 @@ def test_tier_b_contract() -> None:
     summary = validate_mutation_dataset(records)
     assert int(summary["sample_count"]) >= 2000
     assert int(summary["unique_candidates"]) == int(summary["sample_count"])
+    assert any(
+        record["label"] == "SAFE" and record["violation_types"] == ["safe_date_format"]
+        for record in records
+    )
 
 
 def test_mutation_generation_is_reproducible() -> None:
