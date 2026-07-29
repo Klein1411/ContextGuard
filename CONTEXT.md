@@ -62,9 +62,17 @@ Warm P95 quan sát theo toàn bộ bucket/concurrency: R1 `2.154–6,092.503 ms`
 
 Artifact M10a: `artifacts/final/runtime_manifest.json`, `artifacts/final/runtime_metrics.csv`, `artifacts/final/runtime_samples.jsonl`; validator artifact trả `valid=true`, `metric_rows=200`, `sample_rows=5008`, `semantic_skips=6`.
 
+# M11 — Nguồn dữ liệu và pilot natural/adversarial
+
+M11 đã tạo pipeline `scripts/dataset_pipeline.py` để ghi dữ liệu dài hạn ngoài Git tại `D:\fact_safeguard_data`. Nguồn đã thu thập và ghi provenance gồm ContractNLI (CC-BY-4.0), QMSum (MIT), SciFact (MIT), XNLI (MIT), FastAPI technical README và ContextGuard README. QASPER được ghi rõ là `metadata_only_data_not_exposed_by_api` ở revision HF đã pin; không giả vờ đã tải được payload.
+
+Pilot `natural_adversarial_v1` có đúng 400 record: 4 domain (`general`, `academic`, `business`, `technical`) × 2 ngôn ngữ (`en`, `vi`) × 2 nhãn xây dựng (`SAFE`, `UNSAFE`) × 25. Split stratified 70/30: 280 dev và 120 hidden; hidden payload không có label và label nằm file riêng trong `benchmark_cache`. Record có source, source ID, mutation type, evaluation role và `translated_marker`; nhãn SAFE/UNSAFE hiện là controlled construction labels, chưa phải human truth annotation. Artifact public chỉ là `artifacts/final/natural_adversarial_v1_manifest.json`, không chứa raw/normalized/hidden data hoặc local path.
+
+Kiểm tra M11 hiện tại: pipeline `--validate` trả `valid=true`, checksum/provenance manifest được tạo; test riêng M11 `3 passed`, Ruff pass. Đây là pilot để M12 blind multi-agent AI review, không phải quality claim production.
+
 # Trạng thái hiện tại
 
-Status: `PARTIALLY_COMPLETED` (M0–M9 đã hoàn tất; goal mở rộng M10–M14 đang thực thi; Tier B, output compressor thật và hybrid semantic vẫn có giới hạn rõ ràng).
+Status: `PARTIALLY_COMPLETED` (M0–M9 và M10a–M11 đã hoàn tất; M12–M14 đang thực thi; Tier B, output compressor thật và hybrid semantic vẫn có giới hạn rõ ràng).
 
 Repository trống lúc bắt đầu. Audit môi trường: Windows 11, i5-12500H, RAM 24 GB, RTX 3050 Laptop 4 GB, Python 3.11, `uv` và Git khả dụng. Không có model hoặc cache trong repository.
 
@@ -98,6 +106,7 @@ Tier A audit tái sinh khớp chính xác `300/300`, xem xét toàn bộ record 
 - Entity và relation xử lý bảo thủ, có thể trả `UNCERTAIN`.
 - Tier A được audit theo controlled template nhưng chưa được domain expert độc lập review. Tier B vẫn là controlled synthetic record; claim ngoài audited deterministic set vẫn provisional.
 - Chưa đo được token savings end-to-end. LLMLingua-2 có chi phí CPU/RAM cao; smoke 20 mẫu chưa phải quality gate.
+- M11 mới là controlled pilot: QASPER payload chưa khả dụng ở revision đã pin, bản dịch tiếng Việt có marker cần QA, và nhãn SAFE/UNSAFE chưa được adjudicate bởi người.
 - Hybrid semantic đã có audited benchmark 100 ca và đạt gate trên tập có kiểm soát; vẫn cần tập tự nhiên rộng hơn để khẳng định khả năng tổng quát. Full provisional set không có `UNCERTAIN`; CUDA đo trong môi trường ngoài, không phải guarantee production.
 - FastAPI integration test còn upstream Starlette/httpx deprecation warning; test vẫn pass.
 - Docker build và non-root smoke đã xác minh local; chưa publish registry hoặc deploy production.
@@ -118,4 +127,4 @@ File tạm phải nằm trong `.runtime/`. Dữ liệu dài hạn và checkpoint
 
 # Việc tiếp theo
 
-Hoàn tất M10a runtime matrix, sau đó mở rộng dataset có phân tầng natural/translated/adversarial, chạy blind multi-agent AI review, đo token savings end-to-end và tạo báo cáo Word public trước khi đưa ra claim production hoặc paper-grade. Không promote synthetic/unverified run; `promote_run` chỉ nhận `label_status` `verified` hoặc `audited` và artifact set đã validate.
+M12 chạy blind multi-agent AI review trên pilot, M13 đo compressor/token-saving end-to-end (R6–R9), sau đó tạo báo cáo Word public và chạy M14 audit cuối. Không promote synthetic/unverified run; `promote_run` chỉ nhận `label_status` `verified` hoặc `audited` và artifact set đã validate.

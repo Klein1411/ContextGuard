@@ -1,0 +1,132 @@
+{
+  "benchmark": "natural_adversarial_v1",
+  "created_at_utc": "2026-07-29T13:15:31.540631+00:00",
+  "seed": 20260729,
+  "schema": "ContextGuard.M11.v1",
+  "status": "controlled_pilot; labels are construction labels, not human truth annotations",
+  "counts": {
+    "total": 400,
+    "dev": 280,
+    "hidden": 120,
+    "per_cell": 25
+  },
+  "strata": {
+    "domains": [
+      "general",
+      "academic",
+      "business",
+      "technical"
+    ],
+    "languages": [
+      "en",
+      "vi"
+    ],
+    "labels": [
+      "SAFE",
+      "UNSAFE"
+    ],
+    "cells": 16
+  },
+  "natural_adversarial": {
+    "natural": 140,
+    "adversarial": 140,
+    "translated_marked": 140
+  },
+  "files": {
+    "dev": {
+      "path": "C:\\Users\\klein\\AppData\\Local\\Temp\\pytest-of-klein\\pytest-82\\test_m11_records_are_balanced_0\\data\\normalized\\natural_adversarial_v1_dev.jsonl",
+      "sha256": "7f0cf1eb7b4a171f2d04648f82adaa9f711c58b182d5623b034021e211c38890",
+      "records": 280
+    },
+    "hidden_payload": {
+      "path": "C:\\Users\\klein\\AppData\\Local\\Temp\\pytest-of-klein\\pytest-82\\test_m11_records_are_balanced_0\\data\\normalized\\natural_adversarial_v1_hidden.jsonl",
+      "sha256": "8b06c49bbb5d6006bdf829fade3166d344ed2acf0602438086b5b707492ea47c",
+      "records": 120
+    },
+    "hidden_labels": {
+      "path": "C:\\Users\\klein\\AppData\\Local\\Temp\\pytest-of-klein\\pytest-82\\test_m11_records_are_balanced_0\\data\\benchmark_cache\\natural_adversarial_v1_hidden_labels.jsonl",
+      "sha256": "b70020150260e21367cad4da0be973dfb0c72966c285b2045102dfa70cbd51d0",
+      "records": 120
+    }
+  },
+  "limitations": [
+    "QASPER data payload was not exposed by the pinned HF API revision; metadata/loader only is recorded.",
+    "Vietnamese translated markers identify text requiring translation QA; no human translation claim is made.",
+    "SAFE/UNSAFE labels are controlled construction labels and require M12 blind review/adjudication."
+  ],
+  "sources": [
+    {
+      "name": "ContractNLI",
+      "source_type": "public_dataset",
+      "url": "https://github.com/stanfordnlp/contract-nli",
+      "revision": "stanfordnlp/contract-nli@main (shallow clone; archive checksum recorded)",
+      "license": "CC-BY-4.0",
+      "status": "downloaded_and_extracted",
+      "checksums": []
+    },
+    {
+      "name": "QMSum",
+      "source_type": "public_dataset",
+      "url": "https://github.com/Yale-LILY/QMSum",
+      "revision": "Yale-LILY/QMSum@main (shallow clone)",
+      "license": "MIT",
+      "status": "downloaded",
+      "checksums": []
+    },
+    {
+      "name": "QASPER",
+      "source_type": "public_dataset",
+      "url": "https://huggingface.co/datasets/allenai/qasper",
+      "revision": "HF revision 5475f6d48704155776600dcf183a3ddb05800539",
+      "license": "CC-BY-4.0",
+      "status": "metadata_only_data_not_exposed_by_api",
+      "checksums": []
+    },
+    {
+      "name": "SciFact",
+      "source_type": "public_dataset",
+      "url": "https://github.com/allenai/scifact",
+      "revision": "allenai/scifact@main (data archive checksum recorded)",
+      "license": "MIT",
+      "status": "downloaded_and_extracted",
+      "checksums": []
+    },
+    {
+      "name": "XNLI",
+      "source_type": "public_dataset",
+      "url": "https://github.com/facebookresearch/XNLI",
+      "revision": "facebookresearch/XNLI@main (XNLI-1.0.zip checksum recorded)",
+      "license": "MIT",
+      "status": "downloaded_and_extracted",
+      "checksums": []
+    },
+    {
+      "name": "FastAPI technical documentation",
+      "source_type": "technical_documentation",
+      "url": "https://github.com/fastapi/fastapi",
+      "revision": "commit 628663f4f899c465da423bce681c7adf9a218948",
+      "license": "MIT",
+      "status": "downloaded",
+      "checksums": [
+        {
+          "path": "external_data_home",
+          "sha256": "6401d7e45bbbd2557283b058fdae5e689aa41ecf928be6b4fb3ed90350098226"
+        }
+      ]
+    },
+    {
+      "name": "ContextGuard technical documentation",
+      "source_type": "technical_documentation",
+      "url": "https://github.com/Klein1411/ContextGuard",
+      "revision": "commit f8ef2bc6679e11eccf88c0e3becd720cf35d16",
+      "license": "MIT",
+      "status": "captured_from_public_repo",
+      "checksums": [
+        {
+          "path": "external_data_home",
+          "sha256": "69fcd37b4db285c2935036e8c13f51bb04ea9accfe5512961aa7a11b1297609a"
+        }
+      ]
+    }
+  ]
+}

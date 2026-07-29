@@ -110,6 +110,14 @@ M10a runtime artifacts are retained as `artifacts/final/runtime_manifest.json`,
 R1-R5 with four token buckets and explicit semantic skips for the current 512-token NLI pair
 limit; compressor end-to-end R6-R9 remains in M13.
 
+M11 dataset provenance is retained as `artifacts/final/natural_adversarial_v1_manifest.json`.
+The controlled pilot has 400 records (4 domains × 2 languages × 2 labels × 25), with a
+stratified 280/120 dev/hidden split. Raw and hidden records stay in
+`D:\fact_safeguard_data`; the public manifest records source, license, revision and checksums.
+QASPER is explicitly recorded as metadata-only because its payload was not exposed by the
+pinned HF API revision. SAFE/UNSAFE are construction labels pending blind AI review and
+adjudication, not human truth annotations.
+
 ## What it does not do
 
 The core does not read PDF/DOCX/PPTX/images/audio/websites, call external services, store requests, or provide a React product UI. External repositories should convert documents to text before calling ContextGuard.
