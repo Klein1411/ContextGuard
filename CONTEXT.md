@@ -1,0 +1,81 @@
+# Project Identity
+
+ContextGuard is an offline-first Python package and FastAPI service that checks whether compressed text preserves critical facts and logic from the original text. Repository root: `D:\fact_safeguard`.
+
+# Locked Scope
+
+- Core input is text only: `original_text` and `candidate_text`.
+- Languages: Vietnamese and English, with `vi`, `en`, and `auto` modes.
+- Profiles: `general`, `academic`, `business`, `technical`.
+- Policies: `lenient`, `balanced`, `strict`; strict is the default.
+- Safety statuses: `PASS`, `FAIL`, `UNCERTAIN`.
+- Core is deterministic and offline. Compressors and semantic verifiers are adapters.
+- No React UI, document readers, cache service, telemetry, or remote calls in core.
+- Exactly three Markdown files are allowed; this file is the living project context.
+
+# Architecture
+
+`ContextGuard` orchestrates normalization, extraction, deterministic validators, policy mapping, scoring, and reporting. FastAPI routes use the same Pydantic schemas as the Python API. Compressor adapters consume `ProtectedSpan` data optionally and return text candidates; the core never imports a compressor.
+
+Initial implementation uses dependency-light regular expressions and conservative evidence rules. Ambiguous locale, unsupported relation structures, and unavailable optional adapters produce warnings or `UNCERTAIN` rather than guesses.
+
+# API Contract
+
+V1 routes: `GET /v1/health`, `GET /v1/capabilities`, `POST /v1/analyze`, `POST /v1/validate`. Public enums and response fields are defined in `src/context_guard/schemas/models.py`. Breaking changes require `/v2`.
+
+# Technical Decisions
+
+- Python 3.11 is the target runtime; native Windows is preferred.
+- `uv` manages dependencies and the lockfile. Runtime core remains free of ML dependencies.
+- Critical deterministic violations use strict fallback to `USE_ORIGINAL`.
+- Risk score is a documented weighted maximum/accumulation over violations, clamped to `[0, 1]`.
+- Exact matching precedes semantic matching. Semantic verification is deferred and optional.
+- Input length is bounded and rejected with a structured error; text is never silently truncated.
+
+# Milestones
+
+- M0 foundation: completed locally; milestone commit pending repository audit.
+- M1 schema/API contract: implemented and contract-tested.
+- M2 ExactGuard: implemented for explicit numeric, percentage, currency, date/time, unit, version, URL/email, path, flag, and code facts.
+- M3 LogicGuard: implemented for bilingual negation, comparisons, conditions, exceptions, and modality.
+- M4 relation/entity: conservative explicit-structure implementation added; broad semantic NER remains limited.
+- M5 benchmark: deterministic mutation/rule-based foundation added; target golden and 2,000–5,000 candidate set are still pending.
+- M6 compressor adapters, M7 semantic verifier, M8 packaging, M9 final audit: deferred until deterministic evidence is stable.
+
+# Current Status
+
+Repository was empty at start. Environment audit: Windows 11, i5-12500H, 24 GB RAM, RTX 3050 Laptop 4 GB, Python 3.11 available, `uv` and Git available. No model or cache is in the repository.
+
+# Completed Work
+
+Repository foundation, public schemas, FastAPI V1 routes, CLI, ExactGuard, LogicGuard, EntityGuard, RelationGuard, risk/policy mapping, rule-based compressor baseline, controlled mutation adapter, and tests are implemented.
+
+# Verified Results
+
+Verified on 2026-07-29 with Python 3.11.9: 20 pytest tests pass; Ruff check passes; mypy passes on 29 source files. Synthetic benchmark v0 (seed 20260729) produced 19 samples: 2 SAFE and 17 UNSAFE, false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, elapsed 5.202 ms on the local run. These are synthetic foundation results, not a manual golden-set claim.
+
+# Known Limitations
+
+- Deterministic V1 cannot prove unrestricted natural-language equivalence.
+- Entity and relation handling will be conservative and may return `UNCERTAIN`.
+- The benchmark is not yet the required 300-sample audited golden set or 2,000–5,000 candidate mutation set.
+- Real token compressor and semantic verifier quality, RAM/VRAM, and P50/P95 latency are not yet measured.
+- FastAPI integration test emits an upstream Starlette/httpx deprecation warning; tests still pass.
+
+# Deferred Improvements
+
+- FastAPI + React product UI after API V1, final benchmark, core quality gate, and separate semantic evaluation.
+- Cache as a separate project.
+- SmartContext Gateway later.
+- CC-DFlash integration later.
+- Semantic verifier must not replace the deterministic core.
+- PDF/DOCX adapters belong in external repositories.
+- Distributed deployment later.
+
+# Repository Hygiene
+
+Temporary files belong in `.runtime/`. Final benchmark artifacts are restricted to `artifacts/final/` and the whitelist in the specification. Models use an external cache and are never copied into Git. Keep source and tests free of generated files.
+
+# Next Action
+
+Next: expand and manually audit the Tier A/B benchmark datasets, add benchmark manifest validation and promotion rules, then audit performance and optional compressor/semantic adapters before claiming a quality gate.
