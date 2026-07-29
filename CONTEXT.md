@@ -34,7 +34,7 @@ V1 routes: `GET /v1/health`, `GET /v1/capabilities`, `POST /v1/analyze`, `POST /
 
 # Milestones
 
-- M0 foundation: completed locally; milestone commit pending repository audit.
+- M0 foundation: completed; repository audit is clean and changes are committed.
 - M1 schema/API contract: implemented and contract-tested.
 - M2 ExactGuard: implemented for explicit numeric, percentage, currency, date/time, unit, version, URL/email, path, flag, and code facts.
 - M3 LogicGuard: implemented for bilingual negation, comparisons, conditions, exceptions, and modality.
