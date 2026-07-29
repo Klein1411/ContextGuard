@@ -54,6 +54,14 @@ Route V1: `GET /v1/health`, `GET /v1/capabilities`, `POST /v1/analyze`, `POST /v
 - Báo cáo tiến độ Word là artifact public được commit riêng; không tạo thêm Markdown ngoài ba file được phép.
 - Dữ liệu dài hạn nằm ngoài repository tại `D:\fact_safeguard_data`; cleanup không được xóa thư mục này.
 
+# M10a — Runtime benchmark đã hoàn tất
+
+M10a đã chạy thật trên 8 case controlled (4 bucket `short/medium/long/very_long` × 2 ngôn ngữ), dùng tokenizer `MoritzLaurer/mDeBERTa-v3-base-mnli-xnli@add259b`. Artifact có 200 dòng metric và 5.008 request samples, gồm R1 direct deterministic, R2 ASGI in-process, R3 localhost HTTP, R4 Docker HTTP và R5 direct hybrid semantic. Tất cả mode có error rate và timeout rate bằng `0.0`; Docker build/health smoke pass.
+
+Warm P95 quan sát theo toàn bộ bucket/concurrency: R1 `2.154–6,092.503 ms`, R2 `3.260–318.427 ms`, R3 `154.538–4,088.412 ms`, R4 `151.062–3,854.673 ms`, R5 `325.140–1,162.054 ms`. API overhead và ratio đã được ghi theo cùng case/bucket/concurrency; một số overhead âm do contention và outlier của baseline direct, nên không được diễn giải như lợi ích API. R5 tái sử dụng một verifier object và chạy concurrency `1/2/4` trên hai case short; sáu case medium/long/very_long bị skip có ghi rõ `MODEL_PAIR_MAX_LENGTH_512` vì model semantic hiện tại giới hạn pair 512 tokens. Đây là giới hạn được báo cáo, không phải truncation âm thầm.
+
+Artifact M10a: `artifacts/final/runtime_manifest.json`, `artifacts/final/runtime_metrics.csv`, `artifacts/final/runtime_samples.jsonl`; validator artifact trả `valid=true`, `metric_rows=200`, `sample_rows=5008`, `semantic_skips=6`.
+
 # Trạng thái hiện tại
 
 Status: `PARTIALLY_COMPLETED` (M0–M9 đã hoàn tất; goal mở rộng M10–M14 đang thực thi; Tier B, output compressor thật và hybrid semantic vẫn có giới hạn rõ ràng).
@@ -66,9 +74,9 @@ Repository trống lúc bắt đầu. Audit môi trường: Windows 11, i5-12500
 
 # Kết quả đã xác minh
 
-Audit baseline mới ngày 2026-07-29 với `uv run`/Python 3.11.9: 55 pytest test pass; Ruff pass; mypy pass trên 33 source file; `uv lock --check` và `uv pip check` pass. Đây là số liệu chạy thật mới nhất; các đoạn lịch sử cũ không được dùng để thay thế kết quả hiện tại. Coverage 80% line là kết quả audit trước đó và sẽ được chạy lại ở M14.
+Audit baseline mới ngày 2026-07-29 với `uv run`/Python 3.11.9: 61 pytest test pass; Ruff pass; mypy pass trên 34 source file; `uv lock --check` và `uv pip check` pass. Đây là số liệu chạy thật mới nhất; các đoạn lịch sử cũ không được dùng để thay thế kết quả hiện tại. Coverage 80% line là kết quả audit trước đó và sẽ được chạy lại ở M14.
 
-Ngày 2026-07-29 với Python 3.11.9: 55 pytest test pass; Ruff pass; mypy pass trên 33 source file; package build và clean-wheel smoke pass; coverage 80% line (không tuyên bố ngưỡng tối thiểu). Với seed `20260729`, Tier A `golden_v0_provisional` có 300 mẫu (150 SAFE, 150 UNSAFE), đúng 75 mẫu cho mỗi domain: false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, precision `1.0`, P50/P95 `0.362/0.604 ms`, peak RAM `30.414 MB`, VRAM chưa đo. Tier B `mutation_v0_provisional` có 2.001 mẫu (218 SAFE, 1.783 UNSAFE), gồm 109 safe date-format và 109 safe identity: false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, precision `1.0`, P50/P95 `1.305/2.224 ms`, peak RAM `38.375 MB`, VRAM chưa đo. Hai run đều đạt metric-only gate (recall ≥95%, FAR ≤2%, P95 ≤50 ms); promotion Tier A audited, contract gate và regression gate được kiểm tra riêng.
+Ngày 2026-07-29 với Python 3.11.9: 61 pytest test pass; Ruff pass; mypy pass trên 34 source file; package build và clean-wheel smoke pass; coverage 80% line (không tuyên bố ngưỡng tối thiểu). Với seed `20260729`, Tier A `golden_v0_provisional` có 300 mẫu (150 SAFE, 150 UNSAFE), đúng 75 mẫu cho mỗi domain: false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, precision `1.0`, P50/P95 `0.362/0.604 ms`, peak RAM `30.414 MB`, VRAM chưa đo. Tier B `mutation_v0_provisional` có 2.001 mẫu (218 SAFE, 1.783 UNSAFE), gồm 109 safe date-format và 109 safe identity: false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, precision `1.0`, P50/P95 `1.305/2.224 ms`, peak RAM `38.375 MB`, VRAM chưa đo. Hai run đều đạt metric-only gate (recall ≥95%, FAR ≤2%, P95 ≤50 ms); promotion Tier A audited, contract gate và regression gate được kiểm tra riêng.
 
 ExactGuard có regression cho fact bị duplicate, thêm mới và literal mới; relation có metric–dataset, config–component, method–dataset; LogicGuard từ chối condition/exception bị đổi. Tier C rule-based tạo 300 candidate UTF-8 với `label_status=unverified`, không gán quality metric. LLMLingua-2 thật trên 20 mẫu dùng `microsoft/llmlingua-2-xlm-roberta-large-meetingbank@ebaba9b`, trung bình `1,501.630 ms/mẫu`, RSS khoảng `1,984.902 MB`; mọi output vẫn `unverified` và không được promote.
 
