@@ -50,3 +50,20 @@ def test_empty_text_is_uncertain() -> None:
     result = ContextGuard().validate("", "")
     assert result.status is SafetyStatus.UNCERTAIN
     assert "EMPTY_TEXT" not in result.reason_codes
+
+
+def test_equivalent_comparison_phrases_are_not_rejected() -> None:
+    result = ContextGuard(GuardConfig(language="en", profile="technical")).validate(
+        "Accuracy must be at least 90%.",
+        "Accuracy must be >= 90%.",
+    )
+    assert result.status is SafetyStatus.PASS
+
+
+def test_comparison_direction_change_remains_critical() -> None:
+    result = ContextGuard(GuardConfig(language="vi", profile="technical")).validate(
+        "Accuracy không thấp hơn 90%.",
+        "Accuracy thấp hơn 90%.",
+    )
+    assert result.status is SafetyStatus.FAIL
+    assert "COMPARISON_CHANGED" in result.reason_codes

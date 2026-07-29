@@ -23,6 +23,14 @@ _VERSION = re.compile(
 _PERCENT = re.compile(
     r"(?<![\w.])\d+(?:[.,]\d+)?\s*(?:%|percent|phần\s*trăm)(?![\w])", re.IGNORECASE
 )
+_WORD_PERCENT = re.compile(
+    r"\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|"
+    r"twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|"
+    r"không|một|hai|ba|bốn|năm|sáu|bảy|tám|chín|mười|"
+    r"hai\s+mươi|ba\s+mươi|bốn\s+mươi|năm\s+mươi|sáu\s+mươi|"
+    r"bảy\s+mươi|tám\s+mươi|chín\s+mươi)\s+(?:percent|phần\s*trăm)\b",
+    re.IGNORECASE,
+)
 _CURRENCY = re.compile(
     r"(?:[$€£]\s?\d[\d,.]*|\d[\d,.]*\s?(?:USD|VND|EUR|GBP|đồng|triệu đồng|million dollars))\b",
     re.IGNORECASE,
@@ -42,6 +50,7 @@ _BOOLEAN = re.compile(r"\b(?:true|false|enabled|disabled)\b", re.IGNORECASE)
 _FLAG = re.compile(r"(?<!\w)--?[A-Za-z][\w-]*")
 _WORD_NUMBER = re.compile(
     r"\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|"
+    r"twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|"
     r"không|một|hai|ba|bốn|năm|sáu|bảy|tám|chín|mười)\b",
     re.IGNORECASE,
 )
@@ -59,6 +68,7 @@ _PATTERNS: tuple[tuple[str, re.Pattern[str], RiskLevel], ...] = (
     ("version", _VERSION, RiskLevel.CRITICAL),
     ("currency", _CURRENCY, RiskLevel.CRITICAL),
     ("percentage", _PERCENT, RiskLevel.CRITICAL),
+    ("percentage", _WORD_PERCENT, RiskLevel.CRITICAL),
     ("unit", _UNIT, RiskLevel.HIGH),
     ("path", _PATH, RiskLevel.HIGH),
     ("filename", _FILENAME, RiskLevel.HIGH),
@@ -94,6 +104,49 @@ def _canonical(kind: str, value: str) -> str:
     v = normalize_text(value).lower()
     if kind == "percentage":
         v = v.replace("phần trăm", "%").replace("percent", "%").replace(" ", "")
+        word_percent = {
+            "zero": "0",
+            "one": "1",
+            "two": "2",
+            "three": "3",
+            "four": "4",
+            "five": "5",
+            "six": "6",
+            "seven": "7",
+            "eight": "8",
+            "nine": "9",
+            "ten": "10",
+            "twenty": "20",
+            "thirty": "30",
+            "forty": "40",
+            "fifty": "50",
+            "sixty": "60",
+            "seventy": "70",
+            "eighty": "80",
+            "ninety": "90",
+            "không": "0",
+            "một": "1",
+            "hai": "2",
+            "ba": "3",
+            "bốn": "4",
+            "năm": "5",
+            "sáu": "6",
+            "bảy": "7",
+            "tám": "8",
+            "chín": "9",
+            "mười": "10",
+            "haimươi": "20",
+            "bamươi": "30",
+            "bốnmươi": "40",
+            "nămmươi": "50",
+            "sáumươi": "60",
+            "bảymươi": "70",
+            "támmươi": "80",
+            "chínmươi": "90",
+        }
+        if v.endswith("%"):
+            number = v[:-1]
+            v = f"{word_percent.get(number, number)}%"
     if kind in {"flag_or_literal", "url", "email", "path", "version"}:
         return v
     if kind == "date":

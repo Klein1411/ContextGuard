@@ -1,7 +1,37 @@
 from __future__ import annotations
 
-from context_guard.extraction.relations import extract_relations
+import re
+
+from context_guard.extraction.relations import Relation, extract_relations
 from context_guard.schemas.models import GuardConfig, RiskLevel, Violation
+
+
+def _threshold_key(value: str) -> str:
+    normalized = value.casefold().strip()
+    replacements = (
+        ("no less than", ">="),
+        ("at least", ">="),
+        ("không thấp hơn", ">="),
+        ("tối thiểu", ">="),
+        ("ít nhất", ">="),
+        ("no more than", "<="),
+        ("at most", "<="),
+        ("không quá", "<="),
+        ("tối đa", "<="),
+    )
+    for phrase, operator in replacements:
+        normalized = normalized.replace(phrase, operator)
+    return re.sub(r"\s+", "", normalized)
+
+
+def _same_relation(source: Relation, target: Relation) -> bool:
+    source_subject = source.subject.casefold()
+    target_subject = target.subject.casefold()
+    if source_subject != target_subject or source.relation != target.relation:
+        return False
+    if source.relation == "has_threshold":
+        return _threshold_key(source.object) == _threshold_key(target.object)
+    return source.object.casefold() == target.object.casefold()
 
 
 def relation_violations(
@@ -16,9 +46,7 @@ def relation_violations(
             (
                 item
                 for item in target
-                if item.subject.lower() == relation.subject.lower()
-                and item.relation == relation.relation
-                and item.object.lower() == relation.object.lower()
+                if _same_relation(relation, item)
             ),
             None,
         )

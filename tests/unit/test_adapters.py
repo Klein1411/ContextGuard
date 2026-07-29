@@ -53,6 +53,14 @@ class _FakeSemanticVerifier:
         return SemanticVerification(available=True, result=self.result)
 
 
+class _BrokenSemanticVerifier:
+    name = "broken"
+
+    def verify(self, original_text: str, candidate_text: str) -> SemanticVerification:
+        del original_text, candidate_text
+        raise TimeoutError("semantic timeout")
+
+
 def test_semantic_verifier_runs_only_for_uncertain() -> None:
     semantic_result = ValidationResult(
         status=SafetyStatus.PASS,
@@ -74,6 +82,15 @@ def test_semantic_verifier_runs_only_for_uncertain() -> None:
     fail = guard.validate_with_semantic("Use Python 3.11.", "Use Python 3.12.", verifier)
     assert fail.status is SafetyStatus.FAIL
     assert verifier.calls == 1
+
+
+def test_semantic_verifier_error_keeps_safe_uncertain_fallback() -> None:
+    result = ContextGuard(GuardConfig(language="vi", policy="strict")).validate_with_semantic(
+        "Deadline 03/04/2026.", "Deadline 03/04/2026.", _BrokenSemanticVerifier()
+    )
+    assert result.status is SafetyStatus.UNCERTAIN
+    assert result.recommended_action is RecommendedAction.USE_ORIGINAL
+    assert "SEMANTIC_VERIFIER_ERROR" in result.reason_codes
 
 
 def test_rule_based_tier_c_candidates_remain_unverified() -> None:

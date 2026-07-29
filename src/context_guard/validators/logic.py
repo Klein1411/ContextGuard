@@ -41,6 +41,22 @@ def _marker_any(patterns: list[re.Pattern[str]], text: str) -> str | None:
     return min(matches, key=lambda match: match.start()).group(0)
 
 
+def _comparison_kind(marker: str) -> str:
+    """Map equivalent Vietnamese/English threshold phrases to one relation."""
+    normalized = marker.casefold().strip()
+    if normalized in {">=", "at least", "no less than", "ít nhất", "tối thiểu", "không thấp hơn"}:
+        return "GE"
+    if normalized in {"<=", "at most", "no more than", "tối đa", "không quá"}:
+        return "LE"
+    if normalized in {">", "greater than", "greater", "lớn hơn", "cao hơn"}:
+        return "GT"
+    if normalized in {"<", "less than", "less", "nhỏ hơn", "thấp hơn"}:
+        return "LT"
+    if normalized == "=":
+        return "EQ"
+    return normalized
+
+
 def logic_violations(
     original_text: str, candidate_text: str, language: str, config: GuardConfig
 ) -> list[Violation]:
@@ -101,7 +117,11 @@ def logic_violations(
                 confidence=0.95,
             )
         )
-    elif original_cmp and candidate_cmp and original_cmp.lower() != candidate_cmp.lower():
+    elif (
+        original_cmp
+        and candidate_cmp
+        and _comparison_kind(original_cmp) != _comparison_kind(candidate_cmp)
+    ):
         violations.append(
             Violation(
                 code="COMPARISON_CHANGED",

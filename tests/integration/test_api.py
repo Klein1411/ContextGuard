@@ -30,6 +30,24 @@ def test_validate_uses_contract_schema() -> None:
     assert "VERSION_CHANGED" in body["reason_codes"]
 
 
+def test_analyze_exposes_facts_and_protected_spans() -> None:
+    client = TestClient(app)
+    response = client.post(
+        "/v1/analyze",
+        json={
+            "text": "Không triển khai Python 3.11 với 4 GB RAM.",
+            "language": "vi",
+            "profile": "technical",
+        },
+    )
+    assert response.status_code == 200
+    body = response.json()
+    assert body["normalized_language"] == "vi"
+    assert body["facts"]
+    assert body["protected_spans"]
+    assert all("normalized_value" in span for span in body["protected_spans"])
+
+
 def test_invalid_request_has_structured_error() -> None:
     client = TestClient(app)
     response = client.post(
