@@ -23,6 +23,15 @@ def test_condition_removal_is_critical() -> None:
     assert "CONDITION_REMOVED" in result.reason_codes
 
 
+def test_vietnamese_comparison_direction_change_is_critical() -> None:
+    result = ContextGuard(GuardConfig(language="vi", profile="technical")).validate(
+        "Triển khai nếu accuracy ít nhất 90%.",
+        "Triển khai nếu accuracy thấp hơn 90%.",
+    )
+    assert result.status is SafetyStatus.FAIL
+    assert "COMPARISON_CHANGED" in result.reason_codes
+
+
 def test_technical_literals_include_filename_config_and_boolean() -> None:
     result = ContextGuard(GuardConfig(language="en", profile="technical")).validate(
         "Use config.yaml with safe=true.",

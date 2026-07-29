@@ -24,7 +24,7 @@ _COMPARISON = re.compile(
     r"(?:>=|<=|>|<|=|\bat least\b|\bat most\b|\bno more than\b|"
     r"\bno less than\b|\bgreater than\b|\bless than\b|\bí?t nhất\b|"
     r"\btối thiểu\b|\bkhông thấp hơn\b|\bkhông quá\b|\btối đa\b|"
-    r"\bnhỏ hơn\b|\blớn hơn\b)",
+    r"\bnhỏ hơn\b|\bthấp hơn\b|\blớn hơn\b|\bcao hơn\b)",
     re.I,
 )
 
