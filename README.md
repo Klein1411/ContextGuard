@@ -10,6 +10,8 @@ Yêu cầu Python 3.11 và `uv`:
 uv sync --group dev
 ```
 
+Để benchmark đo peak RAM, cài thêm nhóm tùy chọn: `uv sync --group benchmark`.
+
 ## Quick start
 
 ```python
