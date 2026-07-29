@@ -5,16 +5,16 @@ import re
 from context_guard.schemas.models import GuardConfig, RiskLevel, Violation
 
 _NEGATION = {
-    "vi": re.compile(r"\b(?:không|chưa|không được|không cần|không bao giờ)\b", re.I),
-    "en": re.compile(r"\b(?:not|no|never|must not|do not|cannot)\b", re.I),
+    "vi": re.compile(r"\b(?:không bao giờ|không được|không cần|chưa|không)\b", re.I),
+    "en": re.compile(r"\b(?:must not|do not|cannot|never|not|no)\b", re.I),
 }
 _CONDITION = {
-    "vi": re.compile(r"\b(?:nếu|chỉ khi|miễn là|với điều kiện)\b", re.I),
-    "en": re.compile(r"\b(?:if|only if|provided that|as long as)\b", re.I),
+    "vi": re.compile(r"\b(?:với điều kiện|chỉ khi|miễn là|nếu)\b", re.I),
+    "en": re.compile(r"\b(?:provided that|as long as|only if|if)\b", re.I),
 }
 _EXCEPTION = {
-    "vi": re.compile(r"\b(?:trừ khi|ngoại trừ)\b", re.I),
-    "en": re.compile(r"\b(?:unless|except|except when)\b", re.I),
+    "vi": re.compile(r"\b(?:ngoại trừ|trừ khi)\b", re.I),
+    "en": re.compile(r"\b(?:except when|unless|except)\b", re.I),
 }
 _MODALITY = {
     "vi": re.compile(r"\b(?:phải|nên|có thể|không được)\b", re.I),
@@ -149,6 +149,19 @@ def logic_violations(
                     message=f"Candidate removed a required {label}.",
                     original_span=source,
                     confidence=0.95,
+                )
+            )
+        elif source and target and source.casefold() != target.casefold():
+            changed_code = code.replace("_REMOVED", "_CHANGED")
+            violations.append(
+                Violation(
+                    code=changed_code,
+                    severity=RiskLevel.CRITICAL,
+                    category="logic",
+                    message=f"Candidate changed the required {label} marker.",
+                    original_span=source,
+                    candidate_span=target,
+                    confidence=0.9,
                 )
             )
 

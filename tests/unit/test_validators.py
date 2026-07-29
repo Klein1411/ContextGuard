@@ -67,3 +67,21 @@ def test_comparison_direction_change_remains_critical() -> None:
     )
     assert result.status is SafetyStatus.FAIL
     assert "COMPARISON_CHANGED" in result.reason_codes
+
+
+def test_condition_marker_change_is_critical() -> None:
+    result = ContextGuard(GuardConfig(language="en", profile="business")).validate(
+        "Deploy if tests pass.",
+        "Deploy only if tests pass.",
+    )
+    assert result.status is SafetyStatus.FAIL
+    assert "CONDITION_CHANGED" in result.reason_codes
+
+
+def test_exception_marker_change_is_critical() -> None:
+    result = ContextGuard(GuardConfig(language="en", profile="business")).validate(
+        "Deploy unless tests fail.",
+        "Deploy except when tests fail.",
+    )
+    assert result.status is SafetyStatus.FAIL
+    assert "EXCEPTION_CHANGED" in result.reason_codes
