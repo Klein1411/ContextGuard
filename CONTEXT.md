@@ -61,6 +61,8 @@ Verified on 2026-07-29 with Python 3.11.9: 51 pytest tests pass; Ruff check pass
 
 GPU follow-up: a separate external CUDA venv using `torch 2.8.0+cu126` detected the RTX 3050 and ran the same 20-case uncertainty-path benchmark on CUDA. It called the semantic adapter 20/20 times, returned 20/20 `PASS`, measured P50/P95 17.087/117.275 ms, peak RSS 2,625.801 MB, and peak allocated/reserved VRAM 1,120.0 MB of 4,095.5 MB. This remains a metric-only, synthetic/unverified behavior/resource smoke, not a hybrid quality gate; the repository's default venv remains CPU-only.
 
+Mixed semantic smoke: 20 deliberately uncertain cases (16 controlled unsafe paraphrases and 4 safe identities) on the same CUDA environment produced hybrid false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, fallback rate 0.2, P50/P95 21.862/310.104 ms, peak RSS 2,619.078 MB, and peak VRAM 1,120.0 MB. All labels remain `synthetic_unverified`; this is not a golden-set or production quality claim.
+
 Final audit evidence: `pip-audit --local` reported no known vulnerabilities; tracked secret, large-file, forbidden-path, and model-weight scans were clean.
 
 # Known Limitations
