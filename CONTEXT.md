@@ -39,10 +39,10 @@ V1 routes: `GET /v1/health`, `GET /v1/capabilities`, `POST /v1/analyze`, `POST /
 - M2 ExactGuard: implemented for explicit numeric, percentage, currency, date/time, unit, version, URL/email, path, flag, and code facts.
 - M3 LogicGuard: implemented for bilingual negation, comparisons, conditions, exceptions, and modality.
 - M4 relation/entity: conservative explicit-structure implementation added; broad semantic NER remains limited.
-- M5 benchmark: provisional Tier A (300) and Tier B (2,014) datasets, deterministic runner, per-category metrics, reproducibility signature, artifact validation, and guarded promotion helper implemented. Both datasets remain synthetic/unverified.
+- M5 benchmark: provisional Tier A (300) and Tier B (2,001) datasets, deterministic runner, per-category metrics, reproducibility signature, artifact validation, and guarded promotion helper implemented. Both datasets remain synthetic/unverified.
 - M6 compressor adapters: rule-based protected-span compressor, controlled mutations, and Tier C unverified candidate generation implemented; token-level and LLM summarizer boundaries are explicit unavailable adapters.
 - M7 semantic verifier: optional only-on-UNCERTAIN orchestration and safe unavailable/error fallback implemented; no model is installed.
-- M8 packaging: package, CLI, FastAPI, non-root Dockerfile, and health check implemented; Docker image build remains environment-unverified.
+- M8 packaging: package, CLI, FastAPI, non-root Dockerfile, health check, local image build, and container smoke test completed.
 - M9 final audit: pending manual label audit, real compressor/semantic measurements, resource measurements, and final artifact promotion.
 
 # Current Status
@@ -57,7 +57,7 @@ Repository foundation, public schemas, FastAPI V1 routes, CLI, ExactGuard, Logic
 
 # Verified Results
 
-Verified on 2026-07-29 with Python 3.11.9: 36 pytest tests pass; Ruff check passes; mypy passes on 32 source files; package build and clean-wheel install smoke test succeed; coverage run reports 79% line coverage (no minimum threshold is claimed). On HEAD `ee9fd56` with seed 20260729, Tier A `golden_v0_provisional` produced 300 samples (150 SAFE, 150 UNSAFE) with exactly 75 samples per domain: false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P95 0.760 ms, peak RAM 30.230 MB, peak VRAM not measured. Tier B `mutation_v0_provisional` produced 2,001 samples (218 SAFE, 1,783 UNSAFE), including 109 safe date-format transformations and 109 safe identity records: false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P95 2.336 ms, peak RAM 38.383 MB, peak VRAM not measured. ExactGuard regression coverage now includes duplicated, added, and newly introduced fact-type literals. Tier C generation produced 300 rule-based candidates with `label_status=unverified` and valid UTF-8; no quality metric was assigned. Repeated Tier A runs produced the same `decision_sha256`; elapsed time and per-sample latency are expected to vary. These are synthetic/unverified results, not a manual golden-set or paper-grade quality claim.
+Verified on 2026-07-29 with Python 3.11.9: 36 pytest tests pass; Ruff check passes; mypy passes on 32 source files; package build and clean-wheel install smoke test succeed; coverage run reports 79% line coverage (no minimum threshold is claimed). On HEAD `ee9fd56` with seed 20260729, Tier A `golden_v0_provisional` produced 300 samples (150 SAFE, 150 UNSAFE) with exactly 75 samples per domain: false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P95 0.760 ms, peak RAM 30.230 MB, peak VRAM not measured. Tier B `mutation_v0_provisional` produced 2,001 samples (218 SAFE, 1,783 UNSAFE), including 109 safe date-format transformations and 109 safe identity records: false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P95 2.336 ms, peak RAM 38.383 MB, peak VRAM not measured. ExactGuard regression coverage now includes duplicated, added, and newly introduced fact-type literals. Tier C generation produced 300 rule-based candidates with `label_status=unverified` and valid UTF-8; no quality metric was assigned. Repeated Tier A runs produced the same `decision_sha256`; elapsed time and per-sample latency are expected to vary. Docker image `contextguard:local` also built successfully and a non-root container returned HTTP 200 from `/v1/health`; `/v1/capabilities` and `/v1/validate` smoke checks passed. These are synthetic/unverified results, not a manual golden-set or paper-grade quality claim.
 
 # Known Limitations
 
@@ -66,7 +66,7 @@ Verified on 2026-07-29 with Python 3.11.9: 36 pytest tests pass; Ruff check pass
 - The required sample counts now exist, but Tier A labels have not been manually audited and Tier B mutations are controlled synthetic records; quality claims remain provisional.
 - Real token compressor and semantic verifier quality, peak RAM/VRAM, and production end-to-end token savings are not yet measured. Rules-only P50/P95 are measured above.
 - FastAPI integration test emits an upstream Starlette/httpx deprecation warning; tests still pass.
-- Docker CLI is installed, but the Docker Desktop Linux engine was unavailable during the build check; image build is not verified.
+- Docker image build and non-root container smoke test are verified locally; no registry publication or production deployment has been performed.
 
 # Deferred Improvements
 

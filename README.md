@@ -64,6 +64,15 @@ uv run context-guard benchmark --output .runtime/benchmark --validate-artifacts
 uv run context-guard candidates --output .runtime/tier_c_rule_based_unverified.jsonl
 ```
 
+Docker smoke test (requires Docker Desktop):
+
+```powershell
+docker build --tag contextguard:local .
+docker run --rm -p 8000:8000 contextguard:local
+```
+
+The local image was built and a non-root container was smoke-tested on 2026-07-29: `/v1/health` returned `200`, `/v1/capabilities` reported the expected adapter boundary, and `/v1/validate` returned `FAIL` for a Python 3.11 versus 3.12 version change. The image is not published.
+
 Verified local provisional runs on 2026-07-29 (HEAD `ee9fd56`, seed `20260729`) report Tier A 300 samples and Tier B 2,001 samples; both had false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, and precision `1.0`. Tier A is exactly balanced across the four domains. Tier B includes real safe date-format transformations in addition to identity records. Rules-only P95 latency was 0.760 ms (Tier A) and 2.336 ms (Tier B); measured peak RAM was 30.230 MB and 38.383 MB respectively, while peak VRAM was not measured. The datasets are synthetic/unverified, so these numbers are not a manual golden-set, compressor, or paper-grade claim. Use `--validate-artifacts` before any retention; promotion is guarded and refuses unverified labels.
 
 `candidates` generates Tier C rule-based candidates with `label_status=unverified`; it never assigns correctness labels automatically.
