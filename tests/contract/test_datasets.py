@@ -27,6 +27,13 @@ def test_tier_a_contract() -> None:
     }
 
 
+def test_audited_tier_a_contract() -> None:
+    records = load_jsonl(Path("benchmarks/datasets/golden_v0_audited.jsonl"))
+    summary = validate_dataset(records)
+    assert summary["sample_count"] == 300
+    assert summary["label_statuses"] == ["audited"]
+
+
 def test_tier_b_contract() -> None:
     records = load_jsonl(Path("benchmarks/datasets/mutation_v0_provisional.jsonl"))
     summary = validate_mutation_dataset(records)
@@ -63,6 +70,13 @@ def test_unverified_run_cannot_be_promoted(tmp_path: Path) -> None:
     run_benchmark(output, dataset=Path("benchmarks/datasets/golden_v0_provisional.jsonl"))
     with pytest.raises(ValueError, match="label_status"):
         promote_run(output, tmp_path / "final")
+
+
+def test_audited_run_can_be_promoted(tmp_path: Path) -> None:
+    output = tmp_path / "run"
+    run_benchmark(output, dataset=Path("benchmarks/datasets/golden_v0_audited.jsonl"))
+    result = promote_run(output, tmp_path / "final")
+    assert result["promoted"] is True
 
 
 def test_hybrid_benchmark_keeps_unavailable_verifier_safe(tmp_path: Path) -> None:

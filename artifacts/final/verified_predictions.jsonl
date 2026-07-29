@@ -1,0 +1,300 @@
+{"id": "vi-safe-000", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.869}
+{"id": "vi-safe-001", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.508}
+{"id": "vi-safe-002", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.493}
+{"id": "vi-safe-003", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.466}
+{"id": "vi-safe-004", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.564}
+{"id": "vi-safe-005", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.447}
+{"id": "vi-safe-006", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.358}
+{"id": "vi-safe-007", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.416}
+{"id": "vi-safe-008", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.681}
+{"id": "vi-safe-009", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 1.226}
+{"id": "vi-safe-010", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.356}
+{"id": "vi-safe-011", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.719}
+{"id": "vi-safe-012", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.513}
+{"id": "vi-safe-013", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.542}
+{"id": "vi-safe-014", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.374}
+{"id": "vi-safe-015", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.434}
+{"id": "vi-safe-016", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.46}
+{"id": "vi-safe-017", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.526}
+{"id": "vi-safe-018", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.312}
+{"id": "vi-safe-019", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.553}
+{"id": "vi-safe-020", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.427}
+{"id": "vi-safe-021", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.486}
+{"id": "vi-safe-022", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.614}
+{"id": "vi-safe-023", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.472}
+{"id": "vi-safe-024", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.461}
+{"id": "vi-safe-025", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.439}
+{"id": "vi-safe-026", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.418}
+{"id": "vi-safe-027", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.594}
+{"id": "vi-safe-028", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.424}
+{"id": "vi-safe-029", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.501}
+{"id": "vi-safe-030", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.401}
+{"id": "vi-safe-031", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.599}
+{"id": "vi-safe-032", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 1.091}
+{"id": "vi-safe-033", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.764}
+{"id": "vi-safe-034", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.444}
+{"id": "vi-safe-035", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.652}
+{"id": "vi-safe-036", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.551}
+{"id": "vi-safe-037", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.518}
+{"id": "vi-safe-038", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.433}
+{"id": "vi-safe-039", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.446}
+{"id": "vi-safe-040", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.456}
+{"id": "vi-safe-041", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.469}
+{"id": "vi-safe-042", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.388}
+{"id": "vi-safe-043", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.459}
+{"id": "vi-safe-044", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.693}
+{"id": "vi-safe-045", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.741}
+{"id": "vi-safe-046", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.503}
+{"id": "vi-safe-047", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.567}
+{"id": "vi-safe-048", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.558}
+{"id": "vi-safe-049", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.743}
+{"id": "vi-safe-050", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.535}
+{"id": "vi-safe-051", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.582}
+{"id": "vi-safe-052", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.587}
+{"id": "vi-safe-053", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.586}
+{"id": "vi-safe-054", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.561}
+{"id": "vi-safe-055", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.521}
+{"id": "vi-safe-056", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.448}
+{"id": "vi-safe-057", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.44}
+{"id": "vi-safe-058", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.31}
+{"id": "vi-safe-059", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.452}
+{"id": "vi-safe-060", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.718}
+{"id": "vi-safe-061", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.555}
+{"id": "vi-safe-062", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.661}
+{"id": "vi-safe-063", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.643}
+{"id": "vi-safe-064", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.749}
+{"id": "vi-safe-065", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.531}
+{"id": "vi-safe-066", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.75}
+{"id": "vi-safe-067", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.881}
+{"id": "vi-safe-068", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.506}
+{"id": "vi-safe-069", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.465}
+{"id": "vi-safe-070", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.384}
+{"id": "vi-safe-071", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.501}
+{"id": "vi-safe-072", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.415}
+{"id": "vi-safe-073", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.435}
+{"id": "vi-safe-074", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.32}
+{"id": "vi-unsafe-000", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.956704, "reason_codes": ["ENTITY_CHANGED", "MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.375}
+{"id": "vi-unsafe-001", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.338}
+{"id": "vi-unsafe-002", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.38}
+{"id": "vi-unsafe-003", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["DATE_CHANGED"], "label_status": "audited", "latency_ms": 0.352}
+{"id": "vi-unsafe-004", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.363}
+{"id": "vi-unsafe-005", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.796}
+{"id": "vi-unsafe-006", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.372}
+{"id": "vi-unsafe-007", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["MONEY_CHANGED"], "label_status": "audited", "latency_ms": 0.57}
+{"id": "vi-unsafe-008", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.956704, "reason_codes": ["ENTITY_CHANGED", "MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.37}
+{"id": "vi-unsafe-009", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.339}
+{"id": "vi-unsafe-010", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.428}
+{"id": "vi-unsafe-011", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.96964, "reason_codes": ["ENTITY_CHANGED", "CONDITION_REMOVED"], "label_status": "audited", "latency_ms": 0.344}
+{"id": "vi-unsafe-012", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.453}
+{"id": "vi-unsafe-013", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.318}
+{"id": "vi-unsafe-014", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.394}
+{"id": "vi-unsafe-015", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.931, "reason_codes": ["EXCEPTION_REMOVED"], "label_status": "audited", "latency_ms": 0.339}
+{"id": "vi-unsafe-016", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.956704, "reason_codes": ["ENTITY_CHANGED", "MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.366}
+{"id": "vi-unsafe-017", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.456}
+{"id": "vi-unsafe-018", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.492}
+{"id": "vi-unsafe-019", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["DATE_CHANGED"], "label_status": "audited", "latency_ms": 0.416}
+{"id": "vi-unsafe-020", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.702}
+{"id": "vi-unsafe-021", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.379}
+{"id": "vi-unsafe-022", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.357}
+{"id": "vi-unsafe-023", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["MONEY_CHANGED"], "label_status": "audited", "latency_ms": 0.397}
+{"id": "vi-unsafe-024", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.956704, "reason_codes": ["ENTITY_CHANGED", "MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.351}
+{"id": "vi-unsafe-025", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.323}
+{"id": "vi-unsafe-026", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.362}
+{"id": "vi-unsafe-027", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.96964, "reason_codes": ["ENTITY_CHANGED", "CONDITION_REMOVED"], "label_status": "audited", "latency_ms": 0.336}
+{"id": "vi-unsafe-028", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.345}
+{"id": "vi-unsafe-029", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.318}
+{"id": "vi-unsafe-030", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.337}
+{"id": "vi-unsafe-031", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.931, "reason_codes": ["EXCEPTION_REMOVED"], "label_status": "audited", "latency_ms": 0.331}
+{"id": "vi-unsafe-032", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.956704, "reason_codes": ["ENTITY_CHANGED", "MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.353}
+{"id": "vi-unsafe-033", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.323}
+{"id": "vi-unsafe-034", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.36}
+{"id": "vi-unsafe-035", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["DATE_CHANGED"], "label_status": "audited", "latency_ms": 0.341}
+{"id": "vi-unsafe-036", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.348}
+{"id": "vi-unsafe-037", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.312}
+{"id": "vi-unsafe-038", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.407}
+{"id": "vi-unsafe-039", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["MONEY_CHANGED"], "label_status": "audited", "latency_ms": 0.517}
+{"id": "vi-unsafe-040", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.956704, "reason_codes": ["ENTITY_CHANGED", "MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.427}
+{"id": "vi-unsafe-041", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.353}
+{"id": "vi-unsafe-042", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.377}
+{"id": "vi-unsafe-043", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.96964, "reason_codes": ["ENTITY_CHANGED", "CONDITION_REMOVED"], "label_status": "audited", "latency_ms": 0.353}
+{"id": "vi-unsafe-044", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.391}
+{"id": "vi-unsafe-045", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.318}
+{"id": "vi-unsafe-046", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.338}
+{"id": "vi-unsafe-047", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.931, "reason_codes": ["EXCEPTION_REMOVED"], "label_status": "audited", "latency_ms": 0.338}
+{"id": "vi-unsafe-048", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.956704, "reason_codes": ["ENTITY_CHANGED", "MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.356}
+{"id": "vi-unsafe-049", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.333}
+{"id": "vi-unsafe-050", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.357}
+{"id": "vi-unsafe-051", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["DATE_CHANGED"], "label_status": "audited", "latency_ms": 0.344}
+{"id": "vi-unsafe-052", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.362}
+{"id": "vi-unsafe-053", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.315}
+{"id": "vi-unsafe-054", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.334}
+{"id": "vi-unsafe-055", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["MONEY_CHANGED"], "label_status": "audited", "latency_ms": 0.398}
+{"id": "vi-unsafe-056", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.956704, "reason_codes": ["ENTITY_CHANGED", "MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 1.742}
+{"id": "vi-unsafe-057", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.351}
+{"id": "vi-unsafe-058", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.37}
+{"id": "vi-unsafe-059", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.96964, "reason_codes": ["ENTITY_CHANGED", "CONDITION_REMOVED"], "label_status": "audited", "latency_ms": 0.337}
+{"id": "vi-unsafe-060", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.344}
+{"id": "vi-unsafe-061", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.31}
+{"id": "vi-unsafe-062", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.334}
+{"id": "vi-unsafe-063", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.931, "reason_codes": ["EXCEPTION_REMOVED"], "label_status": "audited", "latency_ms": 0.326}
+{"id": "vi-unsafe-064", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.956704, "reason_codes": ["ENTITY_CHANGED", "MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.339}
+{"id": "vi-unsafe-065", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.326}
+{"id": "vi-unsafe-066", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.356}
+{"id": "vi-unsafe-067", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["DATE_CHANGED"], "label_status": "audited", "latency_ms": 0.343}
+{"id": "vi-unsafe-068", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.354}
+{"id": "vi-unsafe-069", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.311}
+{"id": "vi-unsafe-070", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.363}
+{"id": "vi-unsafe-071", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["MONEY_CHANGED"], "label_status": "audited", "latency_ms": 0.439}
+{"id": "vi-unsafe-072", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.956704, "reason_codes": ["ENTITY_CHANGED", "MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.381}
+{"id": "vi-unsafe-073", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.534}
+{"id": "vi-unsafe-074", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.371}
+{"id": "en-safe-000", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.287}
+{"id": "en-safe-001", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.367}
+{"id": "en-safe-002", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.405}
+{"id": "en-safe-003", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.359}
+{"id": "en-safe-004", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.362}
+{"id": "en-safe-005", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.311}
+{"id": "en-safe-006", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.365}
+{"id": "en-safe-007", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.382}
+{"id": "en-safe-008", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.261}
+{"id": "en-safe-009", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.349}
+{"id": "en-safe-010", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.365}
+{"id": "en-safe-011", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.359}
+{"id": "en-safe-012", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.421}
+{"id": "en-safe-013", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.368}
+{"id": "en-safe-014", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.431}
+{"id": "en-safe-015", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.46}
+{"id": "en-safe-016", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.625}
+{"id": "en-safe-017", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.516}
+{"id": "en-safe-018", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.473}
+{"id": "en-safe-019", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.382}
+{"id": "en-safe-020", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.388}
+{"id": "en-safe-021", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.323}
+{"id": "en-safe-022", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.339}
+{"id": "en-safe-023", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.382}
+{"id": "en-safe-024", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.263}
+{"id": "en-safe-025", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.349}
+{"id": "en-safe-026", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.373}
+{"id": "en-safe-027", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.356}
+{"id": "en-safe-028", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.376}
+{"id": "en-safe-029", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.465}
+{"id": "en-safe-030", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.749}
+{"id": "en-safe-031", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.629}
+{"id": "en-safe-032", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.266}
+{"id": "en-safe-033", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.341}
+{"id": "en-safe-034", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.368}
+{"id": "en-safe-035", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.379}
+{"id": "en-safe-036", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.358}
+{"id": "en-safe-037", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.306}
+{"id": "en-safe-038", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.319}
+{"id": "en-safe-039", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.37}
+{"id": "en-safe-040", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.257}
+{"id": "en-safe-041", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.338}
+{"id": "en-safe-042", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.364}
+{"id": "en-safe-043", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.351}
+{"id": "en-safe-044", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.359}
+{"id": "en-safe-045", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.331}
+{"id": "en-safe-046", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.351}
+{"id": "en-safe-047", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.432}
+{"id": "en-safe-048", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.295}
+{"id": "en-safe-049", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.401}
+{"id": "en-safe-050", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.407}
+{"id": "en-safe-051", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.405}
+{"id": "en-safe-052", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.362}
+{"id": "en-safe-053", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.305}
+{"id": "en-safe-054", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.563}
+{"id": "en-safe-055", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.442}
+{"id": "en-safe-056", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.304}
+{"id": "en-safe-057", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.377}
+{"id": "en-safe-058", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.399}
+{"id": "en-safe-059", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.377}
+{"id": "en-safe-060", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.385}
+{"id": "en-safe-061", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.33}
+{"id": "en-safe-062", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.345}
+{"id": "en-safe-063", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.403}
+{"id": "en-safe-064", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.297}
+{"id": "en-safe-065", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.454}
+{"id": "en-safe-066", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.444}
+{"id": "en-safe-067", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.387}
+{"id": "en-safe-068", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.382}
+{"id": "en-safe-069", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.323}
+{"id": "en-safe-070", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.345}
+{"id": "en-safe-071", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.396}
+{"id": "en-safe-072", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.275}
+{"id": "en-safe-073", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.36}
+{"id": "en-safe-074", "expected_label": "SAFE", "predicted_status": "PASS", "risk_score": 0.0, "reason_codes": [], "label_status": "audited", "latency_ms": 0.396}
+{"id": "en-unsafe-000", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.367}
+{"id": "en-unsafe-001", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["DATE_CHANGED"], "label_status": "audited", "latency_ms": 0.344}
+{"id": "en-unsafe-002", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9016, "reason_codes": ["MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.33}
+{"id": "en-unsafe-003", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.294}
+{"id": "en-unsafe-004", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.359}
+{"id": "en-unsafe-005", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["MONEY_CHANGED"], "label_status": "audited", "latency_ms": 0.378}
+{"id": "en-unsafe-006", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.331}
+{"id": "en-unsafe-007", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.346}
+{"id": "en-unsafe-008", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.373}
+{"id": "en-unsafe-009", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.931, "reason_codes": ["CONDITION_REMOVED"], "label_status": "audited", "latency_ms": 0.264}
+{"id": "en-unsafe-010", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9016, "reason_codes": ["MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.33}
+{"id": "en-unsafe-011", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.299}
+{"id": "en-unsafe-012", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.357}
+{"id": "en-unsafe-013", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.931, "reason_codes": ["EXCEPTION_REMOVED"], "label_status": "audited", "latency_ms": 0.26}
+{"id": "en-unsafe-014", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.297}
+{"id": "en-unsafe-015", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.316}
+{"id": "en-unsafe-016", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.357}
+{"id": "en-unsafe-017", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["DATE_CHANGED"], "label_status": "audited", "latency_ms": 0.345}
+{"id": "en-unsafe-018", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9016, "reason_codes": ["MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.331}
+{"id": "en-unsafe-019", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.301}
+{"id": "en-unsafe-020", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.604}
+{"id": "en-unsafe-021", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["MONEY_CHANGED"], "label_status": "audited", "latency_ms": 0.46}
+{"id": "en-unsafe-022", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.318}
+{"id": "en-unsafe-023", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.321}
+{"id": "en-unsafe-024", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.415}
+{"id": "en-unsafe-025", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.931, "reason_codes": ["CONDITION_REMOVED"], "label_status": "audited", "latency_ms": 0.388}
+{"id": "en-unsafe-026", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9016, "reason_codes": ["MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.344}
+{"id": "en-unsafe-027", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.319}
+{"id": "en-unsafe-028", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.347}
+{"id": "en-unsafe-029", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.931, "reason_codes": ["EXCEPTION_REMOVED"], "label_status": "audited", "latency_ms": 0.254}
+{"id": "en-unsafe-030", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.277}
+{"id": "en-unsafe-031", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.298}
+{"id": "en-unsafe-032", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.367}
+{"id": "en-unsafe-033", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["DATE_CHANGED"], "label_status": "audited", "latency_ms": 0.323}
+{"id": "en-unsafe-034", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9016, "reason_codes": ["MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.306}
+{"id": "en-unsafe-035", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.278}
+{"id": "en-unsafe-036", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.327}
+{"id": "en-unsafe-037", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["MONEY_CHANGED"], "label_status": "audited", "latency_ms": 0.35}
+{"id": "en-unsafe-038", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.284}
+{"id": "en-unsafe-039", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.294}
+{"id": "en-unsafe-040", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.334}
+{"id": "en-unsafe-041", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.931, "reason_codes": ["CONDITION_REMOVED"], "label_status": "audited", "latency_ms": 0.244}
+{"id": "en-unsafe-042", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9016, "reason_codes": ["MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.307}
+{"id": "en-unsafe-043", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.281}
+{"id": "en-unsafe-044", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.362}
+{"id": "en-unsafe-045", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.931, "reason_codes": ["EXCEPTION_REMOVED"], "label_status": "audited", "latency_ms": 0.274}
+{"id": "en-unsafe-046", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.338}
+{"id": "en-unsafe-047", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.331}
+{"id": "en-unsafe-048", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.363}
+{"id": "en-unsafe-049", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["DATE_CHANGED"], "label_status": "audited", "latency_ms": 0.336}
+{"id": "en-unsafe-050", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9016, "reason_codes": ["MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.327}
+{"id": "en-unsafe-051", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.278}
+{"id": "en-unsafe-052", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.333}
+{"id": "en-unsafe-053", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["MONEY_CHANGED"], "label_status": "audited", "latency_ms": 0.356}
+{"id": "en-unsafe-054", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.281}
+{"id": "en-unsafe-055", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.311}
+{"id": "en-unsafe-056", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.338}
+{"id": "en-unsafe-057", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.931, "reason_codes": ["CONDITION_REMOVED"], "label_status": "audited", "latency_ms": 0.242}
+{"id": "en-unsafe-058", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9016, "reason_codes": ["MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.304}
+{"id": "en-unsafe-059", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.278}
+{"id": "en-unsafe-060", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.328}
+{"id": "en-unsafe-061", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.931, "reason_codes": ["EXCEPTION_REMOVED"], "label_status": "audited", "latency_ms": 0.241}
+{"id": "en-unsafe-062", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.321}
+{"id": "en-unsafe-063", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.313}
+{"id": "en-unsafe-064", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.351}
+{"id": "en-unsafe-065", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["DATE_CHANGED"], "label_status": "audited", "latency_ms": 0.884}
+{"id": "en-unsafe-066", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9016, "reason_codes": ["MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.462}
+{"id": "en-unsafe-067", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9604, "reason_codes": ["NEGATION_REMOVED"], "label_status": "audited", "latency_ms": 0.324}
+{"id": "en-unsafe-068", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.868, "reason_codes": ["UNIT_CHANGED", "ENTITY_CHANGED"], "label_status": "audited", "latency_ms": 0.383}
+{"id": "en-unsafe-069", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["MONEY_CHANGED"], "label_status": "audited", "latency_ms": 0.399}
+{"id": "en-unsafe-070", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.882, "reason_codes": ["MODEL_ROLE_SWAP"], "label_status": "audited", "latency_ms": 0.324}
+{"id": "en-unsafe-071", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.7, "reason_codes": ["NUMBER_CHANGED"], "label_status": "audited", "latency_ms": 0.332}
+{"id": "en-unsafe-072", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.98, "reason_codes": ["PERCENTAGE_CHANGED"], "label_status": "audited", "latency_ms": 0.364}
+{"id": "en-unsafe-073", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.931, "reason_codes": ["CONDITION_REMOVED"], "label_status": "audited", "latency_ms": 0.266}
+{"id": "en-unsafe-074", "expected_label": "UNSAFE", "predicted_status": "FAIL", "risk_score": 0.9016, "reason_codes": ["MODALITY_CHANGED"], "label_status": "audited", "latency_ms": 0.334}

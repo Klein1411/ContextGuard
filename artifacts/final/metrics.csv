@@ -1,0 +1,2 @@
+sample_count,safe_count,unsafe_count,false_acceptance_rate,unsafe_detection_recall,false_rejection_rate,precision,p50_latency_ms,p95_latency_ms,fallback_rate,peak_ram_mb,peak_vram_mb,elapsed_ms
+300,150,150,0.0,1.0,0.0,1.0,0.364,0.702,0.0,30.582,not_measured,146.546

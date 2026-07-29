@@ -235,6 +235,9 @@ def run_benchmark(
             "sample_count": len(cases),
             "label_statuses": sorted({case.label_status for case in cases}),
         }
+    label_statuses = sorted({case.label_status for case in cases})
+    dataset_label_status = label_statuses[0] if len(label_statuses) == 1 else "mixed"
+    labels_allow_promotion = dataset_label_status in {"verified", "audited"}
     predictions: list[dict[str, object]] = []
     started = perf_counter()
     peak_ram_mb = _rss_mb()
@@ -353,7 +356,7 @@ def run_benchmark(
             and float(str(metrics["false_acceptance_rate"])) <= 0.02
             and float(str(metrics["p95_latency_ms"])) <= 50.0
         ),
-        "label_status_allows_final_promotion": False,
+        "label_status_allows_final_promotion": labels_allow_promotion,
         "note": "Metric-only gate; contract/regression and manual-label gates are separate.",
     }
     manifest: dict[str, object] = {
@@ -379,11 +382,11 @@ def run_benchmark(
                 if "mutation" in dataset_path.stem
                 else "provisional-golden"
             ),
-            "label_status": "synthetic_unverified",
+            "label_status": dataset_label_status,
         },
         "metrics": metrics,
         "quality_gate": quality_gate,
-        "label_status": "synthetic_unverified",
+        "label_status": dataset_label_status,
         "dataset_validation": dataset_validation,
         "decision_sha256": _decision_signature(predictions),
     }

@@ -95,6 +95,11 @@ Verified local provisional runs on 2026-07-29 (code commit `77e2c38`, seed `2026
 
 `candidates` generates Tier C rule-based candidates with `label_status=unverified`; it never assigns correctness labels automatically. The latest LLMLingua-2 smoke run also keeps every candidate unverified.
 
+The controlled Tier A set was audited record-by-record against its bilingual templates and
+frozen as `benchmarks/datasets/golden_v0_audited.jsonl`. Its deterministic run is the only
+dataset currently promoted under `artifacts/final/`; Tier B and compressor/hybrid outputs
+remain explicitly unverified.
+
 ## What it does not do
 
 The core does not read PDF/DOCX/PPTX/images/audio/websites, call external services, store requests, or provide a React product UI. External repositories should convert documents to text before calling ContextGuard.

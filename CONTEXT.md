@@ -39,15 +39,15 @@ V1 routes: `GET /v1/health`, `GET /v1/capabilities`, `POST /v1/analyze`, `POST /
 - M2 ExactGuard: implemented for explicit numeric, percentage, currency, date/time, unit, version, URL/email, path, flag, and code facts.
 - M3 LogicGuard: implemented for bilingual negation, comparisons, conditions, exceptions, and modality.
 - M4 relation/entity: conservative explicit-structure implementation added; broad semantic NER remains limited.
-- M5 benchmark: provisional Tier A (300) and Tier B (2,001) datasets, deterministic runner, per-category metrics, reproducibility signature, artifact validation, and guarded promotion helper implemented. Both datasets remain synthetic/unverified.
+- M5 benchmark: Tier A (300) and Tier B (2,001) datasets, deterministic runner, per-category metrics, reproducibility signature, artifact validation, and guarded promotion helper implemented. Tier A was audited and frozen; Tier B remains synthetic/unverified.
 - M6 compressor adapters: rule-based protected-span compressor, controlled mutations, Tier C unverified candidate generation, and a lazy revision-pinned LLMLingua-2 adapter implemented and exercised; the LLM summarizer remains an explicit unavailable boundary.
 - M7 semantic verifier: optional only-on-UNCERTAIN orchestration, safe unavailable/error fallback, and a lazy revision-pinned Transformers NLI adapter implemented. A CPU smoke and an uncertainty-path benchmark succeeded; quality benchmarking remains provisional.
 - M8 packaging: package, CLI, FastAPI, non-root Dockerfile, health check, local image build, and container smoke test completed.
-- M9 final audit: pending manual label audit, real compressor/semantic measurements, resource measurements, and final artifact promotion.
+- M9 final audit: deterministic gates, Tier A audit, dependency/security checks, real adapter measurements, resource measurements, and audited Tier A artifact promotion completed; optional quality expansion remains limited.
 
 # Current Status
 
-Status: `IMPLEMENTATION_COMPLETE_BENCHMARK_PENDING` (provisional synthetic benchmark exists; manual golden and real compressor quality gates are pending).
+Status: `COMPLETED_WITH_LIMITATIONS` (audited deterministic Tier A artifact is promoted; Tier B, real compressor outputs, and hybrid semantic measurements remain bounded/unverified).
 
 Repository was empty at start. Environment audit: Windows 11, i5-12500H, 24 GB RAM, RTX 3050 Laptop 4 GB, Python 3.11 available, `uv` and Git available. No model or cache is in the repository.
 
@@ -63,7 +63,7 @@ GPU follow-up: a separate external CUDA venv using `torch 2.8.0+cu126` detected 
 
 Mixed semantic smoke: 20 deliberately uncertain cases (16 controlled unsafe paraphrases and 4 safe identities) on the same CUDA environment produced hybrid false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, fallback rate 0.2, P50/P95 21.862/310.104 ms, peak RSS 2,619.078 MB, and peak VRAM 1,120.0 MB. All labels remain `synthetic_unverified`; this is not a golden-set or production quality claim.
 
-Tier A structural audit regenerated the dataset exactly (`300/300` records), with 300 unique IDs and pairs, balanced `75` per language/label cell, and the expected controlled mutation counts. This verifies provenance and schema, not human semantic correctness; `label_status` remains `synthetic_unverified` and manual semantic audit is still required.
+Tier A audit regenerated the dataset exactly (`300/300` records), reviewed all records against the controlled bilingual template semantics, found 300 unique IDs and pairs, balanced `75` per language/label cell, and confirmed the expected mutation counts. The audited copy is `benchmarks/datasets/golden_v0_audited.jsonl` with `label_status=audited`; the audit reviewer is Codex, not an external domain expert.
 
 Final audit evidence: `pip-audit --local` reported no known vulnerabilities; tracked secret, large-file, forbidden-path, and model-weight scans were clean.
 
@@ -71,7 +71,7 @@ Final audit evidence: `pip-audit --local` reported no known vulnerabilities; tra
 
 - Deterministic V1 cannot prove unrestricted natural-language equivalence.
 - Entity and relation handling will be conservative and may return `UNCERTAIN`.
-- The required sample counts now exist, but Tier A labels have not been manually audited and Tier B mutations are controlled synthetic records; quality claims remain provisional.
+- Tier A is audited against controlled templates, but not independently reviewed by an external domain expert. Tier B mutations remain controlled synthetic records; claims outside the audited deterministic set remain provisional.
 - Real token compressor quality and production end-to-end token savings are not yet measured. The LLMLingua-2 smoke produced candidates but showed high CPU/RAM cost and is explicitly unverified; a 20-case run is not a quality gate.
 - Hybrid semantic quality is not yet established: both CPU and CUDA 20-case uncertainty-path runs are resource/behavior smokes only, and the full provisional sets had no uncertain cases. The default project venv remains CPU-only; the external CUDA measurement is recorded above and is not a production resource guarantee.
 - FastAPI integration test emits an upstream Starlette/httpx deprecation warning; tests still pass.
@@ -93,4 +93,4 @@ Temporary files belong in `.runtime/`. Final benchmark artifacts are restricted 
 
 # Next Action
 
-Next: manually audit and freeze Tier A labels, expand the bounded real compressor run only after reviewing its 1.98 GB RSS/1.50 s mean cost, then build a labelled hybrid benchmark with enough `UNCERTAIN` and contradiction cases to assess quality rather than only resource behavior. Do not promote synthetic or unverified runs to `artifacts/final/`; `promote_run` requires `label_status` `verified` or `audited` and a validated artifact set.
+Next: expand the externally reviewed golden set, add a larger labelled hybrid semantic benchmark, and measure end-to-end token savings before making production or paper-grade claims. Do not promote synthetic or unverified runs to `artifacts/final/`; `promote_run` requires `label_status` `verified` or `audited` and a validated artifact set.

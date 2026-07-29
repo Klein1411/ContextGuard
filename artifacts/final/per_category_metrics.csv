@@ -1,0 +1,12 @@
+category,metric_group,sample_count,false_acceptance_rate,unsafe_detection_recall,false_rejection_rate,precision
+condition_removed,Constraint recall,9,0.0,1.0,0.0,1.0
+date_changed,Date retention,10,0.0,1.0,0.0,1.0
+exception_removed,Exception recall,8,0.0,1.0,0.0,1.0
+modality_changed,Constraint recall,20,0.0,1.0,0.0,1.0
+model_role_changed,Entity-role consistency,18,0.0,1.0,0.0,1.0
+money_changed,Currency retention,10,0.0,1.0,0.0,1.0
+negation_removed,Negation recall,19,0.0,1.0,0.0,1.0
+number_changed,Numeric retention,18,0.0,1.0,0.0,1.0
+percentage_changed,Percentage retention,20,0.0,1.0,0.0,1.0
+safe_transformation,SAFE transformation,150,0.0,0.0,0.0,1.0
+unit_changed,Unit retention,18,0.0,1.0,0.0,1.0
