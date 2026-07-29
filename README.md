@@ -64,7 +64,7 @@ uv run context-guard benchmark --output .runtime/benchmark --validate-artifacts
 uv run context-guard candidates --output .runtime/tier_c_rule_based_unverified.jsonl
 ```
 
-Verified local provisional runs on 2026-07-29 (HEAD `78154e9`, seed `20260729`) report Tier A 300 samples and Tier B 2,014 samples; both had false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, and precision `1.0`. Tier A is exactly balanced across the four domains. Rules-only P95 latency was 0.553 ms (Tier A) and 2.298 ms (Tier B); measured peak RAM was 30.340 MB and 37.148 MB respectively, while peak VRAM was not measured. The datasets are synthetic/unverified, so these numbers are not a manual golden-set, compressor, or paper-grade claim. Use `--validate-artifacts` before any retention; promotion is guarded and refuses unverified labels.
+Verified local provisional runs on 2026-07-29 (HEAD `cccdaf3`, seed `20260729`) report Tier A 300 samples and Tier B 2,014 samples; both had false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, and precision `1.0`. Tier A is exactly balanced across the four domains. Rules-only P95 latency was 0.847 ms (Tier A) and 2.360 ms (Tier B); measured peak RAM was 30.168 MB and 37.465 MB respectively, while peak VRAM was not measured. The datasets are synthetic/unverified, so these numbers are not a manual golden-set, compressor, or paper-grade claim. Use `--validate-artifacts` before any retention; promotion is guarded and refuses unverified labels.
 
 `candidates` generates Tier C rule-based candidates with `label_status=unverified`; it never assigns correctness labels automatically.
 
