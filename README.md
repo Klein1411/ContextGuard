@@ -25,6 +25,12 @@ result = guard.validate(
 print(result.status, result.recommended_action)
 ```
 
+## Python API
+
+`ContextGuard`, `GuardConfig`, `AnalyzeResult`, `ValidationResult`, `Fact`, `ProtectedSpan`,
+`Violation`, `SafetyStatus`, `RiskLevel`, and `RecommendedAction` được export trực tiếp từ
+`context_guard`. Core chỉ chạy deterministic/offline; semantic verifier là adapter opt-in.
+
 ## REST API
 
 ```powershell
@@ -38,6 +44,12 @@ Routes V1: `/v1/health`, `/v1/capabilities`, `/v1/analyze`, `/v1/validate`. Open
 Profiles are `general`, `academic`, `business`, and `technical`. Policies are `lenient`, `balanced`, and `strict`; strict is the default and falls back to the original text for `FAIL` or `UNCERTAIN`.
 
 The adapter boundary includes `RuleBasedCompressor`, controlled mutations, and explicit unavailable placeholders for token-level and LLM summarizer backends. `ContextGuard.validate_with_semantic(...)` invokes a semantic verifier only for deterministic `UNCERTAIN`; adapter errors keep the safe fallback.
+
+Semantic adapter tùy chọn dùng `TransformersSemanticVerifier` với model multilingual
+`MoritzLaurer/mDeBERTa-v3-base-mnli-xnli`, revision `add259b`, license MIT. Cài bằng
+`uv sync --group semantic`; model tải vào cache ngoài repository, CPU fallback hoạt động khi
+CUDA không khả dụng. Smoke test local đã chạy được trên CPU; chưa dùng kết quả này làm quality
+gate hybrid.
 
 ## CLI
 
@@ -73,7 +85,7 @@ docker run --rm -p 8000:8000 contextguard:local
 
 The local image was built and a non-root container was smoke-tested on 2026-07-29: `/v1/health` returned `200`, `/v1/capabilities` reported the expected adapter boundary, and `/v1/validate` returned `FAIL` for a Python 3.11 versus 3.12 version change. The image is not published.
 
-Verified local provisional runs on 2026-07-29 (code commit `ee9fd56`, seed `20260729`) report Tier A 300 samples and Tier B 2,001 samples; both had false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, and precision `1.0`. Tier A is exactly balanced across the four domains. Tier B includes real safe date-format transformations in addition to identity records. Rules-only P95 latency was 0.760 ms (Tier A) and 2.336 ms (Tier B); measured peak RAM was 30.230 MB and 38.383 MB respectively, while peak VRAM was not measured. The datasets are synthetic/unverified, so these numbers are not a manual golden-set, compressor, or paper-grade claim. Use `--validate-artifacts` before any retention; promotion is guarded and refuses unverified labels.
+Verified local provisional runs on 2026-07-29 (code commit `18bb675`, seed `20260729`) report Tier A 300 samples and Tier B 2,001 samples; both had false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, and precision `1.0`. Tier A is exactly balanced across the four domains. Tier B includes real safe date-format transformations in addition to identity records. Rules-only P50/P95 latency was 0.370/0.606 ms (Tier A) and 1.242/2.028 ms (Tier B); measured peak RAM was 30.398 MB and 38.371 MB respectively, while peak VRAM was not measured. The datasets are synthetic/unverified, so these numbers are not a manual golden-set, compressor, or paper-grade claim. Use `--validate-artifacts` before any retention; promotion is guarded and refuses unverified labels.
 
 `candidates` generates Tier C rule-based candidates with `label_status=unverified`; it never assigns correctness labels automatically.
 
