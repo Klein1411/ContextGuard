@@ -4,12 +4,14 @@ from pathlib import Path
 
 import pytest
 
+from context_guard.adapters.semantic import UnavailableSemanticVerifier
 from context_guard.benchmarks.dataset import (
     build_provisional_mutations,
     load_jsonl,
     validate_dataset,
     validate_mutation_dataset,
 )
+from context_guard.benchmarks.hybrid import run_hybrid_benchmark
 from context_guard.benchmarks.runner import promote_run, run_benchmark, validate_run_artifacts
 
 
@@ -61,3 +63,24 @@ def test_unverified_run_cannot_be_promoted(tmp_path: Path) -> None:
     run_benchmark(output, dataset=Path("benchmarks/datasets/golden_v0_provisional.jsonl"))
     with pytest.raises(ValueError, match="label_status"):
         promote_run(output, tmp_path / "final")
+
+
+def test_hybrid_benchmark_keeps_unavailable_verifier_safe(tmp_path: Path) -> None:
+    output = tmp_path / "hybrid"
+    result = run_hybrid_benchmark(
+        [
+            {
+                "id": "uncertain-1",
+                "original": "Deadline 03/04/2026.",
+                "candidate": "Deadline 03/04/2026.",
+                "label": "SAFE",
+                "label_status": "unverified",
+            }
+        ],
+        UnavailableSemanticVerifier(),
+        output=output,
+    )
+    assert result["sample_count"] == 1
+    assert result["semantic_calls"] == 0
+    assert result["label_status_allows_final_promotion"] is False
+    assert (output / "hybrid_manifest.json").is_file()

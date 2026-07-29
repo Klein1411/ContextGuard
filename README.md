@@ -44,7 +44,7 @@ Routes V1: `/v1/health`, `/v1/capabilities`, `/v1/analyze`, `/v1/validate`. Open
 
 Profiles are `general`, `academic`, `business`, and `technical`. Policies are `lenient`, `balanced`, and `strict`; strict is the default and falls back to the original text for `FAIL` or `UNCERTAIN`.
 
-The adapter boundary includes `RuleBasedCompressor`, controlled mutations, a lazy `LLMLingua2Compressor`, and an explicit unavailable placeholder for LLM summarizer backends. `ContextGuard.validate_with_semantic(...)` invokes a semantic verifier only for deterministic `UNCERTAIN`; adapter errors keep the safe fallback. LLMLingua-2 remains opt-in and unverified until a real Tier C run is manually audited.
+The adapter boundary includes `RuleBasedCompressor`, controlled mutations, a lazy `LLMLingua2Compressor`, and an explicit unavailable placeholder for LLM summarizer backends. `ContextGuard.validate_with_semantic(...)` invokes a semantic verifier only for deterministic `UNCERTAIN`; adapter errors keep the safe fallback. LLMLingua-2 remains opt-in and unverified: a bounded 20-sample smoke run completed, but its output is not a quality claim.
 
 Semantic adapter tùy chọn dùng `TransformersSemanticVerifier` với model multilingual
 `MoritzLaurer/mDeBERTa-v3-base-mnli-xnli`, revision `add259b`, license MIT. Cài bằng
@@ -86,9 +86,9 @@ docker run --rm -p 8000:8000 contextguard:local
 
 The local image was built and a non-root container was smoke-tested on 2026-07-29: `/v1/health` returned `200`, `/v1/capabilities` reported the expected adapter boundary, and `/v1/validate` returned `FAIL` for a Python 3.11 versus 3.12 version change. The image is not published.
 
-Verified local provisional runs on 2026-07-29 (code commit `77e2c38`, seed `20260729`) report Tier A 300 samples and Tier B 2,001 samples; both had false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, and precision `1.0`. Tier A is exactly balanced across the four domains. Tier B includes real safe date-format transformations in addition to identity records. Rules-only P50/P95 latency was 0.362/0.604 ms (Tier A) and 1.305/2.224 ms (Tier B); measured peak RAM was 30.414 MB and 38.375 MB respectively, while peak VRAM was not measured. The runner also records a metric-only quality gate (recall ≥95%, FAR ≤2%, P95 ≤50 ms) and normalized `metric_group` rows; both provisional runs passed that metric gate. The latest local suite has 49 passing tests; `pip-audit --local` found no known vulnerabilities. The datasets are synthetic/unverified, so these numbers are not a manual golden-set, compressor, or paper-grade claim. Use `--validate-artifacts` before any retention; promotion is guarded and refuses unverified labels.
+Verified local provisional runs on 2026-07-29 (code commit `77e2c38`, seed `20260729`) report Tier A 300 samples and Tier B 2,001 samples; both had false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, and precision `1.0`. Tier A is exactly balanced across the four domains. Tier B includes real safe date-format transformations in addition to identity records. Rules-only P50/P95 latency was 0.362/0.604 ms (Tier A) and 1.305/2.224 ms (Tier B); measured peak RAM was 30.414 MB and 38.375 MB respectively, while peak VRAM was not measured. The runner also records a metric-only quality gate (recall ≥95%, FAR ≤2%, P95 ≤50 ms) and normalized `metric_group` rows; both provisional runs passed that metric gate. The latest local suite has 51 passing tests; `pip-audit --local` found no known vulnerabilities. The datasets are synthetic/unverified, so these numbers are not a manual golden-set, compressor, or paper-grade claim. Use `--validate-artifacts` before any retention; promotion is guarded and refuses unverified labels.
 
-`candidates` generates Tier C rule-based candidates with `label_status=unverified`; it never assigns correctness labels automatically.
+`candidates` generates Tier C rule-based candidates with `label_status=unverified`; it never assigns correctness labels automatically. The latest LLMLingua-2 smoke run also keeps every candidate unverified.
 
 ## What it does not do
 

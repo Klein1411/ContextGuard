@@ -85,7 +85,6 @@ class LLMLingua2Compressor:
                 rate=self.rate,
                 force_tokens=force_tokens,
                 force_reserve_digit=True,
-                use_llmlingua2=True,
             )
             compressed = result.get("compressed_prompt")
         except Exception as exc:

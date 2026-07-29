@@ -1,3 +1,6 @@
+import sys
+from types import SimpleNamespace
+
 import pytest
 
 from context_guard import (
@@ -47,6 +50,31 @@ def test_llmlingua2_adapter_is_lazy_and_safe_when_model_is_not_cached() -> None:
     compressor.model_id = "contextguard/nonexistent-compressor-model"
     with pytest.raises(AdapterUnavailableError, match="LLMLingua-2"):
         compressor.compress("text")
+
+
+def test_llmlingua2_adapter_passes_mode_at_load_not_compress(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls: dict[str, object] = {}
+
+    class FakePromptCompressor:
+        def __init__(self, **kwargs: object) -> None:
+            calls["load"] = kwargs
+
+        def compress_prompt(self, context: list[str], **kwargs: object) -> dict[str, str]:
+            calls["compress"] = kwargs
+            assert context == ["text"]
+            return {"compressed_prompt": "text"}
+
+    monkeypatch.setitem(
+        sys.modules,
+        "llmlingua",
+        SimpleNamespace(PromptCompressor=FakePromptCompressor),
+    )
+    compressor = LLMLingua2Compressor(device="cpu", local_files_only=True)
+    assert compressor.compress("text") == "text"
+    assert calls["load"]["use_llmlingua2"] is True  # type: ignore[index]
+    assert "use_llmlingua2" not in calls["compress"]  # type: ignore[operator]
 
 
 class _FakeSemanticVerifier:
