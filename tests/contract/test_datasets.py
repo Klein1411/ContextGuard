@@ -1,3 +1,4 @@
+import json
 from collections import Counter
 from pathlib import Path
 
@@ -46,6 +47,13 @@ def test_benchmark_artifact_contract(tmp_path: Path) -> None:
     run_benchmark(output, dataset=Path("benchmarks/datasets/golden_v0_provisional.jsonl"))
     result = validate_run_artifacts(output, expected_sample_count=300)
     assert result["valid"] is True
+    manifest = json.loads(
+        (output / "benchmark_manifest.json").read_text(encoding="utf-8")
+    )
+    assert manifest["quality_gate"]["critical_metrics_pass"] is True
+    assert manifest["quality_gate"]["label_status_allows_final_promotion"] is False
+    category_csv = (output / "per_category_metrics.csv").read_text(encoding="utf-8")
+    assert "metric_group" in category_csv
 
 
 def test_unverified_run_cannot_be_promoted(tmp_path: Path) -> None:

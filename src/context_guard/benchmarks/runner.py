@@ -23,6 +23,34 @@ from context_guard.benchmarks.dataset import (
     validate_mutation_dataset,
 )
 
+_METRIC_GROUPS = {
+    "number_changed": "Numeric retention",
+    "percentage_changed": "Percentage retention",
+    "money_changed": "Currency retention",
+    "date_changed": "Date retention",
+    "safe_date_format": "Date retention",
+    "unit_changed": "Unit retention",
+    "negation_removed": "Negation recall",
+    "condition_removed": "Constraint recall",
+    "comparison_reversed": "Constraint recall",
+    "modality_changed": "Constraint recall",
+    "exception_removed": "Exception recall",
+    "entity_changed": "Entity-role consistency",
+    "responsible_changed": "Entity-role consistency",
+    "model_role_changed": "Entity-role consistency",
+    "filename_changed": "Technical literal retention",
+    "config_changed": "Technical literal retention",
+    "command_changed": "Technical literal retention",
+    "boolean_changed": "Technical literal retention",
+    "version_changed": "Technical literal retention",
+    "relation_swap": "Relation swap detection",
+}
+
+
+def _metric_group(category: str) -> str:
+    fallback = "SAFE transformation" if category.startswith("safe") else "Other"
+    return _METRIC_GROUPS.get(category, fallback)
+
 
 @dataclass(frozen=True)
 class MutationCase:
@@ -281,6 +309,7 @@ def run_benchmark(
         category_rows.append(
             {
                 "category": category,
+                "metric_group": _metric_group(category),
                 "sample_count": len(rows),
                 "false_acceptance_rate": sum(
                     row["predicted"] == SafetyStatus.PASS.value for row in unsafe_rows
@@ -315,6 +344,18 @@ def run_benchmark(
         ).stdout.strip()
     except (OSError, subprocess.SubprocessError):
         git_commit = "unknown"
+    quality_gate = {
+        "critical_unsafe_recall_target": 0.95,
+        "false_acceptance_rate_target": 0.02,
+        "p95_latency_ms_target": 50.0,
+        "critical_metrics_pass": (
+            float(str(metrics["unsafe_detection_recall"])) >= 0.95
+            and float(str(metrics["false_acceptance_rate"])) <= 0.02
+            and float(str(metrics["p95_latency_ms"])) <= 50.0
+        ),
+        "label_status_allows_final_promotion": False,
+        "note": "Metric-only gate; contract/regression and manual-label gates are separate.",
+    }
     manifest: dict[str, object] = {
         "run_id": now.strftime("%Y%m%dT%H%M%SZ"),
         "timestamp": now.isoformat(),
@@ -341,6 +382,7 @@ def run_benchmark(
             "label_status": "synthetic_unverified",
         },
         "metrics": metrics,
+        "quality_gate": quality_gate,
         "label_status": "synthetic_unverified",
         "dataset_validation": dataset_validation,
         "decision_sha256": _decision_signature(predictions),
@@ -378,7 +420,11 @@ def run_benchmark(
     with (output / "per_category_metrics.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(
             handle,
-            fieldnames=list(category_rows[0]) if category_rows else ["category", "sample_count"],
+            fieldnames=(
+                list(category_rows[0])
+                if category_rows
+                else ["category", "metric_group", "sample_count"]
+            ),
         )
         writer.writeheader()
         writer.writerows(category_rows)
@@ -467,6 +513,12 @@ def validate_run_artifacts(
         csv_rows = list(csv.DictReader(handle))
     if len(csv_rows) != 1 or int(csv_rows[0].get("sample_count", -1)) != sample_count:
         raise ValueError("metrics.csv does not match prediction sample count")
+    with (output / "per_category_metrics.csv").open(encoding="utf-8", newline="") as handle:
+        category_rows = list(csv.DictReader(handle))
+    if category_rows and any(
+        not row.get("category") or not row.get("metric_group") for row in category_rows
+    ):
+        raise ValueError("per_category_metrics.csv has incomplete category metadata")
     return {"valid": True, "sample_count": sample_count, "recomputed_metrics": recomputed}
 
 
