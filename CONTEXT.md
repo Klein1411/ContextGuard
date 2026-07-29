@@ -76,9 +76,15 @@ M12 đã chuẩn bị năm packet ngẫu nhiên độc lập (`academic`, `techn
 
 Validator/adjudicator `scripts/aggregate_review.py` đã kiểm tra đủ `5 × 400` dòng, unique item ID và schema. Kết quả raw: unanimous rate `0.575`, mean pairwise agreement `0.740`, Fleiss kappa `0.521`. Majority adjudication resolve `347/400`, loại `53` unresolved/tie; verdict counts `SAFE 98`, `UNSAFE 213`, `UNCERTAIN 36`. Alignment `0.859` chỉ so với controlled construction labels, không phải human/domain-expert truth. Public artifact là `artifacts/final/m12_review_summary.json`; raw reviewer output không public.
 
+# M13 — Compressor/token-saving end-to-end pilot
+
+M13 đã chạy 24 record đại diện từ M11, ba rate `.33/.50/.70`, cả `RuleBasedCompressor` và `LLMLingua-2`, với protected-span ablation trên 8 record đầu. Token metric dùng `Qwen/Qwen2.5-0.5B-Instruct`; mỗi candidate được đo gross saving và safe effective saving sau deterministic guard. Có bốn path: `R6_direct_compressor`, `R7_direct_guard`, `R8_api_guard`, `R9_direct_api_guard`, tổng 672 metric rows; LLMLingua fallback `0/672` ở cache local lần chạy này.
+
+Kết quả aggregate trên protected=true và path guard: LLMLingua-2 mean gross saving ratio `0.451`, mean safe saving ratio `0.024`, PASS rate `0.153`; RuleBased mean gross `0.150`, safe saving `0.000`, PASS rate `0.417`. Có `24/672` fallback rows do guard max input 512 token; không coi fallback là compression success. Đây là minh chứng trade-off: gross token saving không đồng nghĩa candidate an toàn. Pareto points được ghi trong `artifacts/final/m13_compressor_manifest.json`; per-sample metrics nằm ở `m13_compressor_metrics.csv` và `m13_compressor_samples.jsonl`. Break-even tiền/LLM downstream chưa đo vì chưa có target LLM/API cost contract; manifest ghi limitation này.
+
 # Trạng thái hiện tại
 
-Status: `PARTIALLY_COMPLETED` (M0–M9 và M10a–M12 đã hoàn tất; M13–M14 đang thực thi; Tier B, output compressor thật và hybrid semantic vẫn có giới hạn rõ ràng).
+Status: `PARTIALLY_COMPLETED` (M0–M9 và M10a–M13 đã hoàn tất; M14 và báo cáo Word đang thực thi; Tier B, output compressor thật và hybrid semantic vẫn có giới hạn rõ ràng).
 
 Repository trống lúc bắt đầu. Audit môi trường: Windows 11, i5-12500H, RAM 24 GB, RTX 3050 Laptop 4 GB, Python 3.11, `uv` và Git khả dụng. Không có model hoặc cache trong repository.
 
@@ -114,6 +120,7 @@ Tier A audit tái sinh khớp chính xác `300/300`, xem xét toàn bộ record 
 - Chưa đo được token savings end-to-end. LLMLingua-2 có chi phí CPU/RAM cao; smoke 20 mẫu chưa phải quality gate.
 - M11 mới là controlled pilot: QASPER payload chưa khả dụng ở revision đã pin, bản dịch tiếng Việt có marker cần QA, và nhãn SAFE/UNSAFE chưa được adjudicate bởi người.
 - M12 là AI-reviewed/AI-adjudicated; không được gọi là human review. Kappa và agreement chỉ mô tả độ nhất quán giữa các reviewer AI trên packet mù.
+- M13 là bounded pilot 24 record; safe saving thấp và break-even downstream chưa đo. Không suy diễn thành production compressor quality hoặc cost claim.
 - Hybrid semantic đã có audited benchmark 100 ca và đạt gate trên tập có kiểm soát; vẫn cần tập tự nhiên rộng hơn để khẳng định khả năng tổng quát. Full provisional set không có `UNCERTAIN`; CUDA đo trong môi trường ngoài, không phải guarantee production.
 - FastAPI integration test còn upstream Starlette/httpx deprecation warning; test vẫn pass.
 - Docker build và non-root smoke đã xác minh local; chưa publish registry hoặc deploy production.
@@ -134,4 +141,4 @@ File tạm phải nằm trong `.runtime/`. Dữ liệu dài hạn và checkpoint
 
 # Việc tiếp theo
 
-M13 đo compressor/token-saving end-to-end (R6–R9), sau đó tạo báo cáo Word public và chạy M14 audit cuối. Không promote synthetic/unverified run; `promote_run` chỉ nhận `label_status` `verified` hoặc `audited` và artifact set đã validate.
+M14 audit toàn bộ, đồng bộ docs và hoàn thiện báo cáo Word public. Không promote synthetic/unverified run; `promote_run` chỉ nhận `label_status` `verified` hoặc `audited` và artifact set đã validate.

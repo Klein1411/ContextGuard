@@ -1,6 +1,6 @@
 {
   "benchmark": "natural_adversarial_v1",
-  "created_at_utc": "2026-07-29T13:15:31.540631+00:00",
+  "created_at_utc": "2026-07-29T13:35:27.616064+00:00",
   "seed": 20260729,
   "schema": "ContextGuard.M11.v1",
   "status": "controlled_pilot; labels are construction labels, not human truth annotations",
@@ -30,21 +30,21 @@
   "natural_adversarial": {
     "natural": 140,
     "adversarial": 140,
-    "translated_marked": 140
+    "translated_marked": 104
   },
   "files": {
     "dev": {
-      "path": "C:\\Users\\klein\\AppData\\Local\\Temp\\pytest-of-klein\\pytest-82\\test_m11_records_are_balanced_0\\data\\normalized\\natural_adversarial_v1_dev.jsonl",
-      "sha256": "7f0cf1eb7b4a171f2d04648f82adaa9f711c58b182d5623b034021e211c38890",
+      "path": "external_data_home",
+      "sha256": "0027cf3ed36fbdc1788852d7c278f34d7590522d833d13300d137808856eca2f",
       "records": 280
     },
     "hidden_payload": {
-      "path": "C:\\Users\\klein\\AppData\\Local\\Temp\\pytest-of-klein\\pytest-82\\test_m11_records_are_balanced_0\\data\\normalized\\natural_adversarial_v1_hidden.jsonl",
-      "sha256": "8b06c49bbb5d6006bdf829fade3166d344ed2acf0602438086b5b707492ea47c",
+      "path": "external_data_home",
+      "sha256": "e83d131da516269d42958000a166dcf4b2c5de2be688d1ad137fddeae0ee0615",
       "records": 120
     },
     "hidden_labels": {
-      "path": "C:\\Users\\klein\\AppData\\Local\\Temp\\pytest-of-klein\\pytest-82\\test_m11_records_are_balanced_0\\data\\benchmark_cache\\natural_adversarial_v1_hidden_labels.jsonl",
+      "path": "external_data_home",
       "sha256": "b70020150260e21367cad4da0be973dfb0c72966c285b2045102dfa70cbd51d0",
       "records": 120
     }
@@ -62,7 +62,252 @@
       "revision": "stanfordnlp/contract-nli@main (shallow clone; archive checksum recorded)",
       "license": "CC-BY-4.0",
       "status": "downloaded_and_extracted",
-      "checksums": []
+      "checksums": [
+        {
+          "path": "external_data_home",
+          "file_count": 8,
+          "files_sha256": [
+            {
+              "name": ".gitignore",
+              "sha256": "905bcbf91f47ff3596b8f9287243776439321357762748035b98c61ce7b0ba66"
+            },
+            {
+              "name": "_config.yml",
+              "sha256": "608b44760418abf0bc7496fecd00b142992f15d0719a8b9bcc4599caf90b079f"
+            },
+            {
+              "name": "_layouts\\default.html",
+              "sha256": "bf356a7f923c569ad51d890ed5783ebcc67d629eb5cf97332c30b897ba69635e"
+            },
+            {
+              "name": "index.md",
+              "sha256": "9804066c408da4ba0fbe8fb58f3a1ca379ce94c092743739e53c4f10dfcfab8a"
+            },
+            {
+              "name": "LICENSE",
+              "sha256": "cbd5af318286b74656f145dff5091907cc23d6d8c9ad09e0291ec2497792ba41"
+            },
+            {
+              "name": "README.md",
+              "sha256": "b679b47983114270ccffe36c11d82650fc87f644f8917383e0ef534e929ff954"
+            },
+            {
+              "name": "resources\\contract-nli.zip",
+              "sha256": "e03fc77bbf8b53e2976a250e81d8a294bc3d5e5fb014521e477dee9340d6287b"
+            },
+            {
+              "name": "resources\\task_overview.png",
+              "sha256": "41f9562faf44481e3e0bf2fa0b9870294a9a984df5d0cbc6b0c6f881ffde157c"
+            }
+          ]
+        },
+        {
+          "path": "external_data_home",
+          "file_count": 613,
+          "files_sha256": [
+            {
+              "name": "contract-nli\\dev.json",
+              "sha256": "310af7d661d2ab50ee3700169cef524c75f39fb296bbf5a515c229eb0f42e68e"
+            },
+            {
+              "name": "contract-nli\\LICENSE",
+              "sha256": "9e5f1b3c610b9c2da5c313bf81d577a7d1acec686bdb0384edefa6df0f90cd94"
+            },
+            {
+              "name": "contract-nli\\raw\\ 064-19 Non Disclosure Agreement 2019.pdf",
+              "sha256": "1d8e74e43c56e06565918966a127984e207a9e337e4cd6cb00476ca08a2dd81f"
+            },
+            {
+              "name": "contract-nli\\raw\\01_Bosch-Automotive-Service-Solutions-Mutual-Non-Disclosure-Agreement-7-12-17.pdf",
+              "sha256": "af837571ee7013a91c4789283784806e5c82274faa646dae9687125499aa5f18"
+            },
+            {
+              "name": "contract-nli\\raw\\09-24-2019-04-25-05-3914910473.pdf",
+              "sha256": "05d495394d2615bfba6c70ca9b7c6288e3fb8c0ed76a67be14ca21527b8eef84"
+            },
+            {
+              "name": "contract-nli\\raw\\1001113_0000950134-07-005231_f27921orexv99wxdyx3y.htm",
+              "sha256": "4481d0a58a6e070e45f4e7a6e1eb25de76e76a23a89e8e908151b3d3b2b46b79"
+            },
+            {
+              "name": "contract-nli\\raw\\1001917_0000950123-08-007542_y61533exv99wdw3.htm",
+              "sha256": "47177d1753e32de5e26922634953775fa4ad0e3904de3777aa79e6a41f8bde42"
+            },
+            {
+              "name": "contract-nli\\raw\\1002276_0001036050-99-002047_document_13.txt",
+              "sha256": "337fc2d3fae077d803fd5414bf532cdeb6f7ec764efe0ab5e51c7d2c54037879"
+            },
+            {
+              "name": "contract-nli\\raw\\1006459_0000912057-97-027623_document_19.txt",
+              "sha256": "162f03930a916ab83dfd698b4f853166ad970f4b4694993aa05205ab5ef17730"
+            },
+            {
+              "name": "contract-nli\\raw\\1010471_0000950134-97-006281_document_5.txt",
+              "sha256": "6a953866fe40fe26d937ed389e9b4378af5701212101af0a241e8b971c8bb243"
+            },
+            {
+              "name": "contract-nli\\raw\\1010552_0000912057-01-520246_a2051644zex-99_20.htm",
+              "sha256": "0d018ab272ed844f7112c51998a1302e8f2e629babeb4c9bbbc018b6f6a58bf9"
+            },
+            {
+              "name": "contract-nli\\raw\\1011344_0001193125-08-097987_dex99d5.htm",
+              "sha256": "3464f67a3c8eec52c044856f21e4dc40095cf47ce5be907f985c190bc88a4cc1"
+            },
+            {
+              "name": "contract-nli\\raw\\1011671_0000936392-99-000246_document_46.txt",
+              "sha256": "464be500dd6ba64cab6801d409c12af8fc08dadafff07b051540082fb6d1d8be"
+            },
+            {
+              "name": "contract-nli\\raw\\1012459_0000912057-97-027209_document_4.txt",
+              "sha256": "436ec8d2c1db0ac2f5a4a1a62bd1fa3a05c839ca01cdd0691133d3364def4a46"
+            },
+            {
+              "name": "contract-nli\\raw\\1012887_0001193125-07-165503_dex99d6.htm",
+              "sha256": "74c6d9bdeb0f4d4d7546403af367038172429ae903efeb18c70cfd5e49642fca"
+            },
+            {
+              "name": "contract-nli\\raw\\1013240_0001047469-04-010350_a2132633zex-10_22.htm",
+              "sha256": "9a6b256fc94743c449085627deca25a8336995878fff37cb9fa02d85f6e7a20b"
+            },
+            {
+              "name": "contract-nli\\raw\\1013322_0000912057-00-023405_document_2.txt",
+              "sha256": "24a412352c3c3641c5b1c13506dbab17bafef3b86010fb8e04fef9ade610e765"
+            },
+            {
+              "name": "contract-nli\\raw\\1013687_0000950144-96-001973_document_37.txt",
+              "sha256": "ccbde898a0a57eb0e7a7bad49867d27b14799073a697aeafd1c4948d849e2254"
+            },
+            {
+              "name": "contract-nli\\raw\\1013687_0000950144-96-001973_document_38.txt",
+              "sha256": "b23e8154f67df5a1be4eebc910eecd81b6485853fbc29acef212703c9da003af"
+            },
+            {
+              "name": "contract-nli\\raw\\1014552_0000950148-01-500497_v71961toex99-d3.txt",
+              "sha256": "a786a187937348a54b05f077646699ea7e2721e9d7f3682b6a90207c81f0241a"
+            },
+            {
+              "name": "contract-nli\\raw\\1014959_0000950116-96-000618_document_7.txt",
+              "sha256": "6324f9710fc954d9609ddf98a4b9f30c414c1faac64f9b57d7a50bc4aa35e291"
+            },
+            {
+              "name": "contract-nli\\raw\\1016503_0000929624-00-000894_0010.txt",
+              "sha256": "b02515908525115312a74a3abdf187ceff0adbad46b3d49e666a570b525cab84"
+            },
+            {
+              "name": "contract-nli\\raw\\1017358_0001017358-97-000002_document_4.txt",
+              "sha256": "ca6d4a46ac3a3c3cf2778148d77531273653d3ac7ef4213d7be7aeb9545bfc8d"
+            },
+            {
+              "name": "contract-nli\\raw\\1017545_0001012870-97-001500_document_2.txt",
+              "sha256": "79fe13d6cc7d8ab69c6176dfed437adff82db061b17f6d06441259be1f251a6e"
+            },
+            {
+              "name": "contract-nli\\raw\\1018761_0000950130-96-004285_document_6.txt",
+              "sha256": "c3b3c38300ef04744c2fa8ed0a54bba2a46cfff26a34a17d5d388925d3be98db"
+            },
+            {
+              "name": "contract-nli\\raw\\1020416_0001193125-16-701566_d250247dex99d2.htm",
+              "sha256": "02c067e322b3d79395ac3e5c6a54fa047be5ac4d2d184fce872b0ad9c764d056"
+            },
+            {
+              "name": "contract-nli\\raw\\1021086_0000950162-99-000581_document_3.txt",
+              "sha256": "e7522696adbd8c92bd8960c479847667014bf19ce144170741c6104699bf4c67"
+            },
+            {
+              "name": "contract-nli\\raw\\1021096_0000914317-03-001205_ex2-2.txt",
+              "sha256": "2cbcb3d5ec0a82a7e4ee0d6492054d9c2c5987913f0f8a879f441f75c9242121"
+            },
+            {
+              "name": "contract-nli\\raw\\1021097_0001047469-11-001653_a2202345zex-99_d10.htm",
+              "sha256": "c9faaf072497da32d18b4a72589923d7435e9f60bbd3da516c8bb89b889b404d"
+            },
+            {
+              "name": "contract-nli\\raw\\1023734_0000912057-96-023266_document_16.txt",
+              "sha256": "8ddaa5eb4e425b5401895fc20847057f4ec64447ac45aef8e85c0a58aea4c40a"
+            },
+            {
+              "name": "contract-nli\\raw\\1029445_0000940180-97-000212_document_12.txt",
+              "sha256": "0cf5f646703b75051b4c33ea99944f29f514b1301fa5527f8881e14bb5661359"
+            },
+            {
+              "name": "contract-nli\\raw\\1030471_0001012870-01-501268_dex1065.txt",
+              "sha256": "e3fccfa2b9b54962c9ae8a17a2f0aa2eae11662b48d9ecebde7690e94638059e"
+            },
+            {
+              "name": "contract-nli\\raw\\1031896_0000950147-01-501725_ex10-8.txt",
+              "sha256": "69d128794dc8327d5763d44920c39a3f92b36f9ba8cf3f0ff7bfc2f43f77be2a"
+            },
+            {
+              "name": "contract-nli\\raw\\103884_0001193125-12-338104_d390544dex99d3.htm",
+              "sha256": "44a586edfe1ee64ea6c1403fc72e573185347dde011b0d95cdd301e9d7efe08d"
+            },
+            {
+              "name": "contract-nli\\raw\\1039399_0000891618-02-001883_f80848orex10-19.txt",
+              "sha256": "c0a4477a4ecc01085171fdb45b0797a361278fc7485620a1366eb105eaf27632"
+            },
+            {
+              "name": "contract-nli\\raw\\1041550_0001104659-19-001346_a18-42231_6ex10d8.htm",
+              "sha256": "1fb78a58edc4822742d16d4ff72fa8de2e68abe291476e57c1f61677f17cfd5c"
+            },
+            {
+              "name": "contract-nli\\raw\\1041550_0001193125-19-004977_d663808dex106.htm",
+              "sha256": "6e5b72bcf9640d687437d241e6f627d74e97b27b70dadd3c52ba1133ea6f71ea"
+            },
+            {
+              "name": "contract-nli\\raw\\1042282_0000893220-02-000791_e61414toexv99wxdywx1y.txt",
+              "sha256": "8ebb30a7ac0e1c6712cb877348614a7a6b1fda2f017d196e7f3d3ea8f6759431"
+            },
+            {
+              "name": "contract-nli\\raw\\1043003_0000950170-98-000097_document_12.txt",
+              "sha256": "399faafca9639f3ca7cabb4d071f13e0635a9fd727e72867cec67fef4f87f0e7"
+            },
+            {
+              "name": "contract-nli\\raw\\1043431_0000950133-00-000090_document_15.txt",
+              "sha256": "3774d50fe04270238f6f3615581e0027d3a4fb74651260c0d92b25fb33014b9d"
+            },
+            {
+              "name": "contract-nli\\raw\\1044777_0000950124-98-000388_document_7.txt",
+              "sha256": "113f6a954ad9b2bff55f2993ac4959f013deb9fd009ea72a08a9b0ae1b2287b9"
+            },
+            {
+              "name": "contract-nli\\raw\\1045080_0001047469-02-004620_a2094681zex-99_d5.htm",
+              "sha256": "149ec9856ad6cb50dd884dda9ec0a9228c7d0a16a32b123cf13246c421ae75b2"
+            },
+            {
+              "name": "contract-nli\\raw\\1046880_0001193125-11-323050_d262064dex992.htm",
+              "sha256": "ace802ca42029b945eb891c2de03e3f0dbcfe5f25d694d0f42ad74cc8b8eabfe"
+            },
+            {
+              "name": "contract-nli\\raw\\1049210_0001047469-13-009461_a2216846zex-99_d3.htm",
+              "sha256": "62bebca99aa0d58ce2753383ea88196f79bf072b0dfb3d45c2c905b2e1bc65af"
+            },
+            {
+              "name": "contract-nli\\raw\\1050277_0001047469-99-000663_document_7.txt",
+              "sha256": "d10e488c98d30644ea89ce056675dbded71ac636433fc343bb419712d6471508"
+            },
+            {
+              "name": "contract-nli\\raw\\1052303_0000950109-98-003654_document_16.txt",
+              "sha256": "9eb4e8816963dfac1baf95d6d8165ec0c0312f70c17a1c0e1fd9d7b2f7cadbfb"
+            },
+            {
+              "name": "contract-nli\\raw\\1052946_0000950134-98-001627_document_4.txt",
+              "sha256": "7d8c9e6353d5d196b97a7c9c3b09df5235b426943f5878423a1c6aa9c2dff1b3"
+            },
+            {
+              "name": "contract-nli\\raw\\1053352_0001104659-07-049383_a07-17151_1ex10d5.htm",
+              "sha256": "b214491e727b9e9efa6041c44d6bb1aa2b61ef1a3c96fb7a8872e480eab760a7"
+            },
+            {
+              "name": "contract-nli\\raw\\1053374_0001144204-18-062970_tv508217_ex-d2.htm",
+              "sha256": "271c79e89ed0f4d272c14a107607d2f8417b3eb225777e03b7f339c110a8c199"
+            },
+            {
+              "name": "contract-nli\\raw\\1053949_0001005150-98-000126_document_8.txt",
+              "sha256": "0c3b00a92a736fa844eda9cc2b5911e58acb201766bafcfa02a2f9cac335e97c"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "QMSum",
@@ -71,7 +316,214 @@
       "revision": "Yale-LILY/QMSum@main (shallow clone)",
       "license": "MIT",
       "status": "downloaded",
-      "checksums": []
+      "checksums": [
+        {
+          "path": "external_data_home",
+          "file_count": 718,
+          "files_sha256": [
+            {
+              "name": "data\\Academic\\all\\Bdb001.json",
+              "sha256": "22bcde78fe626b42b2865772ccced0e151943ee46f60f38d0609a29d57adf7ef"
+            },
+            {
+              "name": "data\\Academic\\all\\Bed002.json",
+              "sha256": "154dcbab359183b9429d63dccd1c8f0e07260f63a74688ba8435627d0a5111ed"
+            },
+            {
+              "name": "data\\Academic\\all\\Bed003.json",
+              "sha256": "44a40d13c4f485240dc60acc5531374b4979f9ccc9b9415da059a13747754122"
+            },
+            {
+              "name": "data\\Academic\\all\\Bed004.json",
+              "sha256": "c01b69e21d4dfc732bd979784384fb52085b6dca71ec24789c1486f7865343e8"
+            },
+            {
+              "name": "data\\Academic\\all\\Bed005.json",
+              "sha256": "132c122e9a923c7d20fcb30c41d62e0a7933ce5a8aa3e56d0f78371d8efc8620"
+            },
+            {
+              "name": "data\\Academic\\all\\Bed006.json",
+              "sha256": "31a1032d21fd25484f958e5e2320038648bb9a56a00a5a43be85692a1d3f857e"
+            },
+            {
+              "name": "data\\Academic\\all\\Bed008.json",
+              "sha256": "b15a3741770a20708e7cc6158d25579a566d62c9048ff148baad058d56eb352c"
+            },
+            {
+              "name": "data\\Academic\\all\\Bed009.json",
+              "sha256": "3807f35d44e61b62ca4a756c7aabc5ffd778876424c7fdf3d64c484a28d0cdd1"
+            },
+            {
+              "name": "data\\Academic\\all\\Bed010.json",
+              "sha256": "1884d68a66d894253d4bc8a3c6050907b21cfb4adbd7d0d82941bde1ea0df868"
+            },
+            {
+              "name": "data\\Academic\\all\\Bed011.json",
+              "sha256": "3bf03a370911a714909cc815f50da79713ab97f97866976744c3cea3547e1aa9"
+            },
+            {
+              "name": "data\\Academic\\all\\Bed012.json",
+              "sha256": "ca1c46618a5c060ca3d348d6ec5f2d9126bc6ed3f3e410750b5611ece4dd609e"
+            },
+            {
+              "name": "data\\Academic\\all\\Bed013.json",
+              "sha256": "0a54ab7a55efc1265d7f4aa527eb2bc43d0bce2652f1cb72226aa2bfb5dc6a42"
+            },
+            {
+              "name": "data\\Academic\\all\\Bed014.json",
+              "sha256": "d519826e51472ef71de4bb1aea4a1d7f33906ab1ed41f995b1ac38ec4fcabc02"
+            },
+            {
+              "name": "data\\Academic\\all\\Bed015.json",
+              "sha256": "af13986dd6df4c3abcdec64e7cd241e997a8e09a8eebb8cc1f98c0845c828677"
+            },
+            {
+              "name": "data\\Academic\\all\\Bed016.json",
+              "sha256": "2335aef6346d1dd9309cfc0d0784c99f1c7c98dedd06aed34cbb035e776a7a94"
+            },
+            {
+              "name": "data\\Academic\\all\\Bed017.json",
+              "sha256": "9e14eb36da0a597961b63e5153beeee325944bbc0f2db6752417e42a1de30732"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr003.json",
+              "sha256": "558840ec51a2b39f62ab3b52b8aabaaf1052e4f98916ee1ed23119299d633e3e"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr005.json",
+              "sha256": "2eba53fb9d519f77363470b31a0d4338dcb04973c775374542eeb82ffac8840c"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr006.json",
+              "sha256": "6ecfa3168b6db677022b3b314e775b5a14adc3bf8c5f69cd86a1e298fb68ecd7"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr007.json",
+              "sha256": "9bc0cf3c595bc1fdf61992a7e6a4f794cab8db0956189182cdfac72fe3a3fa9a"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr009.json",
+              "sha256": "4f82a3862bdea31e0ef966d3feccdd711b7f78d0e9c39835103f64e61c8f05ab"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr010.json",
+              "sha256": "7c2daf5d64218742df544b0976dcb9ef332454ffaf1bebf06806679530d64555"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr011.json",
+              "sha256": "fbfb6c803ae8aabc5cf265d947d82f04f1038ad351aa7ca122930b0bceb07ff5"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr012.json",
+              "sha256": "2d6a0fa7c4982c9e8d5c681468192156b9f01af52a7aab53910399e614847ba0"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr013.json",
+              "sha256": "1ecb94e2a3c35f230edb5b710311477ed144d736ec074023e78864741ec4be13"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr014.json",
+              "sha256": "d7c6a51500678eedbc83cd694cd4bc4681e0e15a50909e90fb5e9346106c475e"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr015.json",
+              "sha256": "19fabf839fbe2aef382e5016861aab88b9118b4512145f1ee0be7693b89212e2"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr016.json",
+              "sha256": "6c6578e64a691bcbeeadeeda68707cd1a476a593ca427ed9355a0794105db665"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr018.json",
+              "sha256": "2f048a5657c7c4ddc0c8eeed92848956f399beaef6e44fa7a40577323a735070"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr019.json",
+              "sha256": "053c1c60b0d975f4f54687e364331aa920c2517a2a349814772522de044cf377"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr020.json",
+              "sha256": "1a70968c67d8b136bda384201cb6a7c620cf495f35bec51b6cbfe2028d7005f4"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr023.json",
+              "sha256": "70d0d99d63ccfb98e55b4f6421eb657bda18e1295ef7c03f885c8e8ba23c25a8"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr024.json",
+              "sha256": "35eb17da889db1755a7611f9a21a7ee847a5bb8b7f328be5f22929e8b1bf4004"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr025.json",
+              "sha256": "2b5fbfc5916b1331d3c54f99813d1df4ab64420b372cdf84e7f1c03d804dc2d7"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr026.json",
+              "sha256": "1e878d70ce756408b39334d543a34242dea0ae7003d9c99bb44527a663d3d70f"
+            },
+            {
+              "name": "data\\Academic\\all\\Bmr027.json",
+              "sha256": "698f505adfee68e73e43cf94b565249d35a0173e26f45affab8e7b5bbd00a737"
+            },
+            {
+              "name": "data\\Academic\\all\\Bro003.json",
+              "sha256": "bb86269dec1da31f7bdee069561e9d48fc7d72d95ae30d77368631180750f242"
+            },
+            {
+              "name": "data\\Academic\\all\\Bro004.json",
+              "sha256": "0b16380e4ddbb85f67d42242e202e41be33e79cf269854243bead51122562ed7"
+            },
+            {
+              "name": "data\\Academic\\all\\Bro005.json",
+              "sha256": "9ae07cf1c17a88eba67baf37b419d555f685230c195356322fed9abfc7eafa7c"
+            },
+            {
+              "name": "data\\Academic\\all\\Bro007.json",
+              "sha256": "29b0b01ceed3042e58f284d940579444d1d3536b9778797bdfaa777964e05fc0"
+            },
+            {
+              "name": "data\\Academic\\all\\Bro008.json",
+              "sha256": "e306b59c4e2cb5f5e5cb788f87e8daa3ca7342e1e0c34e82f9fbcee13bb203a4"
+            },
+            {
+              "name": "data\\Academic\\all\\Bro010.json",
+              "sha256": "94634c8d6491c8273853ac71e931600d3e7f64e636b3809601c6d29fa6b39c2f"
+            },
+            {
+              "name": "data\\Academic\\all\\Bro011.json",
+              "sha256": "99735ff94ebbadcc9e31bc81ca20c3bdd914d6af64d54c8061b2b68b3c68db47"
+            },
+            {
+              "name": "data\\Academic\\all\\Bro012.json",
+              "sha256": "5103fa396ec0b3fda2b03d47d2268f3f06de46b7e1b2e11aee8c5a5a73dc4799"
+            },
+            {
+              "name": "data\\Academic\\all\\Bro013.json",
+              "sha256": "a50b9b9460f2fbcfa06e58d9cc6683a4176a3c3a7ed6afa7650398731e6d4c72"
+            },
+            {
+              "name": "data\\Academic\\all\\Bro014.json",
+              "sha256": "2e216df08c40f7643c8cb309db1a5932813104c72928d4bb22ef46324e93079c"
+            },
+            {
+              "name": "data\\Academic\\all\\Bro016.json",
+              "sha256": "fb1835d0481d553d26062c90798ed8cc1fe2aad8e47639c4b463be9f476a3fe4"
+            },
+            {
+              "name": "data\\Academic\\all\\Bro017.json",
+              "sha256": "4f9b43c6a3040392f347c8cd96bb4d3b3d02905f5f7907182528b2dd4a71ad53"
+            },
+            {
+              "name": "data\\Academic\\all\\Bro018.json",
+              "sha256": "a56c9d54d0b92dabe50e966e8bffb856d1c613bd269a41a8f4d1765422d79f1e"
+            },
+            {
+              "name": "data\\Academic\\all\\Bro019.json",
+              "sha256": "0593f662df94363216e0be6f5609ddf15457b4455b70a0adfd8ac8397db6e6cb"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "QASPER",
@@ -89,7 +541,272 @@
       "revision": "allenai/scifact@main (data archive checksum recorded)",
       "license": "MIT",
       "status": "downloaded_and_extracted",
-      "checksums": []
+      "checksums": [
+        {
+          "path": "external_data_home",
+          "file_count": 46,
+          "files_sha256": [
+            {
+              "name": ".gitignore",
+              "sha256": "c9051026a34701a8eb70ba226511673c24bc60158f33da8cb21809b5a841af99"
+            },
+            {
+              "name": "covid\\claims.txt",
+              "sha256": "5e8226fb991e92851c2ae759fe0717adfefd900a7d3d956924eb6756eb839630"
+            },
+            {
+              "name": "doc\\claims-with-citances.md",
+              "sha256": "3e314d4107b3059123757e4136ff3cf7b94451b486cf64d0f0f5f6d28991f2f2"
+            },
+            {
+              "name": "doc\\data.md",
+              "sha256": "04c8364d2e306e5702dc90848497caaecfab1fa00d0a308fd491b57e55cfc488"
+            },
+            {
+              "name": "doc\\evaluation.md",
+              "sha256": "7c2e1954b1f0b8ce0d8650a88007c22f64220f9c93865fa7f02dc26ac3700eee"
+            },
+            {
+              "name": "doc\\model.md",
+              "sha256": "bc740c9769cbebacc04870ed8f3070d7e50229019b23e12f97a6dd7eaf0b2554"
+            },
+            {
+              "name": "doc\\training.md",
+              "sha256": "82599fd2104fdae8bc9037b788ede9ae488feb9eea8d61e68efa569b4c494035"
+            },
+            {
+              "name": "LICENSE.md",
+              "sha256": "a253253598ed93afe5ea8f96be2bcbf6a7caf745ad3f0145ac847df8d13377fc"
+            },
+            {
+              "name": "README.md",
+              "sha256": "4126958b0681514b065897007b2e782c2d5ae9c6c3697bf094c9210c06d7b859"
+            },
+            {
+              "name": "requirements.txt",
+              "sha256": "2d84df4d381dc47621d68fe9288f0bd00fe6efad7cd7a5e76dcc2d5db81caa67"
+            },
+            {
+              "name": "script\\download-data.sh",
+              "sha256": "eb8f7d7439187e87fe03e59a94bb1f56773f529c09efa583ec28a90663f7f215"
+            },
+            {
+              "name": "script\\download-model.sh",
+              "sha256": "756eb221ff66d19b75f4d1202496f8cd4da71b5f315a206d2fdff713a599fcef"
+            },
+            {
+              "name": "script\\label-prediction.sh",
+              "sha256": "eda55b26e7ac5d0a1278f5ed27ca30f1383b3de3e09e6eec474cdcc4c7b9f892"
+            },
+            {
+              "name": "script\\pipeline.sh",
+              "sha256": "83ff96a6ab93278926a3b73f77c3fb030045a17829948705cb639ed61a67202d"
+            },
+            {
+              "name": "script\\rationale-selection.sh",
+              "sha256": "6c3caf09f7f094402069d771caee63c40cc035608ecd75e3daa0e0cf6adccdad"
+            },
+            {
+              "name": "script\\verify_covid.py",
+              "sha256": "1f50c583f421899463fd4c7e7c57bde3a5bf2888d31dda4f667f656f97e664ef"
+            },
+            {
+              "name": "verisci\\covid\\__init__.py",
+              "sha256": "cd46644e5ad6df5d81da433e0af6b6fe798fcc3f40efbda9e88da1eb8ef82d09"
+            },
+            {
+              "name": "verisci\\covid\\abstract_retriever.py",
+              "sha256": "0fef9e25e1251251b4794d229503aebbe1ffdf955b1c76025be8e7af101d0ddb"
+            },
+            {
+              "name": "verisci\\covid\\label_predictor.py",
+              "sha256": "97bc8e997a8e15fce2c3321d9cd08b3b72426050663403ba64323cd5d44b3f06"
+            },
+            {
+              "name": "verisci\\covid\\rationale_selector.py",
+              "sha256": "4c4078219c7b766ca64242d1f7e89bd4fd373fdbacf9eb3d25c65d1d3ff2824c"
+            },
+            {
+              "name": "verisci\\evaluate\\abstract_retrieval.py",
+              "sha256": "5080823dc478bde896ea85e53f477fe81dd43b8131dbb3779927a4ed4bdbfc24"
+            },
+            {
+              "name": "verisci\\evaluate\\label_accuracy_gold_inputs.py",
+              "sha256": "60ee7486f9ba1df892c3d5d00639bba79e2b533dd58213fedc87351ecf1635b1"
+            },
+            {
+              "name": "verisci\\evaluate\\label_prediction.py",
+              "sha256": "2c20362669ed058ccc0b23113ae954502f68c4ed5137e068945a9b3bb47daaef"
+            },
+            {
+              "name": "verisci\\evaluate\\lib\\__init__.py",
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "name": "verisci\\evaluate\\lib\\data.py",
+              "sha256": "90d1c0d6c52a78c2893f13906095de544f8b3218965fe0bf1e7d874622732ce8"
+            },
+            {
+              "name": "verisci\\evaluate\\lib\\metrics.py",
+              "sha256": "b8669a1d36a05c76d2f5a06691cde4c4d81b939f42edd37b6703b58b6ee9946d"
+            },
+            {
+              "name": "verisci\\evaluate\\pipeline.py",
+              "sha256": "25fa2b13339ade5b916f82efe57805ef40f32c4fbc8240db2050d1510dbf18e9"
+            },
+            {
+              "name": "verisci\\evaluate\\rationale_selection.py",
+              "sha256": "ec5a73247662227892678ad57ebec4f49b8beb08ac67c863c82af7b0d0ff88b9"
+            },
+            {
+              "name": "verisci\\inference\\abstract_retrieval\\oracle.py",
+              "sha256": "184da04ad3a4c318ae2397c06c5f65d3dec0739540b66a3bd6eaf1b853526248"
+            },
+            {
+              "name": "verisci\\inference\\abstract_retrieval\\tfidf.py",
+              "sha256": "33af2f6e67cd1be20bea813500f6fa1a6fca7d22c2a3053a7d2ed9fe8734f543"
+            },
+            {
+              "name": "verisci\\inference\\label_prediction\\oracle.py",
+              "sha256": "7fc6a0101717d667802b46cdb41ef9b7c10375bfd3f50f014d974ed2d29f0337"
+            },
+            {
+              "name": "verisci\\inference\\label_prediction\\transformer.py",
+              "sha256": "096ed642ef6427f700294307e4836287b0fca8c885143b49edfe895729009462"
+            },
+            {
+              "name": "verisci\\inference\\merge_predictions.py",
+              "sha256": "5a20d9c857efc0025958171c3845584658df632459d1cd2037f044d62da962e3"
+            },
+            {
+              "name": "verisci\\inference\\rationale_selection\\first.py",
+              "sha256": "366a30e5ba673cd658dc6d37c63d2eae40faa80dd21541d13ffc5bab0aa38f52"
+            },
+            {
+              "name": "verisci\\inference\\rationale_selection\\last.py",
+              "sha256": "eb2403b5d5484ab5d03bd92559e56827ebaf3b46e4e3c13610c44267101a430c"
+            },
+            {
+              "name": "verisci\\inference\\rationale_selection\\oracle.py",
+              "sha256": "0de48aece1b73bbb8e8fe446ec2501c1e775d57aa5196291ea7fd293079ec940"
+            },
+            {
+              "name": "verisci\\inference\\rationale_selection\\oracle_tfidf.py",
+              "sha256": "ef22a71e6baaca92bf872be9c8741f17c814c79a0485631f755e9cd79ab4ba34"
+            },
+            {
+              "name": "verisci\\inference\\rationale_selection\\tfidf.py",
+              "sha256": "c6cf4d0dd162d15a49f700cbb2fbca05e8eaf17a7933e2463fbb6ba82114aaba"
+            },
+            {
+              "name": "verisci\\inference\\rationale_selection\\transformer.py",
+              "sha256": "642ef766620c9e10e4d03338e5fe8367bcf8fca5163815858d693df4864f2742"
+            },
+            {
+              "name": "verisci\\training\\label_prediction\\transformer_fever.py",
+              "sha256": "b2e773cc103dfc60b2ac51e5237a30483a67653022f35d890742dd649df47609"
+            },
+            {
+              "name": "verisci\\training\\label_prediction\\transformer_scifact.py",
+              "sha256": "01d0ee1d19d1483df7dcbb8c5e7ce1b8f41a9c8c0196294ebafd8575ea5a4454"
+            },
+            {
+              "name": "verisci\\training\\label_prediction\\transformer_snopes.py",
+              "sha256": "6563631a5bf6b1bfe7d9ebc5cd71c1a84a1398ed707516356be2f91d8858d923"
+            },
+            {
+              "name": "verisci\\training\\preprocess_fever.py",
+              "sha256": "bc7fa62338f6564e11103a7a045b720387b3d566441904e5713a38ca354fb699"
+            },
+            {
+              "name": "verisci\\training\\rationale_selection\\transformer_fever.py",
+              "sha256": "4f9a087e06ef0739804f309a1ff3841d369f5b4ae9012233aea6dd5a732a6c2a"
+            },
+            {
+              "name": "verisci\\training\\rationale_selection\\transformer_scifact.py",
+              "sha256": "d9b3e0da2166785f5b6c4f635e5f118d26abfc2940cbbcf56c6bf6d09b25dc32"
+            },
+            {
+              "name": "verisci\\training\\rationale_selection\\transformer_snopes.py",
+              "sha256": "e12a4dcf19c636096430839b27a440f245732500c3816e9b9361fd4af71bbacc"
+            }
+          ]
+        },
+        {
+          "path": "external_data_home",
+          "file_count": 17,
+          "files_sha256": [
+            {
+              "name": "._data",
+              "sha256": "fa53b4ab05069fb71b1e113457157a76b2293be8ba191b8689a551713d273016"
+            },
+            {
+              "name": "data\\claims_dev.jsonl",
+              "sha256": "86f0435d08fdb65d1aa41d1472684f57e6e71930626497bdf4d7a9ec1a632217"
+            },
+            {
+              "name": "data\\claims_test.jsonl",
+              "sha256": "558930d75215c73f84a28fe538307d6d397c9de1ec7239514cf45f80d75d2ca3"
+            },
+            {
+              "name": "data\\claims_train.jsonl",
+              "sha256": "f4c8fa82d8bd0653a9cc8d61a6ea48c25eacea64e90af5dbf390ebb1b74372f0"
+            },
+            {
+              "name": "data\\corpus.jsonl",
+              "sha256": "b8d6c89624cb2ed74dee8938effc4f5d8bd2086887880af8110d64be4ceade62"
+            },
+            {
+              "name": "data\\cross_validation\\._fold_1",
+              "sha256": "fa53b4ab05069fb71b1e113457157a76b2293be8ba191b8689a551713d273016"
+            },
+            {
+              "name": "data\\cross_validation\\._fold_4",
+              "sha256": "fa53b4ab05069fb71b1e113457157a76b2293be8ba191b8689a551713d273016"
+            },
+            {
+              "name": "data\\cross_validation\\fold_1\\claims_dev_1.jsonl",
+              "sha256": "e30aaab11fbc94580514c83fe3778b76cac0b1b981f3fe941d7b4a33005e5653"
+            },
+            {
+              "name": "data\\cross_validation\\fold_1\\claims_train_1.jsonl",
+              "sha256": "32922d3690b6e867589ed9c672c00115eea7295845c91d13747ef07fa6fb3996"
+            },
+            {
+              "name": "data\\cross_validation\\fold_2\\claims_dev_2.jsonl",
+              "sha256": "1db8e51cfa04f680ce6d256096ffe336ee74f1640f836e4d2bc0c711fb312f03"
+            },
+            {
+              "name": "data\\cross_validation\\fold_2\\claims_train_2.jsonl",
+              "sha256": "6d8ad6881a7d50cd05aad1baf62d68d68ae3168fe5e3049549bc430ffd7f09a3"
+            },
+            {
+              "name": "data\\cross_validation\\fold_3\\claims_dev_3.jsonl",
+              "sha256": "25f3b19510216350db45cfd469a7d8c6131f948c7ce70976f01d6126682ee745"
+            },
+            {
+              "name": "data\\cross_validation\\fold_3\\claims_train_3.jsonl",
+              "sha256": "8b16b208d9b42cbf882d480531090b23025689077f78aee60b6434a73c8b3d8b"
+            },
+            {
+              "name": "data\\cross_validation\\fold_4\\claims_dev_4.jsonl",
+              "sha256": "f6c91c02854739b476b145160c47beb9a123607da58b33b7ea240e0d51209142"
+            },
+            {
+              "name": "data\\cross_validation\\fold_4\\claims_train_4.jsonl",
+              "sha256": "11444b9365c72eb6b497dc1a068ad11fa691e5c94cab2249b8969430704f0608"
+            },
+            {
+              "name": "data\\cross_validation\\fold_5\\claims_dev_5.jsonl",
+              "sha256": "a210668e95a02d8b2b67f2592db517476e22d6175309e5d643f2bf01eed5c97b"
+            },
+            {
+              "name": "data\\cross_validation\\fold_5\\claims_train_5.jsonl",
+              "sha256": "859ac5af4b2703d8feab737315b0d12c59d7cbc4c4265852a2c3f9dc93ef1177"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "XNLI",
@@ -98,7 +815,68 @@
       "revision": "facebookresearch/XNLI@main (XNLI-1.0.zip checksum recorded)",
       "license": "MIT",
       "status": "downloaded_and_extracted",
-      "checksums": []
+      "checksums": [
+        {
+          "path": "external_data_home",
+          "file_count": 1,
+          "files_sha256": [
+            {
+              "name": "XNLI-1.0.zip",
+              "sha256": "4ba1d5e1afdb7161f0f23c66dc787802ccfa8a25a3ddd3b165a35e50df346ab1"
+            }
+          ]
+        },
+        {
+          "path": "external_data_home",
+          "file_count": 11,
+          "files_sha256": [
+            {
+              "name": "__MACOSX\\._XNLI-1.0",
+              "sha256": "6d2aa3f57590266c4ea6d60f35aea5c23471f4493023e62e5693a620e85c18d4"
+            },
+            {
+              "name": "__MACOSX\\XNLI-1.0\\._.DS_Store",
+              "sha256": "2f380f4a3d05a8d90c2106f50da75064e9ce57a598599dc5404f8f69a0223aa9"
+            },
+            {
+              "name": "__MACOSX\\XNLI-1.0\\._README.md",
+              "sha256": "1b143489f4efcdae2c0a13f1f8478a1dd37dfb81397f2364f3efbe62de4d70a2"
+            },
+            {
+              "name": "__MACOSX\\XNLI-1.0\\._xnli.dev.tsv",
+              "sha256": "dd2695954a75afef0fea92907985c8d96978f7561f0c2ac4b52c01af56456dc8"
+            },
+            {
+              "name": "__MACOSX\\XNLI-1.0\\._xnli.test.tsv",
+              "sha256": "20eef4bf5cc055eb731c50ff90d83e41de019bacb42366aab4b7921aea7d51af"
+            },
+            {
+              "name": "XNLI-1.0\\.DS_Store",
+              "sha256": "5a1822baed5c9074150d13d04fcab3b67daf7207b9b57d9b117923b7bc6c4863"
+            },
+            {
+              "name": "XNLI-1.0\\README.md",
+              "sha256": "a1d695dcecb338eb82df13bfb738a2530f8b25f12ca63fa012525f04f4238469"
+            },
+            {
+              "name": "XNLI-1.0\\xnli.dev.jsonl",
+              "sha256": "933a09d9d821b013d3e6da40df146dfd86a36c26e0e786f95d8c1681d739e356"
+            },
+            {
+              "name": "XNLI-1.0\\xnli.dev.tsv",
+              "sha256": "618976b23ddf482e4eaae3746435949a02ca5db00ef724e2a14c5f913f9cfa1e"
+            },
+            {
+              "name": "XNLI-1.0\\xnli.test.jsonl",
+              "sha256": "57bdb39b866eeb99073f5be7dd308a1114c39537446616c819063024a8d0c52d"
+            },
+            {
+              "name": "XNLI-1.0\\xnli.test.tsv",
+              "sha256": "22f944b571ebaa1762d962288f82b3415758ca0a5f67f5c9b5d85b724d9753ba"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "FastAPI technical documentation",
@@ -110,7 +888,7 @@
       "checksums": [
         {
           "path": "external_data_home",
-          "sha256": "6401d7e45bbbd2557283b058fdae5e689aa41ecf928be6b4fb3ed90350098226"
+          "sha256": "b765d1bb8a76106a5bff83fdae798a12150b03ef9cc99f37d68d1e5d8dc2938a"
         }
       ]
     },
@@ -124,7 +902,7 @@
       "checksums": [
         {
           "path": "external_data_home",
-          "sha256": "69fcd37b4db285c2935036e8c13f51bb04ea9accfe5512961aa7a11b1297609a"
+          "sha256": "37f524004f6371b71322f4ecd0bc5b2a108733b37625a37956448183b8feec5f"
         }
       ]
     }

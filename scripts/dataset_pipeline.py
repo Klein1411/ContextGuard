@@ -394,7 +394,11 @@ def build_manifest(
             if path.is_file():
                 checksums.append({"path": str(path), "sha256": sha256_file(path)})
             elif path.is_dir():
-                files = sorted(file for file in path.rglob("*") if file.is_file())
+                files = sorted(
+                    file
+                    for file in path.rglob("*")
+                    if file.is_file() and ".git" not in file.relative_to(path).parts
+                )
                 file_checksums = [
                     {"name": str(file.relative_to(path)), "sha256": sha256_file(file)}
                     for file in files[:50]
@@ -466,32 +470,35 @@ def build_manifest(
     manifest_path.write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
-    public_path = (
-        Path(__file__).resolve().parents[1]
-        / "artifacts"
-        / "final"
-        / "natural_adversarial_v1_manifest.json"
-    )
-    public_path.parent.mkdir(parents=True, exist_ok=True)
-    public_manifest = {
-        key: value for key, value in manifest.items() if key != "sources"
-    }
-    public_sources = []
-    for item in sources:
-        public_item = {key: value for key, value in item.items() if key != "local_paths"}
-        public_checksums = []
-        for checksum in item.get("checksums", []):
-            public_checksum = dict(checksum)
-            if "path" in public_checksum:
-                public_checksum["path"] = "external_data_home"
-            public_checksums.append(public_checksum)
-        public_item["checksums"] = public_checksums
-        public_sources.append(public_item)
-    public_manifest["sources"] = public_sources
-    public_path.write_text(
-        json.dumps(public_manifest, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
+    if data_home.resolve() == get_data_home().resolve():
+        public_path = (
+            Path(__file__).resolve().parents[1]
+            / "artifacts"
+            / "final"
+            / "natural_adversarial_v1_manifest.json"
+        )
+        public_path.parent.mkdir(parents=True, exist_ok=True)
+        public_manifest = {
+            key: value for key, value in manifest.items() if key != "sources"
+        }
+        for file_info in public_manifest["files"].values():
+            file_info["path"] = "external_data_home"
+        public_sources = []
+        for item in sources:
+            public_item = {key: value for key, value in item.items() if key != "local_paths"}
+            public_checksums = []
+            for checksum in item.get("checksums", []):
+                public_checksum = dict(checksum)
+                if "path" in public_checksum:
+                    public_checksum["path"] = "external_data_home"
+                public_checksums.append(public_checksum)
+            public_item["checksums"] = public_checksums
+            public_sources.append(public_item)
+        public_manifest["sources"] = public_sources
+        public_path.write_text(
+            json.dumps(public_manifest, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
     return manifest
 
 

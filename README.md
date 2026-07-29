@@ -125,6 +125,14 @@ outside Git. The observed Fleiss kappa is 0.521, mean pairwise agreement 0.740, 
 items receive a majority adjudication. These are AI-consistency measurements, not human or
 domain-expert validation.
 
+M13 compressor pilot artifacts are `artifacts/final/m13_compressor_manifest.json`,
+`m13_compressor_metrics.csv`, and `m13_compressor_samples.jsonl`. It covers 24 M11 records,
+RuleBased and LLMLingua-2 at rates 0.33/0.50/0.70, Qwen tokenizer accounting, protected-span
+ablation, and R6-R9 direct/API paths. LLMLingua-2 mean gross saving was 0.451 but safe
+effective saving was 0.024 on protected guard paths; RuleBased was 0.150 gross and 0.000
+safe. 24/672 rows fall back because of the explicit 512-token input guard. These are bounded
+pilot measurements; no downstream LLM break-even claim is made.
+
 ## What it does not do
 
 The core does not read PDF/DOCX/PPTX/images/audio/websites, call external services, store requests, or provide a React product UI. External repositories should convert documents to text before calling ContextGuard.

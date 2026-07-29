@@ -1,0 +1,152 @@
+{
+  "scope": "M13",
+  "created_at_utc": "2026-07-29T13:34:11.840998+00:00",
+  "records": 24,
+  "metric_rows": 672,
+  "compressors": [
+    "rule-based",
+    "llmlingua-2"
+  ],
+  "rates": [
+    0.33,
+    0.5,
+    0.7
+  ],
+  "modes": [
+    "R6_direct_compressor",
+    "R7_direct_guard",
+    "R8_api_guard",
+    "R9_direct_api_guard"
+  ],
+  "tokenizer": {
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "local_files_only": true
+  },
+  "llmlingua_max_input_tokens": 512,
+  "protected_span_ablation": "RuleBasedCompressor protected=true/false on first 8 records; LLMLingua-2 uses protected spans.",
+  "fallback_rows": 24,
+  "fallback_rate": 0.03571428571428571,
+  "pareto_points": [
+    {
+      "compressor": "llmlingua-2",
+      "rate": 0.33,
+      "mode": "R7_direct_guard",
+      "mean_gross_saving_ratio": 0.609635905199084,
+      "mean_safe_saving_ratio": 0.024122807017543862,
+      "pass_rate": 0.125,
+      "p95_latency_ms": 2263.8919999590144
+    },
+    {
+      "compressor": "llmlingua-2",
+      "rate": 0.33,
+      "mode": "R8_api_guard",
+      "mean_gross_saving_ratio": 0.609635905199084,
+      "mean_safe_saving_ratio": 0.024122807017543862,
+      "pass_rate": 0.125,
+      "p95_latency_ms": 2268.000299925916
+    },
+    {
+      "compressor": "llmlingua-2",
+      "rate": 0.5,
+      "mode": "R7_direct_guard",
+      "mean_gross_saving_ratio": 0.4577642110133582,
+      "mean_safe_saving_ratio": 0.015350877192982455,
+      "pass_rate": 0.125,
+      "p95_latency_ms": 2181.6931000212207
+    },
+    {
+      "compressor": "llmlingua-2",
+      "rate": 0.5,
+      "mode": "R8_api_guard",
+      "mean_gross_saving_ratio": 0.4577642110133582,
+      "mean_safe_saving_ratio": 0.015350877192982455,
+      "pass_rate": 0.125,
+      "p95_latency_ms": 2183.5558001184836
+    },
+    {
+      "compressor": "llmlingua-2",
+      "rate": 0.7,
+      "mode": "R7_direct_guard",
+      "mean_gross_saving_ratio": 0.2849815123373927,
+      "mean_safe_saving_ratio": 0.032383040935672514,
+      "pass_rate": 0.20833333333333334,
+      "p95_latency_ms": 2315.881700022146
+    },
+    {
+      "compressor": "llmlingua-2",
+      "rate": 0.7,
+      "mode": "R8_api_guard",
+      "mean_gross_saving_ratio": 0.2849815123373927,
+      "mean_safe_saving_ratio": 0.032383040935672514,
+      "pass_rate": 0.20833333333333334,
+      "p95_latency_ms": 2316.9376000296324
+    },
+    {
+      "compressor": "rule-based",
+      "rate": 0.33,
+      "mode": "R7_direct_guard",
+      "mean_gross_saving_ratio": 0.1498857536269222,
+      "mean_safe_saving_ratio": 0.0,
+      "pass_rate": 0.4166666666666667,
+      "p95_latency_ms": 15.618899837136269
+    },
+    {
+      "compressor": "rule-based",
+      "rate": 0.33,
+      "mode": "R8_api_guard",
+      "mean_gross_saving_ratio": 0.1498857536269222,
+      "mean_safe_saving_ratio": 0.0,
+      "pass_rate": 0.4166666666666667,
+      "p95_latency_ms": 16.738599864766
+    },
+    {
+      "compressor": "rule-based",
+      "rate": 0.5,
+      "mode": "R7_direct_guard",
+      "mean_gross_saving_ratio": 0.1498857536269222,
+      "mean_safe_saving_ratio": 0.0,
+      "pass_rate": 0.4166666666666667,
+      "p95_latency_ms": 15.644799917936325
+    },
+    {
+      "compressor": "rule-based",
+      "rate": 0.5,
+      "mode": "R8_api_guard",
+      "mean_gross_saving_ratio": 0.1498857536269222,
+      "mean_safe_saving_ratio": 0.0,
+      "pass_rate": 0.4166666666666667,
+      "p95_latency_ms": 18.09500006493181
+    },
+    {
+      "compressor": "rule-based",
+      "rate": 0.7,
+      "mode": "R7_direct_guard",
+      "mean_gross_saving_ratio": 0.1498857536269222,
+      "mean_safe_saving_ratio": 0.0,
+      "pass_rate": 0.4166666666666667,
+      "p95_latency_ms": 15.38500003516674
+    },
+    {
+      "compressor": "rule-based",
+      "rate": 0.7,
+      "mode": "R8_api_guard",
+      "mean_gross_saving_ratio": 0.1498857536269222,
+      "mean_safe_saving_ratio": 0.0,
+      "pass_rate": 0.4166666666666667,
+      "p95_latency_ms": 16.938799992203712
+    }
+  ],
+  "files": {
+    "metrics": ".runtime\\m13_compressor\\m13_compressor_metrics.csv",
+    "samples": ".runtime\\m13_compressor\\m13_compressor_samples.jsonl"
+  },
+  "break_even": {
+    "status": "not_measured_no_target_llm_in_scope",
+    "limitation": "No downstream target LLM/API token-cost and latency contract was supplied; compressor-only Pareto is reported without monetary break-even."
+  },
+  "limitations": [
+    "safe_effective_saved_tokens is zero unless deterministic guard returns PASS",
+    "LLMLingua-2 fallback is retained per sample and never converted to a success",
+    "Results are a bounded pilot, not a production compression-quality claim"
+  ]
+}
