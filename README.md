@@ -11,6 +11,7 @@ uv sync --group dev
 ```
 
 Để benchmark đo peak RAM, cài thêm nhóm tùy chọn: `uv sync --group benchmark`.
+Để cài toàn bộ adapter tùy chọn: `uv sync --group all`.
 
 ## Quick start
 
