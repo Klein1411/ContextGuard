@@ -49,3 +49,19 @@ def test_technical_literals_include_filename_config_and_boolean() -> None:
     )
     assert result.status is SafetyStatus.FAIL
     assert {"FILENAME_CHANGED", "CONFIG_CHANGED"} <= set(result.reason_codes)
+
+
+def test_exact_guard_reports_duplicated_and_added_literals() -> None:
+    duplicate = ContextGuard(GuardConfig(language="en", profile="technical")).validate(
+        "Use 4 GB RAM.",
+        "Use 4 GB RAM and 4 GB RAM.",
+    )
+    assert duplicate.status is SafetyStatus.FAIL
+    assert "UNIT_DUPLICATED" in duplicate.reason_codes
+
+    added = ContextGuard(GuardConfig(language="en", profile="technical")).validate(
+        "Use 4 GB RAM.",
+        "Use 4 GB RAM and 8 GB RAM.",
+    )
+    assert added.status is SafetyStatus.FAIL
+    assert "FACT_ADDED" in added.reason_codes

@@ -37,12 +37,11 @@ def exact_violations(
                 target_counter[value] -= 1
             else:
                 missing.append(fact)
-        if not missing:
-            continue
+        unmatched_counter = target_counter.copy()
         unmatched_candidates = [
             fact
             for fact in target_facts
-            if target_counter[fact.normalized_value or fact.text.lower()] > 0
+            if unmatched_counter[fact.normalized_value or fact.text.lower()] > 0
         ]
         for index, fact in enumerate(missing):
             replacement = unmatched_candidates[index] if index < len(unmatched_candidates) else None
@@ -77,6 +76,32 @@ def exact_violations(
                         if replacement
                         else None,
                     },
+                    confidence=fact.confidence,
+                )
+            )
+            if replacement is not None:
+                replacement_value = replacement.normalized_value or replacement.text.lower()
+                unmatched_counter[replacement_value] -= 1
+        source_value_set = set(source_values)
+        for fact in target_facts:
+            value = fact.normalized_value or fact.text.lower()
+            if unmatched_counter[value] <= 0:
+                continue
+            unmatched_counter[value] -= 1
+            duplicated = value in source_value_set
+            code = f"{kind.upper()}_DUPLICATED" if duplicated else "FACT_ADDED"
+            violations.append(
+                Violation(
+                    code=code,
+                    severity=_severity_for(kind, config),
+                    category="exact",
+                    message=(
+                        f"Candidate duplicated {kind} information."
+                        if duplicated
+                        else f"Candidate added {kind} information."
+                    ),
+                    candidate_span=fact.text,
+                    evidence={"type": kind, "normalized_candidate": fact.normalized_value},
                     confidence=fact.confidence,
                 )
             )
