@@ -65,6 +65,7 @@ Verified on 2026-07-29 with Python 3.11.9: 47 pytest tests pass; Ruff check pass
 - Entity and relation handling will be conservative and may return `UNCERTAIN`.
 - The required sample counts now exist, but Tier A labels have not been manually audited and Tier B mutations are controlled synthetic records; quality claims remain provisional.
 - Real token compressor quality, LLMLingua-2 runtime/resource behavior, hybrid semantic quality, GPU VRAM, and production end-to-end token savings are not yet measured. The optional semantic adapter has only a CPU smoke/resource measurement; rules-only P50/P95 are measured above.
+- A bounded LLMLingua-2 CPU smoke attempt exceeded five minutes during model download/initialization and was stopped; no compressor output or quality metric is claimed. Its external cache is outside the repository.
 - FastAPI integration test emits an upstream Starlette/httpx deprecation warning; tests still pass.
 - Docker image build and non-root container smoke test are verified locally; no registry publication or production deployment has been performed.
 
@@ -84,4 +85,4 @@ Temporary files belong in `.runtime/`. Final benchmark artifacts are restricted 
 
 # Next Action
 
-Next: manually audit and freeze Tier A labels, add real compressor candidates for Tier C, then measure resource usage and optional semantic-verifier behavior. Do not promote synthetic runs to `artifacts/final/`; `promote_run` requires `label_status` `verified` or `audited` and a validated artifact set.
+Next: manually audit and freeze Tier A labels, retry Tier C with a bounded real compressor run only after a resource/timeout decision, then benchmark rules-only versus hybrid semantic behavior and measure VRAM. Do not promote synthetic or unverified runs to `artifacts/final/`; `promote_run` requires `label_status` `verified` or `audited` and a validated artifact set.
