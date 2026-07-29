@@ -65,3 +65,10 @@ def test_exact_guard_reports_duplicated_and_added_literals() -> None:
     )
     assert added.status is SafetyStatus.FAIL
     assert "FACT_ADDED" in added.reason_codes
+
+    new_kind = ContextGuard(GuardConfig(language="en", profile="business")).validate(
+        "Deploy.",
+        "Deploy on 30/08/2026.",
+    )
+    assert new_kind.status is SafetyStatus.FAIL
+    assert "FACT_ADDED" in new_kind.reason_codes

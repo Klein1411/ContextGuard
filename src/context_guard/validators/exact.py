@@ -105,4 +105,19 @@ def exact_violations(
                     confidence=fact.confidence,
                 )
             )
+    for kind, target_facts in candidates.items():
+        if kind in originals:
+            continue
+        for fact in target_facts:
+            violations.append(
+                Violation(
+                    code="FACT_ADDED",
+                    severity=_severity_for(kind, config),
+                    category="exact",
+                    message=f"Candidate added {kind} information.",
+                    candidate_span=fact.text,
+                    evidence={"type": kind, "normalized_candidate": fact.normalized_value},
+                    confidence=fact.confidence,
+                )
+            )
     return violations
