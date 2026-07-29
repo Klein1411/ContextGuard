@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pytest
 
+from context_guard import ContextGuard, GuardConfig
 from context_guard.adapters.semantic import UnavailableSemanticVerifier
 from context_guard.benchmarks.dataset import (
     build_provisional_mutations,
@@ -34,6 +35,29 @@ def test_audited_tier_a_contract() -> None:
     assert summary["label_statuses"] == ["audited"]
 
 
+def test_hybrid_audited_dataset_contract() -> None:
+    records = load_jsonl(Path("benchmarks/datasets/hybrid_v0_audited.jsonl"))
+    assert len(records) == 100
+    assert Counter(record["label"] for record in records) == {"SAFE": 50, "UNSAFE": 50}
+    assert {record["label_status"] for record in records} == {"audited"}
+    guard = ContextGuard(GuardConfig(language="auto", profile="general"))
+    assert all(
+        guard.validate(record["original"], record["candidate"]).status.value == "UNCERTAIN"
+        for record in records
+    )
+
+
+def test_hybrid_final_artifact_contract() -> None:
+    manifest = json.loads(Path("artifacts/final/hybrid_manifest.json").read_text(encoding="utf-8"))
+    predictions = (
+        Path("artifacts/final/hybrid_predictions.jsonl").read_text(encoding="utf-8").splitlines()
+    )
+    assert manifest["sample_count"] == 100
+    assert manifest["label_statuses"] == ["audited"]
+    assert manifest["metric_only"] is True
+    assert len(predictions) == 100
+
+
 def test_tier_b_contract() -> None:
     records = load_jsonl(Path("benchmarks/datasets/mutation_v0_provisional.jsonl"))
     summary = validate_mutation_dataset(records)
@@ -56,9 +80,7 @@ def test_benchmark_artifact_contract(tmp_path: Path) -> None:
     run_benchmark(output, dataset=Path("benchmarks/datasets/golden_v0_provisional.jsonl"))
     result = validate_run_artifacts(output, expected_sample_count=300)
     assert result["valid"] is True
-    manifest = json.loads(
-        (output / "benchmark_manifest.json").read_text(encoding="utf-8")
-    )
+    manifest = json.loads((output / "benchmark_manifest.json").read_text(encoding="utf-8"))
     assert manifest["quality_gate"]["critical_metrics_pass"] is True
     assert manifest["quality_gate"]["label_status_allows_final_promotion"] is False
     category_csv = (output / "per_category_metrics.csv").read_text(encoding="utf-8")

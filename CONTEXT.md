@@ -1,96 +1,102 @@
-# Project Identity
+# Định danh dự án
 
-ContextGuard is an offline-first Python package and FastAPI service that checks whether compressed text preserves critical facts and logic from the original text. Repository root: `D:\fact_safeguard`.
+ContextGuard là package Python và dịch vụ FastAPI ưu tiên offline, dùng để kiểm tra văn bản sau nén có còn giữ các dữ kiện và logic quan trọng của văn bản gốc hay không. Thư mục gốc: `D:\fact_safeguard`.
 
-# Locked Scope
+# Phạm vi đã khóa
 
-- Core input is text only: `original_text` and `candidate_text`.
-- Languages: Vietnamese and English, with `vi`, `en`, and `auto` modes.
-- Profiles: `general`, `academic`, `business`, `technical`.
-- Policies: `lenient`, `balanced`, `strict`; strict is the default.
-- Safety statuses: `PASS`, `FAIL`, `UNCERTAIN`.
-- Core is deterministic and offline. Compressors and semantic verifiers are adapters.
-- No React UI, document readers, cache service, telemetry, or remote calls in core.
-- Exactly three Markdown files are allowed; this file is the living project context.
+- Core chỉ nhận text: `original_text` và `candidate_text`.
+- Ngôn ngữ: tiếng Việt và tiếng Anh, với các chế độ `vi`, `en`, `auto`.
+- Profile: `general`, `academic`, `business`, `technical`.
+- Policy: `lenient`, `balanced`, `strict`; `strict` là mặc định.
+- Trạng thái an toàn: `PASS`, `FAIL`, `UNCERTAIN`.
+- Core deterministic và offline. Compressor, semantic verifier là các adapter.
+- Core không có React UI, bộ đọc tài liệu, cache service, telemetry hoặc remote call.
+- Toàn repository chỉ cho phép đúng ba file Markdown; file này là context sống của dự án.
 
-# Architecture
+# Kiến trúc
 
-`ContextGuard` orchestrates normalization, extraction, deterministic validators, policy mapping, scoring, and reporting. FastAPI routes use the same Pydantic schemas as the Python API. Compressor adapters consume `ProtectedSpan` data optionally and return text candidates; the core never imports a compressor.
+`ContextGuard` điều phối normalization, extraction, deterministic validator, policy mapping, scoring và reporting. Các route FastAPI dùng cùng Pydantic schema với Python API. Compressor adapter có thể nhận `ProtectedSpan` và trả candidate text; core không import compressor cụ thể.
 
-Initial implementation uses dependency-light regular expressions and conservative evidence rules. Ambiguous locale, unsupported relation structures, and unavailable optional adapters produce warnings or `UNCERTAIN` rather than guesses.
+Bản đầu dùng regex nhẹ và quy tắc bằng chứng bảo thủ. Locale mơ hồ, relation chưa hỗ trợ và optional adapter không khả dụng sẽ tạo warning hoặc `UNCERTAIN`, không tự đoán.
 
-# API Contract
+# Hợp đồng API
 
-V1 routes: `GET /v1/health`, `GET /v1/capabilities`, `POST /v1/analyze`, `POST /v1/validate`. Public enums and response fields are defined in `src/context_guard/schemas/models.py`. Breaking changes require `/v2`.
+Route V1: `GET /v1/health`, `GET /v1/capabilities`, `POST /v1/analyze`, `POST /v1/validate`. Enum và response field public nằm trong `src/context_guard/schemas/models.py`. Breaking change phải dùng `/v2`.
 
-# Technical Decisions
+# Quyết định kỹ thuật
 
-- Python 3.11 is the target runtime; native Windows is preferred.
-- `uv` manages dependencies and the lockfile. Runtime core remains free of ML dependencies.
-- Critical deterministic violations use strict fallback to `USE_ORIGINAL`.
-- Risk score is a documented weighted maximum/accumulation over violations, clamped to `[0, 1]`.
-- Exact matching precedes semantic matching. Semantic verification is deferred and optional.
-- Input length is bounded and rejected with a structured error; text is never silently truncated.
+- Runtime mục tiêu là Python 3.11; ưu tiên Windows native.
+- `uv` quản lý dependency và lockfile. Core runtime không phụ thuộc ML nặng.
+- Vi phạm deterministic critical dùng fallback strict tới `USE_ORIGINAL`.
+- Risk score dùng weighted maximum/accumulation có tài liệu, giới hạn trong `[0, 1]`.
+- Exact matching chạy trước semantic matching. Semantic verification là optional và trì hoãn.
+- Input có giới hạn và bị từ chối bằng lỗi có cấu trúc; không cắt âm thầm.
 
-# Milestones
+# Milestone
 
-- M0 foundation: completed; repository audit is clean and changes are committed.
-- M1 schema/API contract: implemented and contract-tested.
-- M2 ExactGuard: implemented for explicit numeric, percentage, currency, date/time, unit, version, URL/email, path, flag, and code facts.
-- M3 LogicGuard: implemented for bilingual negation, comparisons, conditions, exceptions, and modality.
-- M4 relation/entity: conservative explicit-structure implementation added; broad semantic NER remains limited.
-- M5 benchmark: Tier A (300) and Tier B (2,001) datasets, deterministic runner, per-category metrics, reproducibility signature, artifact validation, and guarded promotion helper implemented. Tier A was audited and frozen; Tier B remains synthetic/unverified.
-- M6 compressor adapters: rule-based protected-span compressor, controlled mutations, Tier C unverified candidate generation, and a lazy revision-pinned LLMLingua-2 adapter implemented and exercised; the LLM summarizer remains an explicit unavailable boundary.
-- M7 semantic verifier: optional only-on-UNCERTAIN orchestration, safe unavailable/error fallback, and a lazy revision-pinned Transformers NLI adapter implemented. A CPU smoke and an uncertainty-path benchmark succeeded; quality benchmarking remains provisional.
-- M8 packaging: package, CLI, FastAPI, non-root Dockerfile, health check, local image build, and container smoke test completed.
-- M9 final audit: deterministic gates, Tier A audit, dependency/security checks, real adapter measurements, resource measurements, and audited Tier A artifact promotion completed; optional quality expansion remains limited.
+- M0 foundation: hoàn tất; audit repository sạch và các thay đổi đã commit.
+- M1 schema/API contract: triển khai và đã chạy contract test.
+- M2 ExactGuard: triển khai cho số, phần trăm, tiền, ngày/giờ, đơn vị, version, URL/email, path, flag và code literal.
+- M3 LogicGuard: triển khai phủ định, so sánh, điều kiện, ngoại lệ và modality song ngữ.
+- M4 relation/entity: đã thêm xử lý cấu trúc tường minh bảo thủ; semantic NER rộng vẫn giới hạn.
+- M5 benchmark: đã có Tier A (300) và Tier B (2.001), runner deterministic, metric theo category, chữ ký tái lập, artifact validation và helper promotion có guard. Tier A đã audit/freeze; Tier B vẫn synthetic/unverified.
+- M6 compressor adapter: rule-based protected-span compressor, controlled mutation, Tier C unverified candidate và LLMLingua-2 lazy revision-pinned adapter đã được chạy thử; LLM summarizer vẫn là boundary unavailable rõ ràng.
+- M7 semantic verifier: orchestration chỉ chạy khi `UNCERTAIN`, fallback an toàn khi lỗi/không khả dụng, Transformers NLI lazy revision-pinned adapter. CPU smoke và benchmark uncertainty-path đã đạt; đánh giá chất lượng vẫn giới hạn.
+- M8 packaging: package, CLI, FastAPI, Docker non-root, health check, build image local và container smoke đã hoàn tất.
+- M9 final audit: deterministic gate, Tier A audit, dependency/security check, đo adapter thật, đo resource và promotion artifact Tier A audited đã hoàn tất; mở rộng chất lượng optional còn hạn chế.
 
-# Current Status
+# Trạng thái hiện tại
 
-Status: `COMPLETED_WITH_LIMITATIONS` (audited deterministic Tier A artifact is promoted; Tier B, real compressor outputs, and hybrid semantic measurements remain bounded/unverified).
+Status: `COMPLETED_WITH_LIMITATIONS` (artifact deterministic Tier A đã audit và promote; Tier B, output compressor thật và hybrid semantic mới ở quy mô giới hạn/unverified).
 
-Repository was empty at start. Environment audit: Windows 11, i5-12500H, 24 GB RAM, RTX 3050 Laptop 4 GB, Python 3.11 available, `uv` and Git available. No model or cache is in the repository.
+Repository trống lúc bắt đầu. Audit môi trường: Windows 11, i5-12500H, RAM 24 GB, RTX 3050 Laptop 4 GB, Python 3.11, `uv` và Git khả dụng. Không có model hoặc cache trong repository.
 
-# Completed Work
+# Công việc đã hoàn thành
 
-Repository foundation, public schemas, FastAPI V1 routes, CLI, ExactGuard, LogicGuard, EntityGuard, RelationGuard, risk/policy mapping, protected-span rule-based compressor, controlled mutation adapter, Tier C candidate generator, optional adapter boundaries, semantic fallback orchestration, and tests are implemented.
+Đã triển khai repository foundation, public schema, FastAPI V1, CLI, ExactGuard, LogicGuard, EntityGuard, RelationGuard, risk/policy mapping, rule-based protected-span compressor, controlled mutation adapter, Tier C candidate generator, optional adapter boundary, semantic fallback orchestration và test suite.
 
-# Verified Results
+# Kết quả đã xác minh
 
-Verified on 2026-07-29 with Python 3.11.9: 51 pytest tests pass; Ruff check passes; mypy passes on 33 source files; package build and clean-wheel install smoke test succeed; coverage run reports 79% line coverage (no minimum threshold is claimed). On code commit `77e2c38` with seed 20260729, Tier A `golden_v0_provisional` produced 300 samples (150 SAFE, 150 UNSAFE) with exactly 75 samples per domain: false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P50/P95 0.362/0.604 ms, peak RAM 30.414 MB, peak VRAM not measured. Tier B `mutation_v0_provisional` produced 2,001 samples (218 SAFE, 1,783 UNSAFE), including 109 safe date-format transformations and 109 safe identity records: false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P50/P95 1.305/2.224 ms, peak RAM 38.375 MB, peak VRAM not measured. Both runs passed the runner's metric-only quality gate (recall ≥95%, FAR ≤2%, P95 ≤50 ms); manual-label and contract/regression gates remain separate. ExactGuard regression coverage now includes duplicated, added, and newly introduced fact-type literals; relation coverage now includes metric-dataset, config-component, and method-dataset changes; LogicGuard now rejects changed condition/exception markers. Tier C generation produced 300 rule-based candidates with `label_status=unverified` and valid UTF-8; no quality metric was assigned. A bounded real LLMLingua-2 run on 20 provisional samples completed with model `microsoft/llmlingua-2-xlm-roberta-large-meetingbank@ebaba9b`, mean compression time 1,501.630 ms, RSS about 1,984.902 MB, and all outputs explicitly marked `unverified`; no quality metric or promotion was assigned. Repeated Tier A runs produced the same `decision_sha256`; elapsed time and per-sample latency are expected to vary. Docker image `contextguard:local` also built successfully and a non-root container returned HTTP 200 from `/v1/health`; `/v1/capabilities` and `/v1/validate` smoke checks passed. The reusable `run_hybrid_benchmark` API was exercised on 20 `UNCERTAIN` identity cases: deterministic false rejection was 1.0, hybrid false rejection was 0.0, semantic calls were 20/20, P50/P95 98.695/102.872 ms, peak RSS 1,481.086 MB, and peak VRAM was not measured. The 300/2,001 provisional sets had no `UNCERTAIN` cases, so they did not call the semantic adapter. These are adapter/resource measurements, not hybrid quality claims. These are synthetic/unverified results, not a manual golden-set or paper-grade quality claim.
+Ngày 2026-07-29 với Python 3.11.9: 53 pytest test pass; Ruff pass; mypy pass trên 33 source file; package build và clean-wheel smoke pass; coverage 80% line (không tuyên bố ngưỡng tối thiểu). Với seed `20260729`, Tier A `golden_v0_provisional` có 300 mẫu (150 SAFE, 150 UNSAFE), đúng 75 mẫu cho mỗi domain: false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, precision `1.0`, P50/P95 `0.362/0.604 ms`, peak RAM `30.414 MB`, VRAM chưa đo. Tier B `mutation_v0_provisional` có 2.001 mẫu (218 SAFE, 1.783 UNSAFE), gồm 109 safe date-format và 109 safe identity: false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, precision `1.0`, P50/P95 `1.305/2.224 ms`, peak RAM `38.375 MB`, VRAM chưa đo. Hai run đều đạt metric-only gate (recall ≥95%, FAR ≤2%, P95 ≤50 ms); promotion Tier A audited, contract gate và regression gate được kiểm tra riêng.
 
-GPU follow-up: a separate external CUDA venv using `torch 2.8.0+cu126` detected the RTX 3050 and ran the same 20-case uncertainty-path benchmark on CUDA. It called the semantic adapter 20/20 times, returned 20/20 `PASS`, measured P50/P95 17.087/117.275 ms, peak RSS 2,625.801 MB, and peak allocated/reserved VRAM 1,120.0 MB of 4,095.5 MB. This remains a metric-only, synthetic/unverified behavior/resource smoke, not a hybrid quality gate; the repository's default venv remains CPU-only.
+ExactGuard có regression cho fact bị duplicate, thêm mới và literal mới; relation có metric–dataset, config–component, method–dataset; LogicGuard từ chối condition/exception bị đổi. Tier C rule-based tạo 300 candidate UTF-8 với `label_status=unverified`, không gán quality metric. LLMLingua-2 thật trên 20 mẫu dùng `microsoft/llmlingua-2-xlm-roberta-large-meetingbank@ebaba9b`, trung bình `1,501.630 ms/mẫu`, RSS khoảng `1,984.902 MB`; mọi output vẫn `unverified` và không được promote.
 
-Mixed semantic smoke: 20 deliberately uncertain cases (16 controlled unsafe paraphrases and 4 safe identities) on the same CUDA environment produced hybrid false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, fallback rate 0.2, P50/P95 21.862/310.104 ms, peak RSS 2,619.078 MB, and peak VRAM 1,120.0 MB. All labels remain `synthetic_unverified`; this is not a golden-set or production quality claim.
+Docker image `contextguard:local` build thành công; container non-root trả HTTP 200 ở `/v1/health`; `/v1/capabilities` và `/v1/validate` smoke pass. `run_hybrid_benchmark` được chạy trên 20 ca `UNCERTAIN` identity: deterministic false rejection `1.0`, hybrid false rejection `0.0`, semantic call `20/20`, P50/P95 `98.695/102.872 ms`, RSS peak `1,481.086 MB`. Bộ provisional 300/2.001 không có `UNCERTAIN` nên không gọi semantic adapter; đây là đo resource/behavior, không phải quality claim.
 
-Tier A audit regenerated the dataset exactly (`300/300` records), reviewed all records against the controlled bilingual template semantics, found 300 unique IDs and pairs, balanced `75` per language/label cell, and confirmed the expected mutation counts. The audited copy is `benchmarks/datasets/golden_v0_audited.jsonl` with `label_status=audited`; the audit reviewer is Codex, not an external domain expert.
+GPU follow-up dùng CUDA venv bên ngoài với `torch 2.8.0+cu126`, nhận RTX 3050 và chạy 20 ca uncertainty-path: semantic call `20/20`, `PASS 20/20`, P50/P95 `17.087/117.275 ms`, RSS peak `2,625.801 MB`, peak allocated/reserved VRAM `1,120.0 MB` trên tổng `4,095.5 MB`. Đây là metric-only synthetic/unverified smoke; venv mặc định của repository vẫn CPU-only.
 
-Final audit evidence: `pip-audit --local` reported no known vulnerabilities; tracked secret, large-file, forbidden-path, and model-weight scans were clean.
+Mixed semantic smoke gồm 20 ca uncertain (16 unsafe paraphrase có kiểm soát, 4 safe identity) trên CUDA: hybrid false acceptance `0.0`, unsafe recall `1.0`, false rejection `0.0`, precision `1.0`, fallback `0.2`, P50/P95 `21.862/310.104 ms`, RSS peak `2,619.078 MB`, VRAM peak `1,120.0 MB`. Nhãn vẫn `synthetic_unverified`, không phải golden-set hoặc production claim.
 
-# Known Limitations
+Hybrid `hybrid_v0_audited` gồm 100 ca (50 SAFE entailment, 50 UNSAFE contradiction), tất cả deterministic `UNCERTAIN`. CUDA NLI gọi semantic verifier `100/100` lần và đạt false acceptance `0.0`, unsafe recall `1.0`, false rejection `0.0`, precision `1.0`, fallback `0.0`, P50/P95 `18.161/26.746 ms`, RSS peak `2,618.461 MB`, VRAM peak `1,122.0 MB`. Manifest và predictions được giữ trong `artifacts/final/`; đây là benchmark audited có kiểm soát, chưa đại diện cho natural-language coverage rộng.
 
-- Deterministic V1 cannot prove unrestricted natural-language equivalence.
-- Entity and relation handling will be conservative and may return `UNCERTAIN`.
-- Tier A is audited against controlled templates, but not independently reviewed by an external domain expert. Tier B mutations remain controlled synthetic records; claims outside the audited deterministic set remain provisional.
-- Real token compressor quality and production end-to-end token savings are not yet measured. The LLMLingua-2 smoke produced candidates but showed high CPU/RAM cost and is explicitly unverified; a 20-case run is not a quality gate.
-- Hybrid semantic quality is not yet established: both CPU and CUDA 20-case uncertainty-path runs are resource/behavior smokes only, and the full provisional sets had no uncertain cases. The default project venv remains CPU-only; the external CUDA measurement is recorded above and is not a production resource guarantee.
-- FastAPI integration test emits an upstream Starlette/httpx deprecation warning; tests still pass.
-- Docker image build and non-root container smoke test are verified locally; no registry publication or production deployment has been performed.
+Tier A audit tái sinh khớp chính xác `300/300`, xem xét toàn bộ record theo semantics của template song ngữ, có 300 ID và cặp text unique, cân bằng `75` cho mỗi language/label cell và đúng mutation count. Bản audited là `benchmarks/datasets/golden_v0_audited.jsonl` với `label_status=audited`; reviewer là Codex, không phải domain expert bên ngoài. Run audited đã validate và promote đúng whitelist sáu file trong `artifacts/final/`.
 
-# Deferred Improvements
+`pip-audit --local` không phát hiện known vulnerability; secret scan, large-file scan, forbidden-path scan và model-weight scan đều sạch.
 
-- FastAPI + React product UI after API V1, final benchmark, core quality gate, and separate semantic evaluation.
-- Cache as a separate project.
-- SmartContext Gateway later.
-- CC-DFlash integration later.
-- Semantic verifier must not replace the deterministic core.
-- PDF/DOCX adapters belong in external repositories.
-- Distributed deployment later.
+# Giới hạn đã biết
 
-# Repository Hygiene
+- Deterministic V1 chưa chứng minh được unrestricted natural-language equivalence.
+- Entity và relation xử lý bảo thủ, có thể trả `UNCERTAIN`.
+- Tier A được audit theo controlled template nhưng chưa được domain expert độc lập review. Tier B vẫn là controlled synthetic record; claim ngoài audited deterministic set vẫn provisional.
+- Chưa đo được token savings end-to-end. LLMLingua-2 có chi phí CPU/RAM cao; smoke 20 mẫu chưa phải quality gate.
+- Hybrid semantic đã có audited benchmark 100 ca và đạt gate trên tập có kiểm soát; vẫn cần tập tự nhiên rộng hơn để khẳng định khả năng tổng quát. Full provisional set không có `UNCERTAIN`; CUDA đo trong môi trường ngoài, không phải guarantee production.
+- FastAPI integration test còn upstream Starlette/httpx deprecation warning; test vẫn pass.
+- Docker build và non-root smoke đã xác minh local; chưa publish registry hoặc deploy production.
 
-Temporary files belong in `.runtime/`. Final benchmark artifacts are restricted to `artifacts/final/` and the whitelist in the specification. Models use an external cache and are never copied into Git. Keep source and tests free of generated files.
+# Cải tiến để sau
 
-# Next Action
+- FastAPI + React UI sau khi API V1, benchmark mở rộng, core quality gate và semantic evaluation riêng ổn định.
+- Cache thành project riêng.
+- SmartContext Gateway về sau.
+- CC-DFlash integration về sau.
+- Semantic verifier không được thay thế deterministic core.
+- PDF/DOCX adapter thuộc repository bên ngoài.
+- Distributed deployment về sau.
 
-Next: expand the externally reviewed golden set, add a larger labelled hybrid semantic benchmark, and measure end-to-end token savings before making production or paper-grade claims. Do not promote synthetic or unverified runs to `artifacts/final/`; `promote_run` requires `label_status` `verified` or `audited` and a validated artifact set.
+# Hygiene repository
+
+File tạm phải nằm trong `.runtime/`. Final benchmark artifact chỉ nằm trong `artifacts/final/` và đúng whitelist của spec; `hybrid_manifest.json` và `hybrid_predictions.jsonl` là hai artifact bổ sung cần thiết cho benchmark semantic audited và được ghi rõ ở trên. Model dùng external cache, không copy vào Git. Source và test không chứa generated file ngoài các dataset/artifact đã được chỉ định.
+
+# Việc tiếp theo
+
+Mở rộng golden set có review độc lập, tăng hybrid semantic benchmark có nhãn entailment/contradiction, và đo token savings end-to-end trước khi đưa ra claim production hoặc paper-grade. Không promote synthetic/unverified run; `promote_run` chỉ nhận `label_status` `verified` hoặc `audited` và artifact set đã validate.

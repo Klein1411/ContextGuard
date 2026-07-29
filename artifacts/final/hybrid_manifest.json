@@ -1,0 +1,44 @@
+{
+  "sample_count": 100,
+  "label_statuses": [
+    "audited"
+  ],
+  "label_status_allows_final_promotion": true,
+  "deterministic_metrics": {
+    "sample_count": 100,
+    "safe_count": 50,
+    "unsafe_count": 50,
+    "false_acceptance_rate": 0.0,
+    "unsafe_detection_recall": 1.0,
+    "false_rejection_rate": 1.0,
+    "precision": 0.5
+  },
+  "hybrid_metrics": {
+    "sample_count": 100,
+    "safe_count": 50,
+    "unsafe_count": 50,
+    "false_acceptance_rate": 0.0,
+    "unsafe_detection_recall": 1.0,
+    "false_rejection_rate": 0.0,
+    "precision": 1.0
+  },
+  "deterministic_status_counts": {
+    "UNCERTAIN": 100
+  },
+  "hybrid_status_counts": {
+    "PASS": 50,
+    "FAIL": 50
+  },
+  "semantic_calls": 100,
+  "fallback_rate": 0.0,
+  "p50_latency_ms": 18.161,
+  "p95_latency_ms": 26.746,
+  "peak_ram_mb": 2618.461,
+  "peak_vram_mb": 1122.0,
+  "adapter": "transformers-nli",
+  "model_id": "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli",
+  "model_revision": "add259b",
+  "python_version": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+  "os": "Windows-10-10.0.22631-SP0",
+  "metric_only": true
+}
