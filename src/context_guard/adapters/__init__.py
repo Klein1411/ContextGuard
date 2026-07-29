@@ -8,7 +8,10 @@ from context_guard.adapters.base import (
 from context_guard.adapters.mutations import Mutation, generate_mutations
 from context_guard.adapters.optional import LLMSummarizerCompressor, TokenLevelCompressor
 from context_guard.adapters.rule_based import RuleBasedCompressor
-from context_guard.adapters.semantic import UnavailableSemanticVerifier
+from context_guard.adapters.semantic import (
+    TransformersSemanticVerifier,
+    UnavailableSemanticVerifier,
+)
 
 __all__ = [
     "CompressorAdapter",
@@ -19,6 +22,7 @@ __all__ = [
     "SemanticVerification",
     "SemanticVerifierAdapter",
     "TokenLevelCompressor",
+    "TransformersSemanticVerifier",
     "UnavailableSemanticVerifier",
     "UnavailableCompressor",
     "generate_mutations",

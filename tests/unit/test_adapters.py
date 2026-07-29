@@ -14,6 +14,7 @@ from context_guard.adapters import (
     LLMSummarizerCompressor,
     RuleBasedCompressor,
     TokenLevelCompressor,
+    TransformersSemanticVerifier,
     generate_mutations,
 )
 from context_guard.adapters.base import SemanticVerification
@@ -91,6 +92,15 @@ def test_semantic_verifier_error_keeps_safe_uncertain_fallback() -> None:
     assert result.status is SafetyStatus.UNCERTAIN
     assert result.recommended_action is RecommendedAction.USE_ORIGINAL
     assert "SEMANTIC_VERIFIER_ERROR" in result.reason_codes
+
+
+def test_transformers_verifier_is_lazy_and_safe_when_optional_group_is_absent() -> None:
+    verifier = TransformersSemanticVerifier(local_files_only=True)
+    verifier.model_id = "contextguard/nonexistent-model"
+    outcome = verifier.verify("The deadline is 03/04/2026.", "The deadline is 03/04/2026.")
+    assert outcome.available is False
+    assert outcome.result is None
+    assert outcome.warning == "SEMANTIC_VERIFIER_ERROR"
 
 
 def test_rule_based_tier_c_candidates_remain_unverified() -> None:

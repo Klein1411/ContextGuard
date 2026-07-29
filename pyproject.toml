@@ -16,7 +16,12 @@ dependencies = [
 
 [project.optional-dependencies]
 api = ["fastapi>=0.115,<1", "uvicorn[standard]>=0.30,<1"]
-semantic = ["torch>=2.2,<3", "transformers>=4.45,<5"]
+semantic = [
+  "torch>=2.2,<3",
+  "transformers>=4.45,<5",
+  "protobuf>=4.25,<7",
+  "sentencepiece>=0.2,<1",
+]
 compressors = ["llmlingua>=0.2,<1"]
 benchmark = ["psutil>=5.9,<7"]
 all = [
@@ -28,7 +33,12 @@ all = [
 [dependency-groups]
 core = ["pydantic>=2.7,<3"]
 api = ["fastapi>=0.115,<1", "uvicorn[standard]>=0.30,<1"]
-semantic = ["torch>=2.2,<3", "transformers>=4.45,<5"]
+semantic = [
+  "torch>=2.2,<3",
+  "transformers>=4.45,<5",
+  "protobuf>=4.25,<7",
+  "sentencepiece>=0.2,<1",
+]
 compressors = ["llmlingua>=0.2,<1"]
 benchmark = ["psutil>=5.9,<7"]
 dev = [
