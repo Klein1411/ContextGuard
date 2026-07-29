@@ -41,6 +41,13 @@ semantic = [
 ]
 compressors = ["llmlingua>=0.2,<1"]
 benchmark = ["psutil>=5.9,<7"]
+all = [
+  { include-group = "api" },
+  { include-group = "semantic" },
+  { include-group = "compressors" },
+  { include-group = "benchmark" },
+  { include-group = "dev" },
+]
 dev = [
   { include-group = "api" },
   "pytest>=8.3,<9",

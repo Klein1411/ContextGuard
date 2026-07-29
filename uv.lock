@@ -135,6 +135,21 @@ semantic = [
 ]
 
 [package.dev-dependencies]
+all = [
+    { name = "fastapi" },
+    { name = "httpx" },
+    { name = "llmlingua" },
+    { name = "mypy" },
+    { name = "protobuf" },
+    { name = "psutil" },
+    { name = "pytest" },
+    { name = "pytest-cov" },
+    { name = "ruff" },
+    { name = "sentencepiece" },
+    { name = "torch" },
+    { name = "transformers" },
+    { name = "uvicorn", extra = ["standard"] },
+]
 api = [
     { name = "fastapi" },
     { name = "uvicorn", extra = ["standard"] },
@@ -182,6 +197,21 @@ requires-dist = [
 provides-extras = ["api", "semantic", "compressors", "benchmark", "all"]
 
 [package.metadata.requires-dev]
+all = [
+    { name = "fastapi", specifier = ">=0.115,<1" },
+    { name = "httpx", specifier = ">=0.27,<1" },
+    { name = "llmlingua", specifier = ">=0.2,<1" },
+    { name = "mypy", specifier = ">=1.13,<2" },
+    { name = "protobuf", specifier = ">=4.25,<7" },
+    { name = "psutil", specifier = ">=5.9,<7" },
+    { name = "pytest", specifier = ">=8.3,<9" },
+    { name = "pytest-cov", specifier = ">=5,<7" },
+    { name = "ruff", specifier = ">=0.8,<1" },
+    { name = "sentencepiece", specifier = ">=0.2,<1" },
+    { name = "torch", specifier = ">=2.2,<3" },
+    { name = "transformers", specifier = ">=4.45,<5" },
+    { name = "uvicorn", extras = ["standard"], specifier = ">=0.30,<1" },
+]
 api = [
     { name = "fastapi", specifier = ">=0.115,<1" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.30,<1" },
