@@ -78,13 +78,13 @@ Validator/adjudicator `scripts/aggregate_review.py` đã kiểm tra đủ `5 × 
 
 # M13 — Compressor/token-saving end-to-end pilot
 
-M13 đã chạy 24 record đại diện từ M11, ba rate `.33/.50/.70`, cả `RuleBasedCompressor` và `LLMLingua-2`, với protected-span ablation trên 8 record đầu. Token metric dùng `Qwen/Qwen2.5-0.5B-Instruct`; mỗi candidate được đo gross saving và safe effective saving sau deterministic guard. Có bốn path: `R6_direct_compressor`, `R7_direct_guard`, `R8_api_guard`, `R9_direct_api_guard`, tổng 672 metric rows; LLMLingua fallback `0/672` ở cache local lần chạy này.
+M13 đã chạy 24 record đại diện từ M11, ba rate `.33/.50/.70`, cả `RuleBasedCompressor` và `LLMLingua-2`, với protected-span ablation trên 8 record đầu. Token metric dùng `Qwen/Qwen2.5-0.5B-Instruct`; mỗi candidate được đo gross saving và safe effective saving sau deterministic guard. Có bốn path: `R6_direct_compressor`, `R7_direct_guard`, `R8_api_guard`, `R9_direct_api_guard`, tổng 672 metric rows; 24/672 row fallback explicit do guard max input 512 token.
 
 Kết quả aggregate trên protected=true và path guard: LLMLingua-2 mean gross saving ratio `0.451`, mean safe saving ratio `0.024`, PASS rate `0.153`; RuleBased mean gross `0.150`, safe saving `0.000`, PASS rate `0.417`. Có `24/672` fallback rows do guard max input 512 token; không coi fallback là compression success. Đây là minh chứng trade-off: gross token saving không đồng nghĩa candidate an toàn. Pareto points được ghi trong `artifacts/final/m13_compressor_manifest.json`; per-sample metrics nằm ở `m13_compressor_metrics.csv` và `m13_compressor_samples.jsonl`. Break-even tiền/LLM downstream chưa đo vì chưa có target LLM/API cost contract; manifest ghi limitation này.
 
 # Trạng thái hiện tại
 
-Status: `PARTIALLY_COMPLETED` (M0–M9 và M10a–M13 đã hoàn tất; M14 và báo cáo Word đang thực thi; Tier B, output compressor thật và hybrid semantic vẫn có giới hạn rõ ràng).
+Status: `COMPLETED_WITH_LIMITATIONS` (M0–M14 và báo cáo Word đã hoàn tất; các giới hạn dữ liệu, human review, token cap và downstream break-even vẫn được giữ nguyên).
 
 Repository trống lúc bắt đầu. Audit môi trường: Windows 11, i5-12500H, RAM 24 GB, RTX 3050 Laptop 4 GB, Python 3.11, `uv` và Git khả dụng. Không có model hoặc cache trong repository.
 
@@ -94,9 +94,9 @@ Repository trống lúc bắt đầu. Audit môi trường: Windows 11, i5-12500
 
 # Kết quả đã xác minh
 
-Audit baseline mới ngày 2026-07-29 với `uv run`/Python 3.11.9: 61 pytest test pass; Ruff pass; mypy pass trên 34 source file; `uv lock --check` và `uv pip check` pass. Đây là số liệu chạy thật mới nhất; các đoạn lịch sử cũ không được dùng để thay thế kết quả hiện tại. Coverage 80% line là kết quả audit trước đó và sẽ được chạy lại ở M14.
+Audit M14 ngày 2026-07-29 với `uv run`/Python 3.11.9: 67 pytest test pass, 1 upstream deprecation warning; Ruff pass; mypy pass trên 34 source file; `uv lock --check`, `uv pip check` và `pip-audit --local` pass. Đây là số liệu chạy thật mới nhất; các đoạn lịch sử cũ không được dùng để thay thế kết quả hiện tại. Coverage 80% line là kết quả audit trước đó và không được diễn giải thành quality threshold.
 
-Ngày 2026-07-29 với Python 3.11.9: 61 pytest test pass; Ruff pass; mypy pass trên 34 source file; package build và clean-wheel smoke pass; coverage 80% line (không tuyên bố ngưỡng tối thiểu). Với seed `20260729`, Tier A `golden_v0_provisional` có 300 mẫu (150 SAFE, 150 UNSAFE), đúng 75 mẫu cho mỗi domain: false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, precision `1.0`, P50/P95 `0.362/0.604 ms`, peak RAM `30.414 MB`, VRAM chưa đo. Tier B `mutation_v0_provisional` có 2.001 mẫu (218 SAFE, 1.783 UNSAFE), gồm 109 safe date-format và 109 safe identity: false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, precision `1.0`, P50/P95 `1.305/2.224 ms`, peak RAM `38.375 MB`, VRAM chưa đo. Hai run đều đạt metric-only gate (recall ≥95%, FAR ≤2%, P95 ≤50 ms); promotion Tier A audited, contract gate và regression gate được kiểm tra riêng.
+Audit nền trước M14 với Python 3.11.9: package build và clean-wheel smoke pass; coverage 80% line (không tuyên bố ngưỡng tối thiểu). Với seed `20260729`, Tier A `golden_v0_provisional` có 300 mẫu (150 SAFE, 150 UNSAFE), đúng 75 mẫu cho mỗi domain: false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, precision `1.0`, P50/P95 `0.362/0.604 ms`, peak RAM `30.414 MB`, VRAM chưa đo. Tier B `mutation_v0_provisional` có 2.001 mẫu (218 SAFE, 1.783 UNSAFE), gồm 109 safe date-format và 109 safe identity: false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, precision `1.0`, P50/P95 `1.305/2.224 ms`, peak RAM `38.375 MB`, VRAM chưa đo. Hai run đều đạt metric-only gate (recall ≥95%, FAR ≤2%, P95 ≤50 ms); promotion Tier A audited, contract gate và regression gate được kiểm tra riêng.
 
 ExactGuard có regression cho fact bị duplicate, thêm mới và literal mới; relation có metric–dataset, config–component, method–dataset; LogicGuard từ chối condition/exception bị đổi. Tier C rule-based tạo 300 candidate UTF-8 với `label_status=unverified`, không gán quality metric. LLMLingua-2 thật trên 20 mẫu dùng `microsoft/llmlingua-2-xlm-roberta-large-meetingbank@ebaba9b`, trung bình `1,501.630 ms/mẫu`, RSS khoảng `1,984.902 MB`; mọi output vẫn `unverified` và không được promote.
 
@@ -139,6 +139,8 @@ Tier A audit tái sinh khớp chính xác `300/300`, xem xét toàn bộ record 
 
 File tạm phải nằm trong `.runtime/`. Dữ liệu dài hạn và checkpoint nằm trong `D:\fact_safeguard_data` với các thư mục `raw`, `extracted`, `normalized`, `model_cache`, `reviewer_runs`, `benchmark_cache` và `manifests`; cleanup phải giữ nguyên toàn bộ data home này. Final benchmark artifact chỉ nằm trong `artifacts/final/` và đúng whitelist của spec; `hybrid_manifest.json` và `hybrid_predictions.jsonl` là hai artifact bổ sung cần thiết cho benchmark semantic audited và được ghi rõ ở trên. Model dùng external cache, không copy vào Git. Source và test không chứa generated file ngoài các dataset/artifact đã được chỉ định.
 
-# Việc tiếp theo
+# M14 — Audit và public hand-off
 
-M14 audit toàn bộ, đồng bộ docs và hoàn thiện báo cáo Word public. Không promote synthetic/unverified run; `promote_run` chỉ nhận `label_status` `verified` hoặc `audited` và artifact set đã validate.
+M14 đã pass các cổng: `67 passed` (1 warning upstream), Ruff, mypy 34 source files, `uv lock --check`, `uv pip check`, `pip-audit --local`; `dataset_pipeline.py --validate` trả `valid=true` với 400 record (`280 dev`, `120 hidden`); `aggregate_review.py` kiểm tra 5×400 reviewer rows và Fleiss kappa `0.5205174362315782`. Tracked Markdown đúng ba file (`AGENTS.md`, `README.md`, `CONTEXT.md`); raw/extracted/normalized/model cache/reviewer runs vẫn ở `D:\fact_safeguard_data`; report Word đã render và visual/a11y audit pass, artifact public là `reports/ContextGuard_Progress_Report.docx`. Repository được commit và push trên branch `master` sau audit cuối.
+
+Không promote synthetic/unverified run; `promote_run` chỉ nhận `label_status` `verified` hoặc `audited` và artifact set đã validate. Các việc tiếp theo là mở rộng natural-language/human annotation, đo downstream break-even với target LLM contract và đánh giá semantic trên tập tự nhiên rộng hơn.
