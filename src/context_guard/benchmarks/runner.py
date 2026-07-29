@@ -174,6 +174,14 @@ def _decision_signature(predictions: list[dict[str, object]]) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def _rss_mb() -> float | None:
+    try:
+        import psutil  # type: ignore[import-untyped]
+    except ModuleNotFoundError:
+        return None
+    return float(round(psutil.Process().memory_info().rss / (1024 * 1024), 3))
+
+
 def _load_cases(path: Path, seed: int) -> tuple[list[MutationCase], dict[str, object]]:
     records = load_jsonl(path)
     validation = (
@@ -201,6 +209,7 @@ def run_benchmark(
         }
     predictions: list[dict[str, object]] = []
     started = perf_counter()
+    peak_ram_mb = _rss_mb()
     for case in cases:
         case_started = perf_counter()
         result = ContextGuard(GuardConfig(language=case.language, profile=case.domain)).validate(
@@ -217,6 +226,9 @@ def run_benchmark(
                 "latency_ms": result.latency_ms or round((perf_counter() - case_started) * 1000, 3),
             }
         )
+        current_ram_mb = _rss_mb()
+        if current_ram_mb is not None:
+            peak_ram_mb = max(peak_ram_mb or current_ram_mb, current_ram_mb)
     safe = unsafe = false_accept = unsafe_detected = false_reject = 0
     for case, prediction in zip(cases, predictions, strict=True):
         expected_safe = case.expected_label == "SAFE"
@@ -253,6 +265,8 @@ def run_benchmark(
         / len(predictions)
         if predictions
         else 0.0,
+        "peak_ram_mb": peak_ram_mb if peak_ram_mb is not None else "not_measured",
+        "peak_vram_mb": "not_measured",
         "elapsed_ms": round(elapsed_ms, 3),
     }
     by_category: dict[str, list[dict[str, object]]] = defaultdict(list)
@@ -301,13 +315,13 @@ def run_benchmark(
         ).stdout.strip()
     except (OSError, subprocess.SubprocessError):
         git_commit = "unknown"
-    manifest = {
+    manifest: dict[str, object] = {
         "run_id": now.strftime("%Y%m%dT%H%M%SZ"),
         "timestamp": now.isoformat(),
         "python_version": sys.version,
         "os": platform.platform(),
         "cpu": platform.processor() or "unknown",
-        "ram": "not_measured",
+        "ram": peak_ram_mb if peak_ram_mb is not None else "not_measured",
         "gpu": "not_measured",
         "cuda": "not_measured",
         "git_commit": git_commit,
@@ -346,6 +360,8 @@ def run_benchmark(
                 "ram": "not_measured",
                 "gpu": "not_measured",
                 "cuda": "not_measured",
+                "peak_ram_mb": peak_ram_mb if peak_ram_mb is not None else "not_measured",
+                "peak_vram_mb": "not_measured",
             },
             ensure_ascii=False,
             indent=2,
