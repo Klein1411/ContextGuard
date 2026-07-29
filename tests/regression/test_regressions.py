@@ -32,6 +32,16 @@ def test_vietnamese_comparison_direction_change_is_critical() -> None:
     assert "COMPARISON_CHANGED" in result.reason_codes
 
 
+def test_vietnamese_negation_is_not_double_counted_as_zero() -> None:
+    result = ContextGuard(GuardConfig(language="vi", profile="technical")).validate(
+        "Không triển khai.",
+        "Triển khai.",
+    )
+    assert result.status is SafetyStatus.FAIL
+    assert "NEGATION_REMOVED" in result.reason_codes
+    assert "NUMBER_REMOVED" not in result.reason_codes
+
+
 def test_technical_literals_include_filename_config_and_boolean() -> None:
     result = ContextGuard(GuardConfig(language="en", profile="technical")).validate(
         "Use config.yaml with safe=true.",

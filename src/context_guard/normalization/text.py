@@ -200,6 +200,10 @@ def extract_facts(
                 continue
             seen.add(key)
             raw = match.group(0)
+            if kind == "number" and raw.casefold() == "không":
+                # "không" is ambiguous between Vietnamese zero and negation;
+                # LogicGuard handles the safety-critical negation interpretation.
+                continue
             date_parts = re.fullmatch(r"(\d{1,2})[/.](\d{1,2})[/.]\d{4}", raw)
             ambiguous = bool(
                 kind == "date"
