@@ -57,7 +57,7 @@ Repository foundation, public schemas, FastAPI V1 routes, CLI, ExactGuard, Logic
 
 # Verified Results
 
-Verified on 2026-07-29 with Python 3.11.9: 32 pytest tests pass; Ruff check passes; mypy passes on 31 source files; package build succeeds. Tier A `golden_v0_provisional` (seed 20260729) produced 300 samples (150 SAFE, 150 UNSAFE): false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P50 0.318 ms, P95 0.533 ms on one post-commit run. Tier B `mutation_v0_provisional` produced 2,014 samples (116 SAFE, 1,898 UNSAFE): false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P50 1.117 ms, P95 1.891 ms on one post-commit run. Repeated Tier A runs produced the same `decision_sha256`; elapsed time and per-sample latency are expected to vary. These are synthetic/unverified results, not a manual golden-set or paper-grade quality claim.
+Verified on 2026-07-29 with Python 3.11.9: 32 pytest tests pass; Ruff check passes; mypy passes on 31 source files; package build succeeds. On HEAD `107556e` with seed 20260729, Tier A `golden_v0_provisional` produced 300 samples (150 SAFE, 150 UNSAFE): false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P95 1.033 ms. Tier B `mutation_v0_provisional` produced 2,014 samples (116 SAFE, 1,898 UNSAFE): false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P95 2.933 ms. Repeated Tier A runs produced the same `decision_sha256`; elapsed time and per-sample latency are expected to vary. These are synthetic/unverified results, not a manual golden-set or paper-grade quality claim.
 
 # Known Limitations
 
