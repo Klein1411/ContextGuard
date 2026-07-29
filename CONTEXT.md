@@ -63,6 +63,8 @@ GPU follow-up: a separate external CUDA venv using `torch 2.8.0+cu126` detected 
 
 Mixed semantic smoke: 20 deliberately uncertain cases (16 controlled unsafe paraphrases and 4 safe identities) on the same CUDA environment produced hybrid false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, fallback rate 0.2, P50/P95 21.862/310.104 ms, peak RSS 2,619.078 MB, and peak VRAM 1,120.0 MB. All labels remain `synthetic_unverified`; this is not a golden-set or production quality claim.
 
+Tier A structural audit regenerated the dataset exactly (`300/300` records), with 300 unique IDs and pairs, balanced `75` per language/label cell, and the expected controlled mutation counts. This verifies provenance and schema, not human semantic correctness; `label_status` remains `synthetic_unverified` and manual semantic audit is still required.
+
 Final audit evidence: `pip-audit --local` reported no known vulnerabilities; tracked secret, large-file, forbidden-path, and model-weight scans were clean.
 
 # Known Limitations
