@@ -7,6 +7,7 @@ from collections import Counter
 from collections.abc import Iterable
 from pathlib import Path
 from time import perf_counter
+from typing import Any, cast
 
 from context_guard.adapters.base import SemanticVerifierAdapter
 from context_guard.core.guard import ContextGuard
@@ -20,6 +21,21 @@ def _rss_mb() -> float | None:
         return None
     rss = float(psutil.Process().memory_info().rss)
     return float(round(rss / (1024 * 1024), 3))
+
+
+def _peak_vram_mb(verifier: SemanticVerifierAdapter) -> float | None:
+    torch_module = getattr(verifier, "_torch", None)
+    if torch_module is None:
+        return None
+    torch = cast(Any, torch_module)
+    try:
+        if not bool(torch.cuda.is_available()):
+            return None
+        allocated = float(torch.cuda.max_memory_allocated() / (1024 * 1024))
+        reserved = float(torch.cuda.max_memory_reserved() / (1024 * 1024))
+        return float(round(max(allocated, reserved), 3))
+    except (AttributeError, RuntimeError, TypeError, ValueError):
+        return None
 
 
 def _metric(rows: list[dict[str, object]], status_key: str) -> dict[str, float | int]:
@@ -61,6 +77,7 @@ def run_hybrid_benchmark(
     rows: list[dict[str, object]] = []
     latencies: list[float] = []
     peak_rss = _rss_mb()
+    peak_vram: float | None = None
     semantic_calls = 0
     for case in cases:
         original = str(case["original"])
@@ -85,6 +102,9 @@ def run_hybrid_benchmark(
         current_rss = _rss_mb()
         if current_rss is not None:
             peak_rss = max(peak_rss or current_rss, current_rss)
+        current_vram = _peak_vram_mb(verifier)
+        if current_vram is not None:
+            peak_vram = max(peak_vram or current_vram, current_vram)
     label_statuses = sorted({str(row["label_status"]) for row in rows})
     result: dict[str, object] = {
         "sample_count": len(rows),
@@ -107,7 +127,7 @@ def run_hybrid_benchmark(
         if latencies
         else 0.0,
         "peak_ram_mb": peak_rss if peak_rss is not None else "not_measured",
-        "peak_vram_mb": "not_measured",
+        "peak_vram_mb": peak_vram if peak_vram is not None else "not_measured",
         "adapter": getattr(verifier, "name", type(verifier).__name__),
         "model_id": getattr(verifier, "model_id", None),
         "model_revision": getattr(verifier, "model_revision", None),

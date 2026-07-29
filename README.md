@@ -52,6 +52,11 @@ Semantic adapter tùy chọn dùng `TransformersSemanticVerifier` với model mu
 CUDA không khả dụng. Smoke test local đã chạy được trên CPU; chưa dùng kết quả này làm quality
 gate hybrid.
 
+An external CUDA smoke environment (`torch 2.8.0+cu126`) detected the RTX 3050 and measured
+about 1,120 MB peak VRAM and 2.63 GB peak RSS on 20 uncertainty-path calls. This is a
+resource smoke only; the default project environment remains CPU-only and no hybrid quality
+claim is made.
+
 ## CLI
 
 ```text
