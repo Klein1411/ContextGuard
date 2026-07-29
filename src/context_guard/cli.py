@@ -111,6 +111,7 @@ def main(argv: list[str] | None = None) -> int:
                     "compressor_adapters": [
                         "rule-based",
                         "controlled-mutation",
+                        "llmlingua-2-optional",
                         "token-level-unavailable",
                         "llm-summarizer-unavailable",
                     ],

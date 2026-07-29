@@ -55,6 +55,7 @@ def create_app() -> FastAPI:
             compressor_adapters=[
                 "rule-based",
                 "controlled-mutation",
+                "llmlingua-2-optional",
                 "token-level-unavailable",
                 "llm-summarizer-unavailable",
             ],
