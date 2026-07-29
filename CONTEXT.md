@@ -40,7 +40,7 @@ V1 routes: `GET /v1/health`, `GET /v1/capabilities`, `POST /v1/analyze`, `POST /
 - M3 LogicGuard: implemented for bilingual negation, comparisons, conditions, exceptions, and modality.
 - M4 relation/entity: conservative explicit-structure implementation added; broad semantic NER remains limited.
 - M5 benchmark: provisional Tier A (300) and Tier B (2,001) datasets, deterministic runner, per-category metrics, reproducibility signature, artifact validation, and guarded promotion helper implemented. Both datasets remain synthetic/unverified.
-- M6 compressor adapters: rule-based protected-span compressor, controlled mutations, and Tier C unverified candidate generation implemented; token-level and LLM summarizer boundaries are explicit unavailable adapters.
+- M6 compressor adapters: rule-based protected-span compressor, controlled mutations, Tier C unverified candidate generation, and a lazy revision-pinned LLMLingua-2 adapter implemented; the LLM summarizer remains an explicit unavailable boundary.
 - M7 semantic verifier: optional only-on-UNCERTAIN orchestration, safe unavailable/error fallback, and a lazy revision-pinned Transformers NLI adapter implemented. A CPU smoke run succeeded; hybrid quality benchmarking remains pending.
 - M8 packaging: package, CLI, FastAPI, non-root Dockerfile, health check, local image build, and container smoke test completed.
 - M9 final audit: pending manual label audit, real compressor/semantic measurements, resource measurements, and final artifact promotion.
@@ -64,7 +64,7 @@ Verified on 2026-07-29 with Python 3.11.9: 46 pytest tests pass; Ruff check pass
 - Deterministic V1 cannot prove unrestricted natural-language equivalence.
 - Entity and relation handling will be conservative and may return `UNCERTAIN`.
 - The required sample counts now exist, but Tier A labels have not been manually audited and Tier B mutations are controlled synthetic records; quality claims remain provisional.
-- Real token compressor quality, hybrid semantic quality, GPU VRAM, and production end-to-end token savings are not yet measured. The optional semantic adapter has only a CPU smoke/resource measurement; rules-only P50/P95 are measured above.
+- Real token compressor quality, LLMLingua-2 runtime/resource behavior, hybrid semantic quality, GPU VRAM, and production end-to-end token savings are not yet measured. The optional semantic adapter has only a CPU smoke/resource measurement; rules-only P50/P95 are measured above.
 - FastAPI integration test emits an upstream Starlette/httpx deprecation warning; tests still pass.
 - Docker image build and non-root container smoke test are verified locally; no registry publication or production deployment has been performed.
 

@@ -44,7 +44,7 @@ Routes V1: `/v1/health`, `/v1/capabilities`, `/v1/analyze`, `/v1/validate`. Open
 
 Profiles are `general`, `academic`, `business`, and `technical`. Policies are `lenient`, `balanced`, and `strict`; strict is the default and falls back to the original text for `FAIL` or `UNCERTAIN`.
 
-The adapter boundary includes `RuleBasedCompressor`, controlled mutations, and explicit unavailable placeholders for token-level and LLM summarizer backends. `ContextGuard.validate_with_semantic(...)` invokes a semantic verifier only for deterministic `UNCERTAIN`; adapter errors keep the safe fallback.
+The adapter boundary includes `RuleBasedCompressor`, controlled mutations, a lazy `LLMLingua2Compressor`, and an explicit unavailable placeholder for LLM summarizer backends. `ContextGuard.validate_with_semantic(...)` invokes a semantic verifier only for deterministic `UNCERTAIN`; adapter errors keep the safe fallback. LLMLingua-2 remains opt-in and unverified until a real Tier C run is manually audited.
 
 Semantic adapter tùy chọn dùng `TransformersSemanticVerifier` với model multilingual
 `MoritzLaurer/mDeBERTa-v3-base-mnli-xnli`, revision `add259b`, license MIT. Cài bằng

@@ -11,6 +11,7 @@ from context_guard import (
 from context_guard.adapters import (
     AdapterUnavailableError,
     CompressorAdapter,
+    LLMLingua2Compressor,
     LLMSummarizerCompressor,
     RuleBasedCompressor,
     TokenLevelCompressor,
@@ -39,6 +40,13 @@ def test_rule_based_compressor_keeps_protected_fact_sentence() -> None:
 def test_optional_compressor_fails_explicitly(adapter: CompressorAdapter) -> None:
     with pytest.raises(AdapterUnavailableError, match="unavailable"):
         adapter.compress("text")
+
+
+def test_llmlingua2_adapter_is_lazy_and_safe_when_model_is_not_cached() -> None:
+    compressor = LLMLingua2Compressor(local_files_only=True)
+    compressor.model_id = "contextguard/nonexistent-compressor-model"
+    with pytest.raises(AdapterUnavailableError, match="LLMLingua-2"):
+        compressor.compress("text")
 
 
 class _FakeSemanticVerifier:
