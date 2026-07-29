@@ -278,7 +278,7 @@ def build_provisional_golden() -> list[DatasetRecord]:
         unsafe = _unsafe_templates(language)
         for label, templates in (("SAFE", safe), ("UNSAFE", unsafe)):
             for index in range(75):
-                domain = ("general", "academic", "business", "technical")[index % 4]
+                domain = ("general", "academic", "business", "technical")[len(records) % 4]
                 domain_templates = [template for template in templates if template[0] == domain]
                 template = domain_templates[(index // 4) % len(domain_templates)]
                 _, original, candidate, mutation, facts = template

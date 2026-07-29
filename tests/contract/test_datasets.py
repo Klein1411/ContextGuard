@@ -1,3 +1,4 @@
+from collections import Counter
 from pathlib import Path
 
 import pytest
@@ -15,6 +16,12 @@ def test_tier_a_contract() -> None:
     records = load_jsonl(Path("benchmarks/datasets/golden_v0_provisional.jsonl"))
     summary = validate_dataset(records)
     assert summary["sample_count"] == 300
+    assert Counter(record["domain"] for record in records) == {
+        "general": 75,
+        "academic": 75,
+        "business": 75,
+        "technical": 75,
+    }
 
 
 def test_tier_b_contract() -> None:
