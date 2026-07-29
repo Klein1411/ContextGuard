@@ -61,6 +61,7 @@ Verified on 2026-07-29 with Python 3.11.9: 20 pytest tests pass; Ruff check pass
 - The benchmark is not yet the required 300-sample audited golden set or 2,000–5,000 candidate mutation set.
 - Real token compressor and semantic verifier quality, RAM/VRAM, and P50/P95 latency are not yet measured.
 - FastAPI integration test emits an upstream Starlette/httpx deprecation warning; tests still pass.
+- Docker CLI is installed, but the Docker Desktop Linux engine was unavailable during the build check; image build is not verified.
 
 # Deferred Improvements
 
