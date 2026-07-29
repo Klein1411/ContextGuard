@@ -35,6 +35,8 @@ Routes V1: `/v1/health`, `/v1/capabilities`, `/v1/analyze`, `/v1/validate`. Open
 
 Profiles are `general`, `academic`, `business`, and `technical`. Policies are `lenient`, `balanced`, and `strict`; strict is the default and falls back to the original text for `FAIL` or `UNCERTAIN`.
 
+The adapter boundary includes `RuleBasedCompressor`, controlled mutations, and explicit unavailable placeholders for token-level and LLM summarizer backends. `ContextGuard.validate_with_semantic(...)` invokes a semantic verifier only for deterministic `UNCERTAIN`; adapter errors keep the safe fallback.
+
 ## CLI
 
 ```text

@@ -61,7 +61,7 @@ class Fact(BaseModel):
 
     id: str
     type: str
-    text: str
+    text: str = Field(max_length=100_000)
     start: int = Field(ge=0)
     end: int = Field(ge=0)
     normalized_value: str | None = None
@@ -122,8 +122,8 @@ class AnalyzeResponse(BaseModel):
 class ValidateRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    original_text: str
-    candidate_text: str
+    original_text: str = Field(max_length=100_000)
+    candidate_text: str = Field(max_length=100_000)
     language: str = "auto"
     profile: str = "general"
     policy: str = "strict"

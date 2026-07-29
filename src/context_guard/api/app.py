@@ -39,7 +39,7 @@ def create_app() -> FastAPI:
             status="ok",
             package_version=__version__,
             api_version=API_VERSION,
-            adapters={"semantic": False, "compressors": False},
+            adapters={"semantic": False, "compressors": True},
         )
 
     @application.get("/v1/capabilities", response_model=CapabilityResponse)
@@ -52,7 +52,12 @@ def create_app() -> FastAPI:
             policies=["lenient", "balanced", "strict"],
             validators=["ExactGuard", "LogicGuard", "EntityGuard", "RelationGuard"],
             semantic_verifier_available=False,
-            compressor_adapters=[],
+            compressor_adapters=[
+                "rule-based",
+                "controlled-mutation",
+                "token-level-unavailable",
+                "llm-summarizer-unavailable",
+            ],
             max_input_chars=GuardConfig().max_input_chars,
         )
 

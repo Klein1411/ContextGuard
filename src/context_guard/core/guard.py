@@ -2,9 +2,10 @@ from __future__ import annotations
 
 from time import perf_counter
 
+from context_guard.adapters.base import SemanticVerifierAdapter
 from context_guard.normalization.text import extract_facts
 from context_guard.policies.engine import action_for, status_for
-from context_guard.schemas.models import AnalyzeResult, GuardConfig, ValidationResult
+from context_guard.schemas.models import AnalyzeResult, GuardConfig, SafetyStatus, ValidationResult
 from context_guard.scoring.risk import risk_level, risk_score
 from context_guard.validators.entity import entity_violations
 from context_guard.validators.exact import exact_violations
@@ -71,4 +72,49 @@ class ContextGuard:
             normalized_language=original.normalized_language,
             latency_ms=round((perf_counter() - started) * 1000, 3),
             reason_codes=[violation.code for violation in violations],
+        )
+
+    def validate_with_semantic(
+        self,
+        original_text: str,
+        candidate_text: str,
+        verifier: SemanticVerifierAdapter,
+    ) -> ValidationResult:
+        """Run an optional verifier only after deterministic validation is UNCERTAIN.
+
+        Deterministic FAIL/PASS decisions are never delegated or overridden. Optional
+        adapter failures remain UNCERTAIN and use the policy's safe action.
+        """
+        deterministic = self.validate(original_text, candidate_text)
+        if deterministic.status is not SafetyStatus.UNCERTAIN:
+            return deterministic
+        try:
+            verification = verifier.verify(original_text, candidate_text)
+        except Exception:
+            return deterministic.model_copy(
+                update={
+                    "warnings": sorted(
+                        set(deterministic.warnings) | {"SEMANTIC_VERIFIER_ERROR"}
+                    ),
+                    "reason_codes": deterministic.reason_codes + ["SEMANTIC_VERIFIER_ERROR"],
+                }
+            )
+        if not verification.available or verification.result is None:
+            warning = verification.warning or "SEMANTIC_VERIFIER_UNAVAILABLE"
+            return deterministic.model_copy(
+                update={
+                    "warnings": sorted(set(deterministic.warnings) | {warning}),
+                    "reason_codes": deterministic.reason_codes + [
+                        "SEMANTIC_VERIFIER_UNAVAILABLE"
+                    ],
+                }
+            )
+        return verification.result.model_copy(
+            update={
+                "warnings": sorted(
+                    set(deterministic.warnings + verification.result.warnings)
+                    | {"SEMANTIC_VERIFIER_USED"}
+                ),
+                "reason_codes": verification.result.reason_codes + ["SEMANTIC_VERIFIER_USED"],
+            }
         )

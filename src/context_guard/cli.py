@@ -91,7 +91,12 @@ def main(argv: list[str] | None = None) -> int:
                     "policies": ["lenient", "balanced", "strict"],
                     "validators": ["ExactGuard", "LogicGuard", "EntityGuard", "RelationGuard"],
                     "semantic_verifier_available": False,
-                    "compressor_adapters": [],
+                    "compressor_adapters": [
+                        "rule-based",
+                        "controlled-mutation",
+                        "token-level-unavailable",
+                        "llm-summarizer-unavailable",
+                    ],
                 },
                 ensure_ascii=False,
                 indent=2,
