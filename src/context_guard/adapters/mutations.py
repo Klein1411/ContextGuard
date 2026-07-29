@@ -23,6 +23,8 @@ def _replace_first(
     if not match:
         return None
     source = match.group(0)
+    if source.lower() == replacement.lower():
+        return None
     return text[: match.start()] + replacement + text[match.end() :], source, replacement
 
 
@@ -58,7 +60,7 @@ def _mutation_specs() -> dict[str, Callable[[str], tuple[str, str, str] | None]]
         "entity_changed": lambda text: _replace_first(text, r"\bAlice\b|\bBob\b|\bPython\b", "Eve"),
         "responsible_changed": lambda text: _replace_first(text, r"\bAlice\b|\bBob\b", "Bob"),
         "model_role_changed": lambda text: _replace_first(
-            text, r"\b(?:target|draft|compressor|classifier)\b", "target"
+            text, r"\b(?:target|draft|compressor|classifier)\b", "draft"
         ),
         "version_changed": lambda text: _replace_first(
             text, r"\b(?:Python|Node|CUDA|FastAPI|PyTorch)\s+\d+\.\d+(?:\.\d+)?\b", "Python 3.12"

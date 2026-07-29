@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 from context_guard import ContextGuard, GuardConfig
-from context_guard.benchmarks.runner import run_benchmark
+from context_guard.benchmarks.runner import promote_run, run_benchmark, validate_run_artifacts
 
 
 def _text(value: str | None, filename: str | None) -> str:
@@ -38,8 +38,11 @@ def main(argv: list[str] | None = None) -> int:
     serve.add_argument("--host", default="127.0.0.1")
     serve.add_argument("--port", type=int, default=8000)
     benchmark = sub.add_parser("benchmark")
-    benchmark.add_argument("--output", default="artifacts/final")
+    benchmark.add_argument("--output", default=".runtime/benchmark")
     benchmark.add_argument("--seed", type=int, default=20260729)
+    benchmark.add_argument("--dataset", default="benchmarks/datasets/golden_v0_provisional.jsonl")
+    benchmark.add_argument("--validate-artifacts", action="store_true")
+    benchmark.add_argument("--promote-final", action="store_true")
     sub.add_parser("capabilities")
     clean = sub.add_parser("clean")
     clean.add_argument("--runtime", default=".runtime")
@@ -65,7 +68,20 @@ def main(argv: list[str] | None = None) -> int:
 
         uvicorn.run("context_guard.api.app:app", host=args.host, port=args.port)
     elif args.command == "benchmark":
-        print(json.dumps(run_benchmark(Path(args.output), args.seed), ensure_ascii=False, indent=2))
+        output = Path(args.output)
+        if args.validate_artifacts:
+            payload = validate_run_artifacts(output)
+        elif args.promote_final:
+            payload = promote_run(output)
+        else:
+            payload = run_benchmark(output, args.seed, Path(args.dataset))
+        print(
+            json.dumps(
+                payload,
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
     elif args.command == "capabilities":
         print(
             json.dumps(

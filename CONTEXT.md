@@ -39,7 +39,7 @@ V1 routes: `GET /v1/health`, `GET /v1/capabilities`, `POST /v1/analyze`, `POST /
 - M2 ExactGuard: implemented for explicit numeric, percentage, currency, date/time, unit, version, URL/email, path, flag, and code facts.
 - M3 LogicGuard: implemented for bilingual negation, comparisons, conditions, exceptions, and modality.
 - M4 relation/entity: conservative explicit-structure implementation added; broad semantic NER remains limited.
-- M5 benchmark: deterministic mutation/rule-based foundation added; target golden and 2,000–5,000 candidate set are still pending.
+- M5 benchmark: provisional Tier A (300) and Tier B (2,014) datasets, deterministic runner, per-category metrics, reproducibility signature, artifact validation, and guarded promotion helper implemented. Both datasets remain synthetic/unverified.
 - M6 compressor adapters, M7 semantic verifier, M8 packaging, M9 final audit: deferred until deterministic evidence is stable.
 
 # Current Status
@@ -52,14 +52,14 @@ Repository foundation, public schemas, FastAPI V1 routes, CLI, ExactGuard, Logic
 
 # Verified Results
 
-Verified on 2026-07-29 with Python 3.11.9: 20 pytest tests pass; Ruff check passes; mypy passes on 29 source files; package build succeeds. Synthetic benchmark v0 (seed 20260729) produced 19 samples: 2 SAFE and 17 UNSAFE, false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, elapsed 5.929 ms on the latest local run. These are synthetic foundation results, not a manual golden-set claim.
+Verified on 2026-07-29 with Python 3.11.9: 27 pytest tests pass; Ruff check passes; mypy passes on 30 source files; package build succeeds. Tier A `golden_v0_provisional` (seed 20260729) produced 300 samples (150 SAFE, 150 UNSAFE): false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P50 0.323 ms, P95 0.530 ms on one local run. Tier B `mutation_v0_provisional` produced 2,014 samples (116 SAFE, 1,898 UNSAFE): false acceptance 0.0, unsafe detection recall 1.0, false rejection 0.0, precision 1.0, P50 1.072 ms, P95 1.648 ms on one local run. Repeated Tier A runs produced the same `decision_sha256`; elapsed time and per-sample latency are expected to vary. These are synthetic/unverified results, not a manual golden-set or paper-grade quality claim.
 
 # Known Limitations
 
 - Deterministic V1 cannot prove unrestricted natural-language equivalence.
 - Entity and relation handling will be conservative and may return `UNCERTAIN`.
-- The benchmark is not yet the required 300-sample audited golden set or 2,000–5,000 candidate mutation set.
-- Real token compressor and semantic verifier quality, RAM/VRAM, and P50/P95 latency are not yet measured.
+- The required sample counts now exist, but Tier A labels have not been manually audited and Tier B mutations are controlled synthetic records; quality claims remain provisional.
+- Real token compressor and semantic verifier quality, peak RAM/VRAM, and production end-to-end token savings are not yet measured. Rules-only P50/P95 are measured above.
 - FastAPI integration test emits an upstream Starlette/httpx deprecation warning; tests still pass.
 - Docker CLI is installed, but the Docker Desktop Linux engine was unavailable during the build check; image build is not verified.
 
@@ -79,4 +79,4 @@ Temporary files belong in `.runtime/`. Final benchmark artifacts are restricted 
 
 # Next Action
 
-Next: expand and manually audit the Tier A/B benchmark datasets, add benchmark manifest validation and promotion rules, then audit performance and optional compressor/semantic adapters before claiming a quality gate.
+Next: manually audit and freeze Tier A labels, add real compressor candidates for Tier C, then measure resource usage and optional semantic-verifier behavior. Do not promote synthetic runs to `artifacts/final/`; `promote_run` requires `label_status` `verified` or `audited` and a validated artifact set.

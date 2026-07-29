@@ -6,9 +6,9 @@ from context_guard.schemas.models import Fact, GuardConfig, RiskLevel, Violation
 
 
 def _severity_for(kind: str, config: GuardConfig) -> RiskLevel:
-    if kind in {"version", "currency", "percentage", "code"}:
+    if kind in {"version", "currency", "percentage", "code", "config", "boolean"}:
         return RiskLevel.CRITICAL
-    if kind in {"date", "unit", "url", "email", "path", "flag_or_literal"}:
+    if kind in {"date", "unit", "url", "email", "path", "filename", "flag_or_literal"}:
         return RiskLevel.HIGH
     if kind == "number":
         return RiskLevel.HIGH
@@ -52,7 +52,10 @@ def exact_violations(
                 code = "VERSION_CHANGED" if changed else "VERSION_REMOVED"
             elif kind == "currency":
                 code = "MONEY_CHANGED" if changed else "MONEY_REMOVED"
-            elif kind in {"number", "percentage", "unit", "date", "time"}:
+            elif kind in {
+                "number", "percentage", "unit", "date", "time",
+                "filename", "config", "boolean",
+            }:
                 code = f"{kind.upper()}_CHANGED" if changed else f"{kind.upper()}_REMOVED"
             severity = _severity_for(kind, config)
             violations.append(

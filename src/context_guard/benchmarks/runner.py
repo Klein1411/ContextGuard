@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import platform
 import random
@@ -10,10 +11,17 @@ from collections import defaultdict
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
+from shutil import copy2
 from time import perf_counter
+from typing import Any
 
 from context_guard import ContextGuard, GuardConfig, SafetyStatus
 from context_guard.adapters.mutations import generate_mutations
+from context_guard.benchmarks.dataset import (
+    load_jsonl,
+    validate_dataset,
+    validate_mutation_dataset,
+)
 
 
 @dataclass(frozen=True)
@@ -28,10 +36,10 @@ class MutationCase:
     seed: int
     source_span: str
     replacement: str
-    label_status: str = "synthetic"
+    label_status: str = "synthetic_unverified"
 
 
-def _cases(seed: int = 20260729) -> list[MutationCase]:
+def _synthetic_cases(seed: int = 20260729) -> list[MutationCase]:
     rng = random.Random(seed)
     templates = [
         (
@@ -120,12 +128,81 @@ def _cases(seed: int = 20260729) -> list[MutationCase]:
     ]
 
 
-def run_benchmark(output: Path, seed: int = 20260729) -> dict[str, object]:
+def _dataset_cases(path: Path, seed: int) -> list[MutationCase]:
+    records = load_jsonl(path)
+    if "mutation" in path.stem:
+        validate_mutation_dataset(records)
+    else:
+        validate_dataset(records)
+    return [
+        MutationCase(
+            id=record["id"],
+            language=record["language"],
+            domain=record["domain"],
+            original=record["original"],
+            candidate=record["candidate"],
+            expected_label=record["label"],
+            mutation_type=record["violation_types"][0]
+            if record["violation_types"]
+            else "safe_transformation",
+            seed=seed + index,
+            source_span=record["critical_facts"][0] if record["critical_facts"] else "",
+            replacement="",
+            label_status=record["label_status"],
+        )
+        for index, record in enumerate(records)
+    ]
+
+
+def _percentile(values: list[float], percentile: float) -> float:
+    if not values:
+        return 0.0
+    ordered = sorted(values)
+    rank = max(1, int((percentile / 100) * len(ordered) + 0.999999))
+    return round(ordered[min(rank, len(ordered)) - 1], 3)
+
+
+def _decision_signature(predictions: list[dict[str, object]]) -> str:
+    canonical = [
+        {key: value for key, value in prediction.items() if key != "latency_ms"}
+        for prediction in predictions
+    ]
+    payload = "\n".join(
+        json.dumps(row, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        for row in canonical
+    ).encode("utf-8")
+    return hashlib.sha256(payload).hexdigest()
+
+
+def _load_cases(path: Path, seed: int) -> tuple[list[MutationCase], dict[str, object]]:
+    records = load_jsonl(path)
+    validation = (
+        validate_mutation_dataset(records)
+        if "mutation" in path.stem
+        else validate_dataset(records)
+    )
+    return _dataset_cases(path, seed), validation
+
+
+def run_benchmark(
+    output: Path,
+    seed: int = 20260729,
+    dataset: Path | None = None,
+) -> dict[str, object]:
     output.mkdir(parents=True, exist_ok=True)
-    cases = _cases(seed)
+    dataset_path = dataset or Path("benchmarks/datasets/golden_v0_provisional.jsonl")
+    if dataset_path.exists():
+        cases, dataset_validation = _load_cases(dataset_path, seed)
+    else:
+        cases = _synthetic_cases(seed)
+        dataset_validation = {
+            "sample_count": len(cases),
+            "label_statuses": sorted({case.label_status for case in cases}),
+        }
     predictions: list[dict[str, object]] = []
     started = perf_counter()
     for case in cases:
+        case_started = perf_counter()
         result = ContextGuard(GuardConfig(language=case.language, profile=case.domain)).validate(
             case.original, case.candidate
         )
@@ -137,6 +214,7 @@ def run_benchmark(output: Path, seed: int = 20260729) -> dict[str, object]:
                 "risk_score": result.risk_score,
                 "reason_codes": result.reason_codes,
                 "label_status": case.label_status,
+                "latency_ms": result.latency_ms or round((perf_counter() - case_started) * 1000, 3),
             }
         )
     safe = unsafe = false_accept = unsafe_detected = false_reject = 0
@@ -151,6 +229,9 @@ def run_benchmark(output: Path, seed: int = 20260729) -> dict[str, object]:
             false_accept += int(predicted_pass)
             unsafe_detected += int(not predicted_pass)
     elapsed_ms = (perf_counter() - started) * 1000
+    predicted_unsafe = sum(
+        prediction["predicted_status"] != SafetyStatus.PASS.value for prediction in predictions
+    )
     metrics = {
         "sample_count": len(cases),
         "safe_count": safe,
@@ -158,6 +239,20 @@ def run_benchmark(output: Path, seed: int = 20260729) -> dict[str, object]:
         "false_acceptance_rate": false_accept / unsafe if unsafe else 0.0,
         "unsafe_detection_recall": unsafe_detected / unsafe if unsafe else 0.0,
         "false_rejection_rate": false_reject / safe if safe else 0.0,
+        "precision": unsafe_detected / predicted_unsafe if predicted_unsafe else 1.0,
+        "p50_latency_ms": _percentile(
+            [float(str(prediction["latency_ms"])) for prediction in predictions], 50
+        ),
+        "p95_latency_ms": _percentile(
+            [float(str(prediction["latency_ms"])) for prediction in predictions], 95
+        ),
+        "fallback_rate": sum(
+            prediction["predicted_status"] == SafetyStatus.UNCERTAIN.value
+            for prediction in predictions
+        )
+        / len(predictions)
+        if predictions
+        else 0.0,
         "elapsed_ms": round(elapsed_ms, 3),
     }
     by_category: dict[str, list[dict[str, object]]] = defaultdict(list)
@@ -191,6 +286,12 @@ def run_benchmark(output: Path, seed: int = 20260729) -> dict[str, object]:
                 / len(safe_rows)
                 if safe_rows
                 else 0.0,
+                "precision": sum(
+                    row["predicted"] != SafetyStatus.PASS.value for row in unsafe_rows
+                )
+                / sum(row["predicted"] != SafetyStatus.PASS.value for row in rows)
+                if sum(row["predicted"] != SafetyStatus.PASS.value for row in rows)
+                else 1.0,
             }
         )
     now = datetime.now(UTC)
@@ -212,20 +313,44 @@ def run_benchmark(output: Path, seed: int = 20260729) -> dict[str, object]:
         "git_commit": git_commit,
         "package_versions": {"context-guard": "0.1.0"},
         "seed": seed,
-        "dataset_version": "synthetic-v0",
+        "dataset_version": dataset_path.stem,
         "policy": "strict",
         "profile": "mixed",
         "model_id": None,
         "model_revision": None,
-        "adapter_config": {"name": "controlled-mutation", "label_status": "synthetic"},
+        "adapter_config": {
+            "name": (
+                "controlled-mutation"
+                if "mutation" in dataset_path.stem
+                else "provisional-golden"
+            ),
+            "label_status": "synthetic_unverified",
+        },
         "metrics": metrics,
-        "label_status": "synthetic",
+        "label_status": "synthetic_unverified",
+        "dataset_validation": dataset_validation,
+        "decision_sha256": _decision_signature(predictions),
     }
     (output / "benchmark_manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     (output / "summary.json").write_text(
         json.dumps(metrics, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    (output / "environment.json").write_text(
+        json.dumps(
+            {
+                "python_version": sys.version,
+                "os": platform.platform(),
+                "cpu": platform.processor() or "unknown",
+                "ram": "not_measured",
+                "gpu": "not_measured",
+                "cuda": "not_measured",
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
     )
     with (output / "verified_predictions.jsonl").open("w", encoding="utf-8") as handle:
         for row in predictions:
@@ -242,3 +367,103 @@ def run_benchmark(output: Path, seed: int = 20260729) -> dict[str, object]:
         writer.writeheader()
         writer.writerows(category_rows)
     return manifest
+
+
+_ARTIFACT_NAMES = (
+    "benchmark_manifest.json",
+    "environment.json",
+    "metrics.csv",
+    "per_category_metrics.csv",
+    "verified_predictions.jsonl",
+    "summary.json",
+)
+
+
+def validate_run_artifacts(
+    output: Path, expected_sample_count: int | None = None
+) -> dict[str, object]:
+    """Validate the reproducible benchmark artifact contract and recompute core metrics."""
+    missing = [name for name in _ARTIFACT_NAMES if not (output / name).is_file()]
+    if missing:
+        raise ValueError(f"benchmark artifact missing: {', '.join(missing)}")
+    manifest: dict[str, Any] = json.loads(
+        (output / "benchmark_manifest.json").read_text(encoding="utf-8")
+    )
+    predictions = [
+        json.loads(line)
+        for line in (output / "verified_predictions.jsonl").read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    sample_count = len(predictions)
+    if expected_sample_count is not None and sample_count != expected_sample_count:
+        raise ValueError(
+            f"prediction sample count {sample_count} != expected {expected_sample_count}"
+        )
+    if manifest.get("metrics", {}).get("sample_count") != sample_count:
+        raise ValueError("manifest sample_count does not match predictions")
+    if manifest.get("decision_sha256") != _decision_signature(predictions):
+        raise ValueError("decision_sha256 does not match predictions")
+    if any(
+        prediction.get("predicted_status") not in {status.value for status in SafetyStatus}
+        for prediction in predictions
+    ):
+        raise ValueError("predictions contain unsupported safety status")
+    safe_rows = [row for row in predictions if row.get("expected_label") == "SAFE"]
+    unsafe_rows = [row for row in predictions if row.get("expected_label") == "UNSAFE"]
+    predicted_unsafe = [
+        row for row in predictions if row.get("predicted_status") != SafetyStatus.PASS.value
+    ]
+    recomputed = {
+        "sample_count": sample_count,
+        "safe_count": len(safe_rows),
+        "unsafe_count": len(unsafe_rows),
+        "false_acceptance_rate": sum(
+            row["predicted_status"] == SafetyStatus.PASS.value for row in unsafe_rows
+        )
+        / len(unsafe_rows)
+        if unsafe_rows
+        else 0.0,
+        "unsafe_detection_recall": sum(
+            row["predicted_status"] != SafetyStatus.PASS.value for row in unsafe_rows
+        )
+        / len(unsafe_rows)
+        if unsafe_rows
+        else 0.0,
+        "false_rejection_rate": sum(
+            row["predicted_status"] != SafetyStatus.PASS.value for row in safe_rows
+        )
+        / len(safe_rows)
+        if safe_rows
+        else 0.0,
+        "precision": sum(row["expected_label"] == "UNSAFE" for row in predicted_unsafe)
+        / len(predicted_unsafe)
+        if predicted_unsafe
+        else 1.0,
+    }
+    manifest_metrics = manifest.get("metrics", {})
+    for key, value in recomputed.items():
+        if manifest_metrics.get(key) != value:
+            raise ValueError(f"manifest metric {key} does not match predictions")
+    summary = json.loads((output / "summary.json").read_text(encoding="utf-8"))
+    if summary != manifest_metrics:
+        raise ValueError("summary.json does not match manifest metrics")
+    with (output / "metrics.csv").open(encoding="utf-8", newline="") as handle:
+        csv_rows = list(csv.DictReader(handle))
+    if len(csv_rows) != 1 or int(csv_rows[0].get("sample_count", -1)) != sample_count:
+        raise ValueError("metrics.csv does not match prediction sample count")
+    return {"valid": True, "sample_count": sample_count, "recomputed_metrics": recomputed}
+
+
+def promote_run(output: Path, destination: Path = Path("artifacts/final")) -> dict[str, object]:
+    """Promote only a validated, manually labelled run into the final whitelist."""
+    validation = validate_run_artifacts(output)
+    manifest = json.loads((output / "benchmark_manifest.json").read_text(encoding="utf-8"))
+    if manifest.get("label_status") not in {"verified", "audited"}:
+        raise ValueError("refusing promotion: dataset label_status is not verified/audited")
+    destination.mkdir(parents=True, exist_ok=True)
+    existing = [path.name for path in destination.iterdir() if path.is_file()]
+    if existing:
+        raise ValueError("refusing promotion: final artifact directory is not empty")
+    for name in _ARTIFACT_NAMES:
+        copy2(output / name, destination / name)
+    return {"promoted": True, "destination": str(destination), **validation}

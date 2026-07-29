@@ -31,7 +31,7 @@ _PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "has_role",
         re.compile(
-            r"(?:model|mô hình)\s+(?P<subject>[\w.-]+)\s+"
+            r"(?:(?:model|mô hình)\s+)?(?P<subject>[A-ZÀ-Ỹ][\wÀ-ỹ.-]*)\s+"
             r"(?:is used as|được dùng làm)\s+"
             r"(?P<object>target|draft|compressor|classifier)",
             re.I,

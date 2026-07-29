@@ -33,8 +33,23 @@ _UNIT = re.compile(
     re.IGNORECASE,
 )
 _PATH = re.compile(r"(?:[A-Za-z]:\\[^\s;,)]+|/(?:[\w.~-]+/)+[\w.~-]+|\.{1,2}/[\w./~-]+)")
+_FILENAME = re.compile(r"\b[\w.-]+\.(?:py|json|yaml|yml|txt|csv|toml)\b", re.IGNORECASE)
+_CONFIG = re.compile(
+    r"(?<!\w)[\w.-]+\s*=\s*(?:true|false|enabled|disabled|[\w./-]+)",
+    re.IGNORECASE,
+)
+_BOOLEAN = re.compile(r"\b(?:true|false|enabled|disabled)\b", re.IGNORECASE)
 _FLAG = re.compile(r"(?<!\w)--?[A-Za-z][\w-]*")
-_CODE = re.compile(r"`[^`]+`|\$\{[A-Z_][A-Z0-9_]*\}")
+_WORD_NUMBER = re.compile(
+    r"\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|"
+    r"không|một|hai|ba|bốn|năm|sáu|bảy|tám|chín|mười)\b",
+    re.IGNORECASE,
+)
+_CODE = re.compile(
+    r"`[^`]+`|\$\{[A-Z_][A-Z0-9_]*\}|"
+    r"\b(?:uv\s+run\s+pytest|python\s+[\w./-]+|pip\s+install\s+[\w.-]+)\b",
+    re.IGNORECASE,
+)
 
 _PATTERNS: tuple[tuple[str, re.Pattern[str], RiskLevel], ...] = (
     ("url", _URL, RiskLevel.HIGH),
@@ -46,8 +61,12 @@ _PATTERNS: tuple[tuple[str, re.Pattern[str], RiskLevel], ...] = (
     ("percentage", _PERCENT, RiskLevel.CRITICAL),
     ("unit", _UNIT, RiskLevel.HIGH),
     ("path", _PATH, RiskLevel.HIGH),
+    ("filename", _FILENAME, RiskLevel.HIGH),
+    ("config", _CONFIG, RiskLevel.CRITICAL),
+    ("boolean", _BOOLEAN, RiskLevel.CRITICAL),
     ("flag_or_literal", _FLAG, RiskLevel.HIGH),
     ("code", _CODE, RiskLevel.CRITICAL),
+    ("number", _WORD_NUMBER, RiskLevel.HIGH),
     ("number", _NUMBER, RiskLevel.HIGH),
 )
 
@@ -75,7 +94,7 @@ def _canonical(kind: str, value: str) -> str:
     v = normalize_text(value).lower()
     if kind == "percentage":
         v = v.replace("phần trăm", "%").replace("percent", "%").replace(" ", "")
-    if kind in {"flag_or_literal", "url", "email", "path", "code", "version"}:
+    if kind in {"flag_or_literal", "url", "email", "path", "version"}:
         return v
     if kind == "date":
         iso = re.fullmatch(r"(\d{4})-(\d{1,2})-(\d{1,2})", v)
@@ -129,6 +148,34 @@ def _canonical(kind: str, value: str) -> str:
                 return v
     if kind == "number" and re.fullmatch(r"\d{1,3}(?:,\d{3})+", v):
         return v.replace(",", "")
+    number_words = {
+        "zero": "0",
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5",
+        "six": "6",
+        "seven": "7",
+        "eight": "8",
+        "nine": "9",
+        "ten": "10",
+        "không": "0",
+        "một": "1",
+        "hai": "2",
+        "ba": "3",
+        "bốn": "4",
+        "năm": "5",
+        "sáu": "6",
+        "bảy": "7",
+        "tám": "8",
+        "chín": "9",
+        "mười": "10",
+    }
+    if kind == "number" and v in number_words:
+        return number_words[v]
+    if kind == "code":
+        return v.strip("`")
     return v
 
 

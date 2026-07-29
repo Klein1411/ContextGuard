@@ -21,3 +21,12 @@ def test_condition_removal_is_critical() -> None:
     result = ContextGuard(GuardConfig(language="en")).validate("Deploy if tests pass.", "Deploy.")
     assert result.status is SafetyStatus.FAIL
     assert "CONDITION_REMOVED" in result.reason_codes
+
+
+def test_technical_literals_include_filename_config_and_boolean() -> None:
+    result = ContextGuard(GuardConfig(language="en", profile="technical")).validate(
+        "Use config.yaml with safe=true.",
+        "Use other.py with safe=false.",
+    )
+    assert result.status is SafetyStatus.FAIL
+    assert {"FILENAME_CHANGED", "CONFIG_CHANGED"} <= set(result.reason_codes)

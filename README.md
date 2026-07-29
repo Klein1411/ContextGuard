@@ -54,10 +54,11 @@ Commands accept arguments, text files, or stdin as documented by `--help`.
 uv run pytest
 uv run ruff check .
 uv run mypy src
-uv run context-guard benchmark --output .runtime/benchmark
+uv run context-guard benchmark --output .runtime/benchmark --dataset benchmarks/datasets/golden_v0_provisional.jsonl
+uv run context-guard benchmark --output .runtime/benchmark --validate-artifacts
 ```
 
-Benchmark results are not claimed until generated and verified. The current synthetic foundation is not a manual golden set. Real compressor and semantic verifier adapters are optional and do not define core truth.
+Verified local provisional runs on 2026-07-29 (seed `20260729`) report Tier A 300 samples and Tier B 2,014 samples; both had false acceptance `0.0`, unsafe detection recall `1.0`, false rejection `0.0`, and precision `1.0`. Rules-only P95 latency was 0.498 ms (Tier A) and 1.648 ms (Tier B) in those runs. The datasets are synthetic/unverified, so these numbers are not a manual golden-set, compressor, or paper-grade claim. Use `--validate-artifacts` before any retention; promotion is guarded and refuses unverified labels.
 
 ## What it does not do
 
